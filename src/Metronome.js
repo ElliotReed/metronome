@@ -12,6 +12,7 @@ class Metronome extends Component {
 			count: 0,
 			bpm: 100,
 			beatsPerMeasure: 4,
+			degrees: 45,
 		};
 
 		this.click1 = new Audio(click1);
@@ -27,17 +28,28 @@ class Metronome extends Component {
 			});
 		} else {
 			// Start a timer with the current BPM
-			this.timer = setInterval(
-				this.playClick,
-				(60 / this.state.bpm) * 1000
-			);
+			this.timer = setInterval(() => {
+				this.playClick();
+				this.swingPendulumRod();
+			}, (60 / this.state.bpm) * 1000);
 			this.setState(
 				{
 					count: 0,
 					playing: true,
 				},
-				this.playClick
+				this.playClick,
+				this.swingPendulumRod
 			);
+		}
+	};
+
+	swingPendulumRod = () => {
+		const { count, beatsPerMeasure } = this.state;
+		if (count === 1) {
+			this.setState({ degrees: -180 });
+		} else {
+			console.log('swing');
+			this.setState({ degrees: 0 });
 		}
 	};
 
@@ -75,19 +87,29 @@ class Metronome extends Component {
 	};
 
 	render() {
-		const { playing, bpm } = this.state;
+		const { playing, bpm, degrees } = this.state;
 
 		return (
 			<div className="metronome">
+				<div className="bpm-display">{bpm} BPM</div>
 				<div className="bpm-slider">
-					<div>{bpm} BPM</div>
 					<input
+						style={{ transform: `rotateZ(${degrees}deg)` }}
+						className="slide"
 						type="range"
 						min="60"
 						max="240"
 						value={bpm}
 						onChange={this.handleBpmChange}
 					/>
+					{/* <input
+						className="test"
+						type="range"
+						min="60"
+						max="240"
+						value={bpm}
+						onChange={this.handleBpmChange}
+					/> */}
 				</div>
 				<button onClick={this.startStop}>
 					{playing ? 'Stop' : 'Start'}

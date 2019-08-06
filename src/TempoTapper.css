@@ -1,0 +1,6 @@
+.tempo-tapper {
+	background-color: #222;
+	/* height: 10rem; */
+	padding: var(--padding);
+	color: white;
+}

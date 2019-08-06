@@ -1,5 +1,145 @@
+:root {
+	--light: hsl(0, 0%, 99%);
+	--medium: hsl(120, 5%, 30%);
+	--dark: hsl(120, 15%, 5%);
+
+	/* colors */
+	--black: hsl(0, 15%, 10%);
+	--brown-light: hsl(50, 15%, 40%);
+	--brown: hsl(50, 15%, 30%);
+	--brown-dark: hsl(52, 15%, 20%);
+	--brown-accent: #be9650;
+	--green-light: hsl(120, 15%, 40%);
+	--green: hsl(120, 15%, 30%);
+	--green-dark: hsl(120, 15%, 20%);
+	--greenAccent: rgb(20, 50, 20);
+	--gold: rgb(250, 230, 170);
+	--gold-light: rgb(240, 217, 190);
+	--red-light: hsl(0, 15%, 40%);
+	--red: hsl(0, 15%, 30%);
+	--red-dark: hsl(0, 15%, 20%);
+	--red-accent: hsl(0, 60%, 20%);
+
+	/* sizes */
+	--margin: 0.618rem;
+	--padding: 0.618rem;
+	--maxWidth: 1333px;
+	--tablet: 768px;
+	--desktop: 1080px;
+
+	/* box model */
+	--boxShadow: 0 0 10px hsla(50, 15%, 20%, 0.5);
+	--border: 1px solid var(--brown-dark);
+	--borderRadius: 0.25rem;
+	--fontStackSans: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+		sans-serif;
+	--fontStackSerif: 'Georgia', serif;
+
+	/* animations */
+	--softIn: softIn 0.33s ease-in;
+}
+
+/* set default base size for deveice and reading distance */
+/* mobile */
+html {
+	font-size: 16px;
+}
+/* tablet */
+@media only screen and (min-width: 768px) {
+	html {
+		font-size: 18px;
+	}
+}
+/* desktop */
+@media only screen and (min-width: 1080px) {
+	html {
+		font-size: 22px;
+	}
+}
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+	margin: 0;
+	box-sizing: border-box;
+	height: 100vh;
+  width: 100vw;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+h1 {
+	font-size: 2.618rem;
+} /* 68px */
+h2 {
+	font-size: 2.32rem;
+} /* 42px */
+h3 {
+	font-size: 1.618rem;
+} /* 26px */
+h4 {
+	font-size: 1.32rem;
+} /* 20px */
+h5,
+p {
+	font-size: 1rem;
+} /* 16px */
+h6 {
+	font-size: 0.618rem;
+} /* 13px */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	line-height: 1.618;
+	font-family: var(--fontStackSans);
+	color: var(--light);
+}
+
+p {
+	font-family: var(--fontStackSerif);
+	color: var(--light);
+	margin: var(--margin);
+}
+
+a {
+	text-decoration: none;
+	color: var(--green);
+}
+
+ul {
+	font-family: var(--fontStackSans);
+	list-style-type: none;
+}
+
+blockquote {
+	font-family: var(--fontStackSerif);
+	color: var(--dark);
+}
+
+cite {
+	font-family: var(--fontStackSerif);
+	font-size: 0.66rem;
+	font-weight: normal;
+	color: var(--dark);
+}
+
+input,
+textarea {
+	outline-color: var(--brown-light);
+}
+
+@keyframes softIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
 }
