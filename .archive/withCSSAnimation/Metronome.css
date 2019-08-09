@@ -1,45 +1,57 @@
 /* #region Metronome Component */
 .metronome {
 	display: flex;
-	margin: 1.618rem auto;
-}
-
-@media only screen and (max-width: 768px) {
-	.metronome {
-		flex-direction: column;
-	}
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	/* max-width: 375px; */
+	height: 25rem;
+	margin: 0 auto;
+	padding: 30px;
+	border: 1px solid aqua;
 }
 
 .bpm-display {
-	margin: 1em 0;
+	height: 2em;
+}
+
+.metronome button {
+	background: #c94d46;
+	padding: 10px;
+	border: 1px solid #b32420;
+	border-radius: 2px;
+	width: 100px;
+	color: #fff;
+	font-size: 18px;
 }
 /* #endregion */
 
 /* #region Mechanical Metronome */
 .metronome__body {
-	position: relative;
+	z-index: -100;
 	display: flex;
 	justify-content: center;
 	width: 15em;
-	height: 0;
-	border-bottom: 21em solid var(--dark);
+	position: relative;
+	border-bottom: 21em solid rgb(59, 18, 18);
 	border-left: 5em solid transparent;
 	border-right: 5em solid transparent;
-	border-radius: var(--borderRadius);
+	height: 0;
 }
 
 .metronome__body-faceplate {
+	width: 10em;
 	position: absolute;
 	top: 1em;
-	width: 10em;
-	height: 0;
+	z-index: -1;
 	border-bottom: 15em solid rgba(231, 226, 226, 1);
 	border-left: 3.25em solid transparent;
 	border-right: 3.25em solid transparent;
-	border-radius: var(--borderRadius);
+	height: 0;
 }
 
 .pendulum {
+	z-index: 100;
 	position: relative;
 	top: 2em;
 	right: 0;
@@ -49,7 +61,7 @@
 	margin: 10em 0em 10em 5em;
 	height: 0.618em;
 	width: 20em;
-	background-color: var(--white);
+	background-color: #ffffff;
 	background-image: linear-gradient(
 		to top,
 		rgb(163, 159, 159) 0%,
@@ -58,6 +70,10 @@
 	/* border: 1px solid blue; */
 	transform-origin: 8em center;
 	transform: rotateZ(270deg);
+	animation-name: swing;
+	animation-iteration-count: 0;
+	animation-duration: 2s;
+	animation-timing-function: linear;
 	--boxShadow: 0em 0.25em 1em rgba(0, 0, 0, 0.25);
 	box-shadow: var(--boxShadow);
 }
@@ -78,6 +94,10 @@
 	width: 8em;
 }
 
+.pendulum__top:hover {
+	opacity: 1;
+}
+
 .pendulum__top::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
@@ -90,7 +110,6 @@
 }
 
 .pendulum__top::-moz-range-thumb {
-	cursor: pointer;
 	border-right: 3em solid rgb(200, 200, 200);
 	border-top: 0.5em solid transparent;
 	border-bottom: 0.5em solid transparent;
@@ -99,6 +118,8 @@
 }
 
 .pendulum__weight {
+	cursor: pointer;
+	z-index: 50;
 	position: relative;
 	left: 0.618em;
 	bottom: 1.1618em;
@@ -114,4 +135,21 @@
 	box-shadow: var(--boxShadow);
 }
 
+@keyframes swing {
+	0% {
+		transform: rotateZ(310deg);
+	}
+	25% {
+		transform: rotateZ(270deg);
+	}
+	50% {
+		transform: rotateZ(230deg);
+	}
+	75% {
+		transform: rotateZ(270deg);
+	}
+	100% {
+		transform: rotateZ(310deg);
+	}
+}
 /* #endregion */

@@ -30,7 +30,7 @@ export default class TempoTapper extends Component {
 		const taps = this.state.taps;
 		taps.push(now);
 
-		if (taps.length > 4) {
+		if (taps.length > 6) {
 			taps.shift();
 		}
 
@@ -43,9 +43,10 @@ export default class TempoTapper extends Component {
 		return (
 			<div className="tempo-tapper">
 				<h2>Tempo Tapper</h2>
-				<button onClick={this.handleTempoTap}>Tap</button>
+				<button className="tap__button" onClick={this.handleTempoTap}>Tap</button>
 				<h4>Tempo</h4>
 				<p>{tempo}</p>
+				<button className="tap__set-bpm" onClick={() => this.props.setBpm(tempo)}>Set BPM</button>
 			</div>
 		);
 	}
