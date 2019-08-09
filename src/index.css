@@ -1,24 +1,14 @@
-:root {
-	--light: hsl(0, 0%, 99%);
-	--medium: hsl(120, 5%, 30%);
-	--dark: hsl(120, 15%, 5%);
+@import url('https://fonts.googleapis.com/css?family=Lexend+Mega&display=swap');
 
+:root {
 	/* colors */
-	--black: hsl(0, 15%, 10%);
-	--brown-light: hsl(50, 15%, 40%);
-	--brown: hsl(50, 15%, 30%);
-	--brown-dark: hsl(52, 15%, 20%);
-	--brown-accent: #be9650;
-	--green-light: hsl(120, 15%, 40%);
-	--green: hsl(120, 15%, 30%);
-	--green-dark: hsl(120, 15%, 20%);
-	--greenAccent: rgb(20, 50, 20);
-	--gold: rgb(250, 230, 170);
-	--gold-light: rgb(240, 217, 190);
-	--red-light: hsl(0, 15%, 40%);
-	--red: hsl(0, 15%, 30%);
-	--red-dark: hsl(0, 15%, 20%);
-	--red-accent: hsl(0, 60%, 20%);
+	--white: hsl(0, 0%, 99%);
+	--light: #ccc8c5;
+	--lightAccent: #929691;
+	--medium: #716a65;
+	--darkAccent: #888c92;
+	--dark: #32312e;
+	--black: hsl(120, 15%, 5%);
 
 	/* sizes */
 	--margin: 0.618rem;
@@ -29,10 +19,9 @@
 
 	/* box model */
 	--boxShadow: 0 0 10px hsla(50, 15%, 20%, 0.5);
-	--border: 1px solid var(--brown-dark);
-	--borderRadius: 0.25rem;
-	--fontStackSans: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-		sans-serif;
+	--border: 1px solid var(--dark);
+	--borderRadius: 1rem;
+	--fontStackSans: 'Lexend Mega', sans-serif;
 	--fontStackSerif: 'Georgia', serif;
 
 	/* animations */
@@ -58,10 +47,13 @@ html {
 }
 
 body {
-	margin: 0;
+	font-family: var(--fontStackSans);
 	box-sizing: border-box;
+	margin: 0;
+	background: var(--lightAccent);
+	color: var(--light);
+	width: 100vw;
 	height: 100vh;
-  width: 100vw;
 }
 
 *,
@@ -102,7 +94,7 @@ h6 {
 }
 
 p {
-	font-family: var(--fontStackSerif);
+	font-family: var(--fontStackSans);
 	color: var(--light);
 	margin: var(--margin);
 }
@@ -118,12 +110,12 @@ ul {
 }
 
 blockquote {
-	font-family: var(--fontStackSerif);
+	font-family: var(--fontStackSans);
 	color: var(--dark);
 }
 
 cite {
-	font-family: var(--fontStackSerif);
+	font-family: var(--fontStackSans);
 	font-size: 0.66rem;
 	font-weight: normal;
 	color: var(--dark);
@@ -131,9 +123,18 @@ cite {
 
 input,
 textarea {
-	outline-color: var(--brown-light);
+	outline-color: var(--light);
 }
 
+button {
+	background: var(--dark);
+	padding: var(--padding) calc(var(--padding) * 1.5);
+	color: var(--light);
+	border: 1px solid var(--darkAccent);
+	border-radius: var(--borderRadius);
+	outline: none;
+	cursor: pointer;
+}
 @keyframes softIn {
 	from {
 		opacity: 0;

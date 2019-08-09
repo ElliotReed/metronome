@@ -1,6 +1,37 @@
 .tempo-tapper {
-	background-color: #222;
-	/* height: 10rem; */
+	background-color: var(--light);
 	padding: var(--padding);
-	color: white;
+}
+
+.tempo-tapper h2,
+.tempo-tapper h4,
+.tempo-tapper p {
+	color: var(--dark);
+}
+
+.tempo-tapper h2 {
+	font-size: 1.5rem;
+}
+.tempo-tapper h4 {
+	font-size: 1.25rem;
+}
+.tempo-tapper p {
+	font-size: 1rem;
+}
+
+.tap__button {
+	--dimension: 8em;
+	width: var(--dimension);
+	height: var(--dimension);
+	border-radius: 50%;
+	color: var(--light);
+	background: var(--darkAccent);
+	border: 1px solid var(--dark);
+	outline: none;
+	cursor: pointer;
+	transition: transform 161ms;
+}
+
+.tap__button:active {
+	transform: scale(1.0618);
 }

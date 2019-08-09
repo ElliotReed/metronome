@@ -10,84 +10,35 @@ class Metronome extends Component {
 		this.state = {
 			playing: false,
 			count: 0,
+			bpm: 100,
 			beatsPerMeasure: 4,
-			degrees: 270,
+			duration: '1s',
 		};
 
 		this.click1 = new Audio(click1);
 		this.click2 = new Audio(click2);
 	}
 
-	swingPendulum = clickLength => {
-		const initialPosition = this.state.degrees;
-		const centerDegrees = 270;
-		const swingAmount = 45;
-		const fps = clickLength / 1000 / 60;
-		let degreesPerMove = swingAmount * 2 * fps;
-		let interval =
-			(clickLength / (swingAmount * 2)) * Math.abs(degreesPerMove);
-
-		if (initialPosition === centerDegrees) {
-			degreesPerMove = swingAmount * fps;
-			interval = (clickLength / swingAmount) * Math.abs(degreesPerMove);
-		}
-		if (initialPosition > centerDegrees) {
-			degreesPerMove = -Math.abs(degreesPerMove);
-		}
-
-		if (this.animationTimer) {
-			clearInterval(this.animationTimer);
-		}
-
-		this.animationTimer = setInterval(() => {
-			if (
-				!this.state.playing &&
-				(Math.floor(this.state.degrees) === centerDegrees ||
-					Math.ceil(this.state.degrees) === centerDegrees)
-			) {
-				clearInterval(this.animationTimer);
-				this.setState({ degrees: centerDegrees });
-			} else {
-				this.setState(prevState => {
-					return {
-						degrees: prevState.degrees + degreesPerMove,
-					};
-				});
-			}
-		}, interval);
-
-		this.setState(prevState => {
-			return {
-				degrees: prevState.degrees + degreesPerMove,
-			};
-		});
-	};
-
 	startStop = () => {
-		const clickLength = (60 / this.props.bpm) * 1000;
+		const clickLength = (60 / this.state.bpm) * 1000;
 		if (this.state.playing) {
 			// Stop the timer
 			clearInterval(this.timer);
 			this.setState({
 				playing: false,
 			});
-			this.swingPendulum(clickLength);
 		} else {
 			// Start a timer with the current BPM
 			this.timer = setInterval(() => {
 				this.playClick();
-				this.swingPendulum(clickLength);
 			}, clickLength);
-
 			this.setState(
 				{
 					count: 0,
 					playing: true,
+					duration: `${clickLength * 2}ms`,
 				},
-				() => {
-					this.playClick();
-					this.swingPendulum(clickLength);
-				}
+				this.playClick
 			);
 		}
 	};
@@ -115,29 +66,33 @@ class Metronome extends Component {
 			// Stop old timer and start a new one
 			clearInterval(this.timer);
 			this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
-			this.props.setBpm(bpm);
 
 			this.setState({
 				count: 0,
+				bpm,
 			});
 		} else {
-			this.props.setBpm(bpm);
+			this.setState({ bpm });
 		}
 	};
 
 	render() {
-		const { playing, degrees } = this.state;
-		const { bpm } = this.props;
+		const { playing, bpm, duration } = this.state;
 
-		let swingAnimation = {
-			transform: `rotateZ(${degrees}deg)`,
+		let animateStyle = {
+			animationIterationCount: `infinite`,
+			animationDuration: `${duration}`,
 		};
 
 		return (
 			<div className="metronome">
+				<div className="bpm-display">{bpm} BPM</div>
 				<div className="metronome__body">
 					<div className="metronome__body-faceplate" />
-					<div className="pendulum" style={swingAnimation}>
+					<div
+						className="pendulum"
+						style={playing ? animateStyle : null}
+					>
 						<div className="pendulum__bottom">
 							<div className="pendulum__weight" />
 						</div>
@@ -151,12 +106,9 @@ class Metronome extends Component {
 						/>
 					</div>
 				</div>
-				<div className="metronome__controls">
-					<div className="bpm-display">{bpm} BPM</div>
-					<button onClick={this.startStop}>
-						{playing ? 'Stop' : 'Start'}
-					</button>
-				</div>
+				<button onClick={this.startStop}>
+					{playing ? 'Stop' : 'Start'}
+				</button>
 			</div>
 		);
 	}
