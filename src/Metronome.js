@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Metronome.css';
-import click1 from './click.wav';
-import click2 from './clickAccent.wav';
+import click from './click.wav';
+import clickAccent from './clickAccent.wav';
 
 class Metronome extends Component {
 	constructor(props) {
@@ -16,8 +16,8 @@ class Metronome extends Component {
 			accent: false,
 		};
 
-		this.click1 = new Audio(click1);
-		this.click2 = new Audio(click2);
+		this.click = new Audio(click);
+		this.clickAccent = new Audio(clickAccent);
 	}
 
 	swingPendulum = clickLength => {
@@ -99,11 +99,11 @@ class Metronome extends Component {
 
 		// The first beat will have a different sound than the others
 		if (count % beatsPerMeasure === 0 && accent && !evenbeat) {
-			this.click2.play();
+			this.clickAccent.play();
 		} else if (count % 2 === 0 && evenbeat) {
-			this.click1.play();
+			this.click.play();
 		} else if (!evenbeat) {
-			this.click1.play();
+			this.click.play();
 		}
 
 		// Track the beat
