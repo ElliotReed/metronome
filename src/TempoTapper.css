@@ -1,6 +1,23 @@
 .tempo-tapper {
 	background-color: var(--light);
+	overflow-x: hidden;
+	animation: var(--softIn);
+}
+
+.tempo-tapper main {
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--light);
 	padding: var(--padding);
+	margin-bottom: 2em;
+}
+
+@media only screen and (min-width: 768px) {
+	.tempo-tapper main {
+		flex-direction: row;
+	}
 }
 
 .tempo-tapper h2,
@@ -13,10 +30,29 @@
 	font-size: 1.5rem;
 }
 .tempo-tapper h4 {
-	font-size: 1.25rem;
+	font-size: 1rem;
 }
+
 .tempo-tapper p {
 	font-size: 1rem;
+}
+
+.tapper__display h4 {
+	margin-bottom: 0;
+}
+
+@media only screen and (min-width: 768px) {
+	.tapper__display h4 {
+		margin: 0;
+	}
+	.tapper__display {
+		min-width: 16em;
+	}
+}
+
+.tapper__display p {
+	margin: 1.3em;
+	color: var(--medium);
 }
 
 .tap__button {
@@ -25,13 +61,20 @@
 	height: var(--dimension);
 	border-radius: 50%;
 	color: var(--light);
-	background: var(--darkAccent);
+	background: var(--lightAccent);
 	border: 1px solid var(--dark);
-	outline: none;
+	outline: 0;
 	cursor: pointer;
 	transition: transform 161ms;
+	box-shadow: var(--boxShadow);
 }
 
 .tap__button:active {
 	transform: scale(1.0618);
+	outline: 0;
+}
+
+.tap__button:focus {
+	border-radius: 50%;
+	box-shadow: var(--boxShadow), inset 0 0 0.25em rgba(0, 0, 0, 0.25);
 }

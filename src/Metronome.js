@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Metronome.css';
-import click1 from './click1.wav';
-import click2 from './click2.wav';
+import click1 from './click.wav';
+import click2 from './clickAccent.wav';
 
 class Metronome extends Component {
 	constructor(props) {
@@ -12,6 +12,8 @@ class Metronome extends Component {
 			count: 0,
 			beatsPerMeasure: 4,
 			degrees: 270,
+			evenbeat: false,
+			accent: false,
 		};
 
 		this.click1 = new Audio(click1);
@@ -93,12 +95,14 @@ class Metronome extends Component {
 	};
 
 	playClick = () => {
-		const { count, beatsPerMeasure } = this.state;
+		const { count, beatsPerMeasure, accent, evenbeat } = this.state;
 
 		// The first beat will have a different sound than the others
-		if (count % beatsPerMeasure === 0) {
+		if (count % beatsPerMeasure === 0 && accent && !evenbeat) {
 			this.click2.play();
-		} else {
+		} else if (count % 2 === 0 && evenbeat) {
+			this.click1.play();
+		} else if (!evenbeat) {
 			this.click1.play();
 		}
 
@@ -125,8 +129,18 @@ class Metronome extends Component {
 		}
 	};
 
+	handleCheckboxChange = event => {
+		let { name } = event.target;
+
+		this.setState(prevState => {
+			return {
+				[name]: !prevState[name],
+			};
+		});
+	};
+
 	render() {
-		const { playing, degrees } = this.state;
+		const { playing, degrees, accent, evenbeat } = this.state;
 		const { bpm } = this.props;
 
 		let swingAnimation = {
@@ -142,10 +156,11 @@ class Metronome extends Component {
 							<div className="pendulum__weight" />
 						</div>
 						<input
+							tabIndex="0"
 							className="pendulum__top"
 							type="range"
 							min="40"
-							max="240"
+							max="320"
 							value={bpm}
 							onChange={this.handleBpmChange}
 						/>
@@ -156,6 +171,32 @@ class Metronome extends Component {
 					<button onClick={this.startStop}>
 						{playing ? 'Stop' : 'Start'}
 					</button>
+					<form>
+						<div className="checkgroup">
+							<label htmlFor="accent">
+								<input
+									type="checkbox"
+									id="accent"
+									name="accent"
+									value={accent}
+									onChange={this.handleCheckboxChange}
+								/>
+								Accent beat 1?
+							</label>
+						</div>
+						<div className="checkgroup">
+							<label htmlFor="evenbeat">
+								<input
+									type="checkbox"
+									id="evenbeat"
+									name="evenbeat"
+									value={evenbeat}
+									onChange={this.handleCheckboxChange}
+								/>
+								2 and 4 only?
+							</label>
+						</div>
+					</form>
 				</div>
 			</div>
 		);

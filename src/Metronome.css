@@ -2,16 +2,40 @@
 .metronome {
 	display: flex;
 	margin: 1.618rem auto;
+	flex-direction: column;
+	animation: var(--softIn);
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 768px) {
 	.metronome {
-		flex-direction: column;
+		flex-direction: row;
 	}
 }
 
 .bpm-display {
 	margin: 1em 0;
+}
+
+.checkgroup {
+	display: flex;
+	margin-top: 1em;
+	align-items: center;
+	font-size: 0.8em;
+	color: var(--medium);
+	padding: var(--padding);
+}
+
+.checkgroup label {
+	cursor: pointer;
+}
+
+.checkgroup input {
+	cursor: pointer;
+	margin-right: 1em;
+}
+
+.checkgroup:focus {
+	box-shadow: 2px 2px 2px black;
 }
 /* #endregion */
 
@@ -26,6 +50,13 @@
 	border-left: 5em solid transparent;
 	border-right: 5em solid transparent;
 	border-radius: var(--borderRadius);
+	box-shadow: 0 1em 1em -1em rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (min-width: 768px) {
+	.metronome__body {
+		margin-right: 4em;
+	}
 }
 
 .metronome__body-faceplate {
@@ -113,5 +144,4 @@
 	);
 	box-shadow: var(--boxShadow);
 }
-
 /* #endregion */

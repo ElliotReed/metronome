@@ -42,11 +42,31 @@ export default class TempoTapper extends Component {
 		const { tempo } = this.state;
 		return (
 			<div className="tempo-tapper">
-				<h2>Tempo Tapper</h2>
-				<button className="tap__button" onClick={this.handleTempoTap}>Tap</button>
-				<h4>Tempo</h4>
-				<p>{tempo}</p>
-				<button className="tap__set-bpm" onClick={() => this.props.setBpm(tempo)}>Set BPM</button>
+				<h2 title="Provide at least 6 taps for greater accuracy!">Tempo Tapper</h2>
+				<main>
+					<div className="tapper__display">
+						<h4>Tempo</h4>
+						<p>{tempo}</p>
+						<button
+							className="tap__set-bpm"
+							onClick={() => {
+								typeof tempo !== 'number'
+									? this.props.setBpm(100)
+									: this.props.setBpm(tempo);
+							}}
+						>
+							Set BPM
+						</button>
+					</div>
+					<div className="tapper">
+						<button
+							className="tap__button"
+							onClick={this.handleTempoTap}
+						>
+							Tap!
+						</button>
+					</div>
+				</main>
 			</div>
 		);
 	}

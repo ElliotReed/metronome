@@ -7,13 +7,13 @@ const App = () => {
 	const [bpm, setBpm] = useState(100);
 
 	return (
-		<div className="App">
-			<header className="App-header">
-				<h1 className="App-title">Metronome</h1>
+		<>
+			<header className="header">
+				<h1 className="title">Metronome</h1>
 			</header>
 			<Metronome bpm={bpm} setBpm={setBpm} />
 			<TempoTapper setBpm={setBpm} />
-		</div>
+		</>
 	);
 };
 
