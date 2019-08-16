@@ -21,22 +21,31 @@ class Metronome extends Component {
 	}
 
 	swingPendulum = clickLength => {
+		console.log('clickLength', clickLength);
 		const initialPosition = this.state.degrees;
+		console.log('initialPosition', initialPosition);
 		const centerDegrees = 270;
 		const swingAmount = 45;
-		const fps = clickLength / 1000 / 60;
-		let degreesPerMove = swingAmount * 2 * fps;
-		let interval =
-			(clickLength / (swingAmount * 2)) * Math.abs(degreesPerMove);
+		const fps = ((clickLength / 1000) * 60).toFixed(2); // clicklength in ms, divide by 1000 for seconds, multiply 60 fps
+		console.log('fps', fps);
+		let degreesPerMove = ((swingAmount * 2) / fps).toFixed(2);
+		let interval = (
+			(clickLength / (swingAmount * 2)) *
+			degreesPerMove
+		).toFixed(2);
+		console.log('interval', interval);
 
 		if (initialPosition === centerDegrees) {
-			degreesPerMove = swingAmount * fps;
-			interval = (clickLength / swingAmount) * Math.abs(degreesPerMove);
+			degreesPerMove = swingAmount / fps;
+			interval = ((clickLength / swingAmount) * degreesPerMove).toFixed(
+				2
+			);
 		}
 		if (initialPosition > centerDegrees) {
-			degreesPerMove = -Math.abs(degreesPerMove);
+			degreesPerMove = -degreesPerMove;
 		}
 
+		console.log('degreesPerMove', degreesPerMove);
 		if (this.animationTimer) {
 			clearInterval(this.animationTimer);
 		}
@@ -66,7 +75,7 @@ class Metronome extends Component {
 	};
 
 	startStop = () => {
-		const clickLength = (60 / this.props.bpm) * 1000;
+		const clickLength = Math.floor((60 / this.props.bpm) * 1000);
 		if (this.state.playing) {
 			// Stop the timer
 			clearInterval(this.timer);
@@ -181,7 +190,7 @@ class Metronome extends Component {
 									value={accent}
 									onChange={this.handleCheckboxChange}
 								/>
-								Accent beat 1?
+								Accent beat 1
 							</label>
 						</div>
 						<div className="checkgroup">
@@ -193,7 +202,7 @@ class Metronome extends Component {
 									value={evenbeat}
 									onChange={this.handleCheckboxChange}
 								/>
-								2 and 4 only?
+								2 and 4 only
 							</label>
 						</div>
 					</form>

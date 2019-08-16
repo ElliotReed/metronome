@@ -42,7 +42,9 @@ export default class TempoTapper extends Component {
 		const { tempo } = this.state;
 		return (
 			<div className="tempo-tapper">
-				<h2 title="Provide at least 6 taps for greater accuracy!">Tempo Tapper</h2>
+				<h2 title="Provide at least 6 taps for greater accuracy!">
+					Tempo Tapper
+				</h2>
 				<main>
 					<div className="tapper__display">
 						<h4>Tempo</h4>

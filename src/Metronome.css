@@ -3,7 +3,6 @@
 	display: flex;
 	margin: 1.618rem auto;
 	flex-direction: column;
-	animation: var(--softIn);
 }
 
 @media only screen and (min-width: 768px) {
@@ -14,6 +13,8 @@
 
 .bpm-display {
 	margin: 1em 0;
+	color: var(--white);
+	text-shadow: 0 0 6px var(--light);
 }
 
 .checkgroup {
@@ -21,7 +22,7 @@
 	margin-top: 1em;
 	align-items: center;
 	font-size: 0.8em;
-	color: var(--medium);
+	color: var(--dark);
 	padding: var(--padding);
 }
 
@@ -51,6 +52,7 @@
 	border-right: 5em solid transparent;
 	border-radius: var(--borderRadius);
 	box-shadow: 0 1em 1em -1em rgba(0, 0, 0, 0.5);
+	animation: var(--softIn);
 }
 
 @media only screen and (min-width: 768px) {
@@ -91,6 +93,7 @@
 	transform: rotateZ(270deg);
 	--boxShadow: 0em 0.25em 1em rgba(0, 0, 0, 0.25);
 	box-shadow: var(--boxShadow);
+	touch-action: none;
 }
 
 .pendulum__top,
