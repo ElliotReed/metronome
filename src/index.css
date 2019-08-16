@@ -134,19 +134,23 @@ textarea {
 }
 
 button {
-	background: var(--dark);
-	padding: var(--padding) calc(var(--padding) * 1.5);
 	color: var(--light);
+	padding: var(--padding) calc(var(--padding) * 1.5);
 	border: 1px solid var(--darkAccent);
 	border-radius: var(--borderRadius);
+	background: var(--dark);
 	outline: 0;
 	cursor: pointer;
 	box-shadow: var(--boxShadow);
 }
 
+button:active {
+	transform: scale(1.0618);
+}
+
 button:focus {
-	border-radius: var(--borderRadius);
 	border: 2px solid var(--medium);
+	border-radius: var(--borderRadius);
 }
 
 @keyframes softIn {
