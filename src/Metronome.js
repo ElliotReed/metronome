@@ -26,7 +26,7 @@ class Metronome extends Component {
 		this.setState({
 			degrees: 270,
 			pointerEvents: 'all',
-			clickLength: (this.state.clickLength / 2),
+			clickLength: this.state.clickLength / 2,
 		});
 	};
 
@@ -50,7 +50,7 @@ class Metronome extends Component {
 	};
 
 	startStop = () => {
-		const clickLength = Math.floor((60 / this.props.bpm) * 1000);
+		const clickLength = ((60 / this.props.bpm) * 1000).toFixed(0);
 		if (this.state.playing) {
 			// Stop the timer
 			clearInterval(this.timer);
