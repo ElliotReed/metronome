@@ -1,92 +1,107 @@
-@import url('https://fonts.googleapis.com/css?family=Lexend+Mega&display=swap');
+/*
+Theme Name: Metronem Theme
+Description: Metroneme wevapp
+Author: Elliot Reed
+Author URL:  https://github.com//ElliotReed/
+Tags: Metroneme , Web app
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Lexend+Mega&display=swap");
 
 :root {
-	/* colors */
-	--white: rgb(220, 215, 215);
-	--light: rgb(205, 200, 200);
-	--lightAccent: #929691;
-	--medium: #716a65;
-	--darkAccent: #888c92;
-	--dark: rgb(50, 49, 46);
-	--black: rgb(40, 40, 40);
+  /* colors */
+  --white: rgb(220, 215, 215);
+  --light: rgb(205, 200, 200);
+  --lightAccent: #929691;
+  --medium: #716a65;
+  --darkAccent: #888c92;
+  --dark: rgb(50, 49, 46);
+  --black: rgb(40, 40, 40);
 
-	/* sizes */
-	--margin: 0.618rem;
-	--padding: 0.618rem;
-	--maxWidth: 1333px;
-	--tablet: 768px;
-	--desktop: 1080px;
+  /* sizes */
+  --margin: 0.5rem;
+  --padding: 0.5rem;
+  --maxWidth: 1333px;
+  --tablet: 768px;
+  --desktop: 1080px;
 
-	/* box model */
-	--boxShadow: 0.25em 0.25em 0.5em rgba(40, 40, 40, 0.25);
-	--border: 1px solid var(--dark);
-	--borderRadius: 1rem;
-	--fontStackSans: 'Lexend Mega', sans-serif;
-	--fontStackSerif: 'Georgia', serif;
-	/* animations */
-	--softIn: softIn 0.33s ease-in;
+  /* box model */
+  --boxShadow: 0.25em 0.25em 0.5em rgba(40, 40, 40, 0.25);
+  --border: 1px solid var(--dark);
+  --borderRadius: 1rem;
+  --fontStackSans: "Lexend Mega", sans-serif;
+  --fontStackSerif: "Georgia", serif;
+  /* animations */
+  --softIn: softIn 0.33s ease-in;
 }
 
 /* set default base size for deveice and reading distance */
 /* mobile */
 html {
-	font-size: 16px;
+  font-size: 16px;
 }
 /* tablet */
 @media only screen and (min-width: 768px) {
-	html {
-		font-size: 18px;
-	}
+  html {
+    font-size: 18px;
+  }
 }
 /* desktop */
 @media only screen and (min-width: 1080px) {
-	html {
-		font-size: 22px;
-	}
+  html {
+    font-size: 22px;
+  }
+}
+
+html,
+body {
+  line-height: 1.5;
 }
 
 body {
-	box-sizing: border-box;
-	margin: 0;
-	width: 100vw;
-	height: 100%;
-	background: var(--lightAccent);
-	font-family: var(--fontStackSans);
-	color: var(--light);
-	user-select: none;
+  box-sizing: border-box;
+  margin: 0;
+  /* width: 100vw; */
+  /* height: 100vh; */
+  background: var(--lightAccent);
+  font-family: var(--fontStackSans);
+  color: var(--light);
+  /* user-select: none; */
 }
 
 *,
 *:before,
 *:after {
-	box-sizing: inherit;
+  box-sizing: inherit;
 }
 
-#root {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	text-align: center;
+#metronome-root {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: 100vh;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 h1 {
-	font-size: 2.618rem;
+  font-size: 2.5rem;
 } /* 68px */
 h2 {
-	font-size: 2.32rem;
+  font-size: 2.25rem;
 } /* 42px */
 h3 {
-	font-size: 1.618rem;
+  font-size: 1.5rem;
 } /* 26px */
 h4 {
-	font-size: 1.32rem;
+  font-size: 1.25rem;
 } /* 20px */
 h5,
 p {
-	font-size: 1rem;
+  font-size: 1rem;
 } /* 16px */
 h6 {
-	font-size: 0.618rem;
+  font-size: 0.75rem;
 } /* 13px */
 
 h1,
@@ -95,70 +110,50 @@ h3,
 h4,
 h5,
 h6 {
-	line-height: 1.618;
-	font-family: var(--fontStackSans);
-	color: var(--light);
+  line-height: 1.75;
+  font-family: var(--fontStackSans);
+  color: var(--light);
 }
 
 p {
-	font-family: var(--fontStackSans);
-	color: var(--light);
-	margin: var(--margin);
+  font-family: var(--fontStackSans);
+  color: var(--light);
+  margin: var(--margin);
 }
 
 a {
-	text-decoration: none;
-	color: var(--green);
+  text-decoration: none;
+  color: var(--green);
 }
 
 ul {
-	font-family: var(--fontStackSans);
-	list-style-type: none;
+  font-family: var(--fontStackSans);
+  list-style-type: none;
 }
 
 blockquote {
-	font-family: var(--fontStackSans);
-	color: var(--dark);
+  font-family: var(--fontStackSans);
+  color: var(--dark);
 }
 
 cite {
-	font-family: var(--fontStackSans);
-	font-size: 0.66rem;
-	font-weight: normal;
-	color: var(--dark);
+  font-family: var(--fontStackSans);
+  font-size: 0.66rem;
+  font-weight: normal;
+  color: var(--dark);
 }
 
 input,
 textarea {
-	outline-color: var(--light);
-}
-
-button {
-	color: var(--light);
-	padding: var(--padding) calc(var(--padding) * 1.5);
-	border: 1px solid var(--darkAccent);
-	border-radius: var(--borderRadius);
-	background: var(--dark);
-	outline: 0;
-	cursor: pointer;
-	box-shadow: var(--boxShadow);
-}
-
-button:active {
-	transform: scale(1.0618);
-}
-
-button:focus {
-	border: 2px solid var(--medium);
-	border-radius: var(--borderRadius);
+  outline-color: var(--light);
 }
 
 @keyframes softIn {
-	from {
-		opacity: 0;
-	}
+  from {
+    opacity: 0;
+  }
 
-	to {
-		opacity: 1;
-	}
+  to {
+    opacity: 1;
+  }
 }
