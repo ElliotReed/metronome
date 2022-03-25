@@ -1,10 +1,13 @@
-import React, { Component } from "react";
-import Button from "../common/Button";
+import * as React from "react";
+
+import * as Button from "../common/Button";
+import Heading from "../common/Heading";
+
 import "./tempoTapper.css";
 
-export const calculteBeatsPerMinute = (taps) => {
+export const calculteBeatsPerMinute = (taps, setTaps) => {
   const length = taps.length;
-  if (length === 1) {
+  if (length <= 1) {
     return "keep tapping!";
   } else {
     const totalTime = taps[length - 1] - taps[0];
@@ -12,61 +15,53 @@ export const calculteBeatsPerMinute = (taps) => {
     const beat = seconds / length;
     const bpm = Math.floor(60 / beat);
 
+    if ((taps[length - 1] - taps[length - 2]) / 1000 > 3) {
+      setTaps([taps[length - 1]]);
+      return "keep tapping!";
+    }
     return bpm;
   }
 };
 
-export default class TempoTapper extends Component {
-  constructor(props) {
-    super(props);
+export default function TempoTapper({ setBpm }) {
+  const [taps, setTaps] = React.useState([]);
+  const [tempo, setTempo] = React.useState("tap button to start");
 
-    this.state = {
-      taps: [],
-      tempo: "tap button to start",
-    };
-  }
-
-  handleTempoTap = () => {
+  const handleTempoTap = () => {
     const now = new Date();
-    const taps = this.state.taps;
-    taps.push(now);
+    const newTaps = [...taps, now];
+    setTaps((prev) => [...prev, now]);
 
     if (taps.length > 6) {
-      taps.shift();
+      newTaps.shift();
+      setTaps(newTaps);
     }
 
-    const tempo = calculteBeatsPerMinute(taps);
-    this.setState({ tempo });
+    const newTempo = calculteBeatsPerMinute(newTaps, setTaps);
+    setTempo(newTempo);
   };
 
-  render() {
-    const { tempo } = this.state;
-    return (
-      <section className="tapper">
-        <header>
-          <h2 title="Provide at least 6 taps for greater accuracy!">
-            Tempo Tapper
-          </h2>
-        </header>
-        <main>
-          <div className="tapper__display">
-            <h3>Tempo</h3>
-            <p>{tempo}</p>
-            <Button
-              onClick={() => {
-                typeof tempo !== "number"
-                  ? this.props.setBpm(100)
-                  : this.props.setBpm(tempo);
-              }}
-            >
-              Set BPM
-            </Button>
-          </div>
-          <button className="tapper__button" onClick={this.handleTempoTap}>
-            Tap!
-          </button>
-        </main>
-      </section>
-    );
-  }
+  return (
+    <section className="tapper noise-light">
+      <main>
+        <div className="tapper__display">
+          <h3>Tempo</h3>
+          <p>{tempo}</p>
+          <Button.Default
+            onClick={() => {
+              typeof tempo !== "number" ? setBpm(100) : setBpm(tempo);
+            }}
+          >
+            Set BPM
+          </Button.Default>
+        </div>
+        <Button.Tapper
+          title="Provide at least 6 taps for greater accuracy!"
+          onClick={handleTempoTap}
+        >
+          Tap!
+        </Button.Tapper>
+      </main>
+    </section>
+  );
 }

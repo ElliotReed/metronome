@@ -1,12 +1,25 @@
 .header {
-  background-color: var(--dark);
   padding: var(--padding);
+  background-color: var(--dark);
 }
 
-.title {
+.header__title {
+  display: inline-block;
   margin: 0;
-  font-size: 1.618rem;
-  color: var(--lightAccent);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--accent);
   text-align: center;
-  text-shadow: 0 0 0.5em var(--darkAccent);
+  text-shadow: 1px 1px 0 var(--dark), -1px 1px 0 var(--dark),
+    1px -1px 0 var(--dark), -1px -1px 0 var(--dark);
+  filter: drop-shadow(0px 0px 1px var(--accent));
+}
+
+.header__title-wrapper {
+  max-width: max-content;
+  margin: 0 auto;
+  padding: var(--paddingBox);
+  background: var(--dark);
+  border: 2px ridge var(--light);
+  border-radius: 0.5rem;
 }

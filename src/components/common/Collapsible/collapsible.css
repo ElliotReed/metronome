@@ -1,0 +1,24 @@
+.collapsible {
+  overflow: hidden;
+  transition: height var(--duration-md) ease-in-out;
+  z-index: 5;
+}
+
+.collapsible__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--size-md);
+}
+
+.collapsible__icon {
+  display: inline-block;
+}
+
+.collapsible__icon-down {
+  transform: rotate(-90deg);
+}
+
+.collapsible__icon-up {
+  transform: rotate(90deg);
+}

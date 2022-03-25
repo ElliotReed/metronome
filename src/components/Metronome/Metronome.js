@@ -1,220 +1,156 @@
-import React, { Component } from "react";
-import "./metronome.css";
-import click from "./click.wav";
-import clickAccent from "./clickAccent.wav";
-import Button from "../common/Button";
+import * as React from "react";
 
-function MechanicalMetronome({ bpm, swingAnimation, onChange }) {
+import MechanicalMetronome from "../MechanicalMetronome";
+import Staff from "../Staff";
+import TempoTapper from "../TempoTapper";
+
+import * as Button from "../common/Button";
+import Collapsible from "../common/Collapsible";
+import MeshContainer from "../common/MeshContainer";
+
+import "./metronome.css";
+
+export default function Metronome() {
+  const [bpm, setBpm] = React.useState(100);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [timer, setTimer] = React.useState(null);
+
+  const [beatCount, setBeatCount] = React.useState(0);
+  const [beatsPerMeasure, setBeatsPerMeasure] = React.useState(4);
+
+  const [count, setCount] = React.useState(0);
+  const [clickLength, setClickLength] = React.useState(1);
+
+  const initializeTimer = (timerInterval) => {
+    setTimer(
+      setInterval(() => {
+        triggerEffects();
+      }, timerInterval)
+    );
+  };
+
+  const updatedBeatCount = (prevBeatCount) =>
+    prevBeatCount < beatsPerMeasure ? prevBeatCount + 1 : 1;
+
+  const triggerEffects = () => {
+    // The first beat will have a different sound than the others
+    // Track the beat
+    setBeatCount(updatedBeatCount);
+    // setCount((count + 1) % beatsPerMeasure);
+  };
+
+  const startStop = () => {
+    if (!isPlaying) {
+      // Start a timer with the current BPM
+      const timerInterval = ((60 / bpm) * 1000).toFixed(0);
+      initializeTimer(timerInterval);
+      setIsPlaying(true);
+    } else {
+      // Stop the timer
+      clearInterval(timer);
+      setIsPlaying(false);
+      setBeatCount(0);
+      // stopPendulum()
+    }
+    // setCount(0);
+    // clickLength
+    // playClick();
+    // swingPendulum();
+  };
+
+  const handleBpmChange = (event) => {
+    const newBPM = event.target.value;
+    setBpm(newBPM);
+
+    if (isPlaying) {
+      // Stop old timer and start a new one
+      clearInterval(timer);
+      const timerInterval = ((60 / newBPM) * 1000).toFixed(0);
+      initializeTimer(timerInterval);
+      // setCount(0);
+    }
+  };
+
   return (
-    <div className="mechanicalMetronome">
-      <div className="metronome__body-faceplate" />
-      <div className="pendulum" style={swingAnimation}>
-        <div className="pendulum__bottom">
-          <div className="pendulum__weight" />
-        </div>
-        <input
-          tabIndex="0"
-          className="pendulum__top"
-          type="range"
-          min="40"
-          max="320"
-          value={bpm}
-          onChange={onChange}
-        />
-      </div>
-    </div>
+    <section className="Metronome">
+      {/* <MechanicalMetronome
+          bpm={bpm}
+          clickLength={clickLength}
+          onChange={handleBpmChange}
+        /> */}
+      <Staff
+        beatCount={beatCount}
+        beatsPerMeasure={beatsPerMeasure}
+        setBeatsPerMeasure={setBeatsPerMeasure}
+      />
+      <MetronomeControls bpm={bpm} setBpm={setBpm}>
+        <Button.Default onClick={startStop}>
+          {isPlaying ? "Stop" : "Start"}
+        </Button.Default>
+        <Collapsible
+          shouldExpand={false}
+          title={"Tempo Tapper"}
+          titleColor="dark"
+        >
+          <TempoTapper setBpm={setBpm} />
+        </Collapsible>
+      </MetronomeControls>
+    </section>
   );
 }
 
-function MetronomeControls({ bpm, playing, onClick }) {
+function MetronomeControls({ bpm, children, setBpm }) {
+  const [time, setTime] = React.useState(160);
+  const intervalRef = React.useRef(null);
+
+  const handleDecrementMouseDown = () => {
+    if (intervalRef.current) return;
+    setBpm((bpm) => bpm - 1);
+    intervalRef.current = setInterval(() => {
+      setBpm((bpm) => bpm - 1);
+    }, time);
+  };
+  const handleIncrementMouseDown = () => {
+    if (intervalRef.current) return;
+    setBpm((bpm) => bpm + 1);
+    intervalRef.current = setInterval(() => {
+      setBpm((bpm) => bpm + 1);
+    }, time);
+  };
+
+  const handleMouseUp = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  React.useEffect(() => {
+    return () => handleMouseUp();
+  }, []);
+
   return (
     <div className="MetronomeControls">
-      <div className="bpm-display">{bpm} BPM</div>
-      <Button onClick={onClick}>{playing ? "Stop" : "Start"}</Button>
+      <div className="metronomeControls__container-bpm">
+        <Button.Circular
+          onPointerDown={handleDecrementMouseDown}
+          onPointerUp={handleMouseUp}
+          onPointerLeave={handleMouseUp}
+        >
+          -
+        </Button.Circular>
+        <MeshContainer size="stretch">
+          <div className="bpm-display">{bpm}</div>
+        </MeshContainer>
+        <Button.Circular
+          onPointerDown={handleIncrementMouseDown}
+          onPointerUp={handleMouseUp}
+          onPointerLeave={handleMouseUp}
+        >
+          +
+        </Button.Circular>
+      </div>
+      {children}
     </div>
   );
 }
-
-class Metronome extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      playing: false,
-      count: 0,
-      beatsPerMeasure: 4,
-      degrees: 270,
-      clickLength: 1,
-      evenbeat: false,
-      accent: false,
-      pointerEvents: "all",
-    };
-
-    this.click = new Audio(click);
-    this.clickAccent = new Audio(clickAccent);
-  }
-
-  stopPendulum = () => {
-    this.setState({
-      degrees: 270,
-      pointerEvents: "all",
-      clickLength: this.state.clickLength / 2,
-    });
-  };
-
-  swingPendulum = () => {
-    const initialPosition = this.state.degrees;
-    const centerDegrees = 270;
-    const swingAmount = 45;
-
-    if (initialPosition <= centerDegrees) {
-      this.setState({
-        degrees: centerDegrees + swingAmount,
-        pointerEvents: "none",
-      });
-    }
-    if (initialPosition > centerDegrees) {
-      this.setState({
-        degrees: centerDegrees - swingAmount,
-        pointerEvents: "none",
-      });
-    }
-  };
-
-  startStop = () => {
-    const clickLength = ((60 / this.props.bpm) * 1000).toFixed(0);
-    if (this.state.playing) {
-      // Stop the timer
-      clearInterval(this.timer);
-      this.setState(
-        (prevState) => ({
-          playing: false,
-        }),
-        this.stopPendulum()
-      );
-    } else {
-      // Start a timer with the current BPM
-      this.timer = setInterval(() => {
-        this.playClick();
-        this.swingPendulum();
-      }, clickLength);
-
-      this.setState(
-        {
-          count: 0,
-          playing: true,
-          clickLength,
-        },
-        () => {
-          this.playClick();
-          this.swingPendulum();
-        }
-      );
-    }
-  };
-
-  playClick = () => {
-    const { count, beatsPerMeasure, accent, evenbeat } = this.state;
-
-    // The first beat will have a different sound than the others
-    if (count % beatsPerMeasure === 0 && accent && !evenbeat) {
-      this.clickAccent.play();
-    } else if (count % 2 === 0 && evenbeat) {
-      this.click.play();
-    } else if (!evenbeat) {
-      this.click.play();
-    }
-
-    // Track the beat
-    this.setState((state) => ({
-      count: (state.count + 1) % state.beatsPerMeasure,
-    }));
-  };
-
-  handleBpmChange = (event) => {
-    const bpm = event.target.value;
-
-    if (this.state.playing) {
-      // Stop old timer and start a new one
-      clearInterval(this.timer);
-      this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
-      this.props.setBpm(bpm);
-
-      this.setState({
-        count: 0,
-      });
-    } else {
-      this.props.setBpm(bpm);
-    }
-  };
-
-  handleCheckboxChange = (event) => {
-    let { name } = event.target;
-
-    this.setState((prevState) => {
-      return {
-        [name]: !prevState[name],
-      };
-    });
-  };
-
-  render() {
-    const { playing, degrees, clickLength, accent, evenbeat, pointerEvents } =
-      this.state;
-    const { bpm } = this.props;
-
-    let swingAnimation = {
-      transform: `rotateZ(${degrees}deg)`,
-      transitionDuration: `${clickLength}ms`,
-      pointerEvents: `${pointerEvents}`,
-    };
-
-    return (
-      <div className="Metronome">
-        <MechanicalMetronome
-          bpm={bpm}
-          swingAnimation={swingAnimation}
-          onChange={this.handleBpmChange}
-        />
-        <div className="controls">
-          <MetronomeControls
-            bpm={bpm}
-            playing={playing}
-            onClick={this.startStop}
-          />
-
-          <section className="beat__controls">
-            <form className="form">
-              <div className="checkgroup">
-                <label htmlFor="accent">
-                  <input
-                    type="checkbox"
-                    id="accent"
-                    name="accent"
-                    value={accent}
-                    onChange={this.handleCheckboxChange}
-                  />
-                  Accent beat 1
-                </label>
-              </div>
-              <div className="checkgroup">
-                <label htmlFor="evenbeat">
-                  <input
-                    type="checkbox"
-                    id="evenbeat"
-                    name="evenbeat"
-                    value={evenbeat}
-                    onChange={this.handleCheckboxChange}
-                  />
-                  2 and 4 only
-                </label>
-              </div>
-            </form>
-          </section>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default Metronome;

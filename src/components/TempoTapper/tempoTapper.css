@@ -1,6 +1,5 @@
 .tapper {
-  background-color: var(--light);
-  padding-bottom: 2em;
+  padding: var(--size-lg);
 }
 
 .tapper main {
@@ -8,8 +7,8 @@
   grid-template-rows: 1fr 1fr;
   /* tap button is inverted on children*/
   margin: 0 auto;
+  /* padding-bottom: 0rem; */
   max-width: 30rem;
-  background-color: var(--light);
 }
 
 @media only screen and (min-width: 768px) {
@@ -19,16 +18,12 @@
   }
 }
 
-.tapper h2,
 .tapper h3,
 .tapper p {
   color: var(--dark);
   text-align: center;
 }
 
-.tapper h2 {
-  font-size: 1.5rem;
-}
 .tapper h3 {
   font-size: 1rem;
   margin: 1.5em 0 0;
@@ -57,46 +52,11 @@
   margin: 0 1.25em 1.25em 1.25em;
 
   color: var(--dark);
-  text-shadow: 1px 1px 0em var(--lightAccent), -1px -1px 0em var(--lightAccent),
+  text-shadow: 1px 1px 0em var(--accent), -1px -1px 0em var(--accent),
     0 0 4px var(--light);
 }
 
 .tapper__display button {
   display: block;
   margin: 0 auto;
-}
-
-.tapper__button {
-  --dimension: 8em;
-  margin: 0 auto;
-  cursor: pointer;
-  width: var(--dimension);
-  height: var(--dimension);
-  outline: 0;
-  border: 1px solid var(--dark);
-  border-radius: 50%;
-  box-shadow: var(--boxShadow);
-  background: var(--lightAccent);
-  color: var(--white);
-  text-shadow: 0 0 4px var(--light);
-  transition: transform 161ms;
-  animation: var(--softIn);
-}
-
-.tapper__button:active {
-  transform: scale(1.05);
-  border-radius: 50%;
-  outline: 0;
-}
-
-.tapper__button:focus {
-  outline: 0;
-  border-radius: 50%;
-  box-shadow: var(--boxShadow), inset 0 0 0.25em rgba(0, 0, 0, 0.25);
-}
-
-@media screen and (min-width: 768px) {
-  .tapper__button {
-    grid-column-start: 2;
-  }
 }

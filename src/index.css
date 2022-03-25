@@ -6,33 +6,56 @@ Author URL:  https://github.com//ElliotReed/
 Tags: Metroneme , Web app
 */
 
-@import url("https://fonts.googleapis.com/css?family=Lexend+Mega&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@300;400;700&display=swap");
 
 :root {
   /* colors */
   --white: rgb(220, 215, 215);
-  --light: rgb(205, 200, 200);
-  --lightAccent: #929691;
+  --lightRGB: 205, 200, 200;
+  --light: #cdc8c8;
+  --light: rgb(var(--lightRGB));
+  --accentRGB: 146, 150, 145;
+  --accent: #929691;
+  --accent: rgb(var(--accentRGB));
+  --accentDark: #777874;
   --medium: #716a65;
   --darkAccent: #888c92;
-  --dark: rgb(50, 49, 46);
+  --darkRGB: 50, 49, 46;
+  --dark: #32312e;
+  --dark: rgb(var(--darkRGB));
   --black: rgb(40, 40, 40);
 
   /* sizes */
-  --margin: 0.5rem;
-  --padding: 0.5rem;
+  --margin: 1rem;
+  --padding: 0.75rem;
   --maxWidth: 1333px;
   --tablet: 768px;
   --desktop: 1080px;
+  --size-sm: 0.75rem;
+  --size-md: 1rem;
+  --size-lg: 2rem;
 
   /* box model */
-  --boxShadow: 0.25em 0.25em 0.5em rgba(40, 40, 40, 0.25);
-  --border: 1px solid var(--dark);
-  --borderRadius: 1rem;
+  --shadowRatio: 2;
+  --shadow: rgba(0, 0, 0, 0.76);
+  --boxShadow: 0.25em 0.25em 0.5em rgba(40, 40, 40, 0.29);
+  --boxShadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.29);
+  --boxShadowElevationNone: inset 1px 2px 4px var(--shadow);
+  --boxShadowElevationOne: 1px 2px 4px var(--shadow);
+  --filterShadowElevationOne: 1px 2px 6px var(--shadow);
+  --filterShadowElevationTwo: 2px 4px 8px var(--shadow);
+  --border: 2px solid var(--dark);
+  --borderRadius: 1.5rem;
   --fontStackSans: "Lexend Mega", sans-serif;
   --fontStackSerif: "Georgia", serif;
+  --paddingBox: var(--padding) calc(var(--padding) * 1.5);
+
   /* animations */
   --softIn: softIn 0.33s ease-in;
+
+  /* timing */
+  --duration-sm: 160ms;
+  --duration-md: 320ms;
 }
 
 /* set default base size for deveice and reading distance */
@@ -61,18 +84,20 @@ body {
 body {
   box-sizing: border-box;
   margin: 0;
-  /* width: 100vw; */
-  /* height: 100vh; */
-  background: var(--lightAccent);
+  background: var(--accent);
   font-family: var(--fontStackSans);
   color: var(--light);
-  /* user-select: none; */
 }
 
 *,
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+::selection {
+  background: var(--dark);
+  color: var(--light);
 }
 
 #metronome-root {
@@ -156,4 +181,16 @@ textarea {
   to {
     opacity: 1;
   }
+}
+
+.noise-accent {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='10' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='500' height='500' fill='%23929691'/%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+.noise-light {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='10' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='500' height='500' fill='%23cdc8c8'/%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+.noise-dark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='10' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='500' height='500' fill='%2332312e'/%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
 }

@@ -1,0 +1,186 @@
+.Staff {
+  --baseSize: 16px;
+  --maxWidth: 40rem;
+  position: relative;
+  min-width: 76%;
+  max-width: var(--maxWidth);
+  margin-top: 3rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: -7rem;
+  font-size: var(--baseSize); /* set to work with the svg staff elements */
+  color: var(--light);
+  user-select: none;
+}
+@media screen and (min-width: 42rem) {
+  .Staff {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -6rem;
+  }
+}
+@media screen and (min-width: 67.5rem) {
+  .Staff {
+    margin-bottom: -5rem;
+  }
+}
+
+.StaffImage {
+  color: var(--light);
+  display: block;
+  position: relative;
+  top: 0em;
+  pointer-events: none;
+  background: var(--dark);
+  z-index: 1;
+}
+
+.staff__content {
+  --staffOffset: calc(-9 * var(--baseSize));
+  --meshMarginOffset: 8px;
+  position: relative;
+  top: var(--staffOffset);
+  display: grid;
+  margin: 0 calc(var(--baseSize) + var(--meshMarginOffset));
+  grid-template-columns: auto minmax(0, 1fr);
+  z-index: 2;
+}
+
+.staffContent__aside {
+  --expandElementSize: calc(var(--baseSize) * 1.75);
+  --elementTransition: all var(--duration-sm) ease-in-out;
+  --borderSize: 2px;
+  width: calc(var(--expandElementSize) * 2);
+  position: relative;
+}
+
+.MeterElementContainer {
+  position: relative;
+  display: flex;
+  border: var(--borderSize) solid transparent;
+  background: transparent;
+  transition: var(--elementTransition);
+  z-index: 1;
+}
+
+.MeterElementContainer.show {
+  border: var(--borderSize) solid var(--light);
+  background: var(--accent);
+  transform-origin: left;
+  transform: scale(2);
+  z-index: 2;
+}
+
+.BeatsPerMeasure,
+.BeatUnits {
+  position: absolute;
+}
+
+.BeatsPerMeasure {
+  top: calc(16px * 2.25);
+}
+
+.BeatUnits {
+  top: calc(16px * 4);
+}
+
+.MeterBtn,
+.CircularBtn,
+.CloseBtn {
+  text-align: center;
+  height: var(--expandElementSize);
+  border: var(--borderSize) solid transparent;
+  padding: 0;
+  transition: var(--elementTransition);
+  outline: none;
+}
+.MeterBtn:hover,
+.CircularBtn:hover,
+.CloseBtn:hover {
+  cursor: pointer;
+}
+
+.MeterBtn,
+.CircularBtn {
+  border-radius: 4rem;
+}
+
+.MeterBtn {
+  width: var(--expandElementSize);
+  border: 0;
+  font-weight: 500;
+  background: transparent;
+  font-size: 32px;
+  line-height: 32px;
+  color: var(--light);
+  text-shadow: 1px 1px 0 var(--accent), -1px -1px 0 var(--accent);
+}
+
+.MeterBtn.show {
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 400;
+  border: var(--borderSize) solid var(--light);
+}
+
+.CircularBtn {
+  background: var(--dark);
+  border: var(--borderSize) solid var(--light);
+  color: var(--light);
+}
+
+.CloseBtn {
+  background: var(--light);
+  color: var(--accent);
+}
+.CloseBtn:hover {
+  background: var(--accentDark);
+  color: var(--light);
+}
+
+.contract {
+  width: 0;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.expand {
+  width: var(--expandElementSize);
+}
+
+.beatSelector {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.notes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: calc(var(--baseSize) * 0.5);
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.Note {
+  min-width: calc(var(--baseSize) * 3);
+  text-align: center;
+}
+.Note:hover {
+  cursor: pointer;
+}
+
+.NoteImage {
+  transition: var(--elementTransition);
+  filter: drop-shadow(0px 0px 0px rgba(40, 40, 40, 0.25));
+  /* background: var(--dark); */
+}
+
+.isPlaying > .NoteImage {
+  transform: scale(1.1);
+  filter: drop-shadow(4px 4px 1px rgba(0, 0, 0, 0.25));
+}

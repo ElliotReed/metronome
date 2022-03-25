@@ -1,19 +1,96 @@
 .btn {
-  color: var(--light);
-  padding: var(--padding) calc(var(--padding) * 1.5);
-  border: 1px solid var(--darkAccent);
-  border-radius: var(--borderRadius);
+  border: 2px ridge var(--light);
+  border-radius: 1.5rem;
   background: var(--dark);
-  outline: 0;
+  padding: var(--padding) calc(var(--padding) * 1.5);
+  color: var(--light);
+  transition: all var(--duration-sm);
+  user-select: none;
+  filter: drop-shadow(var(--filterShadowElevationOne));
+  outline-width: 0;
+  outline-color: inherit;
+  outline-style: dotted;
+  outline-offset: 2px;
+  text-transform: uppercase;
+}
+
+.btn:hover {
   cursor: pointer;
-  box-shadow: var(--boxShadow);
+  transform: scale(1.025);
+  filter: drop-shadow(var(--filterShadowElevationTwo));
 }
 
 .btn:active {
-  transform: scale(1.0618);
+  transform: scale(0.995);
+  box-shadow: var(--boxShadowElevationNone);
+  filter: drop-shadow(0 0 0 black);
 }
 
 .btn:focus {
-  border: 2px solid var(--medium);
-  border-radius: var(--borderRadius);
+  outline-width: 1px;
+}
+
+.btn-chevron {
+  filter: drop-shadow(0 0 0 black);
+  border-radius: 0.25rem;
+  background: transparent;
+  color: var(--dark);
+  border-color: transparent;
+}
+
+.btn-chevron:hover {
+  filter: drop-shadow(0 0 0 black);
+  box-shadow: var(--boxShadowElevationOne);
+}
+
+.chevron {
+  display: inline-block;
+  margin-left: var(--size-md);
+}
+
+.chevronDown {
+  transform: rotate(180deg);
+}
+
+.btn-circular {
+  --size: 4rem;
+  border-radius: var(--size);
+  width: var(--size);
+  height: var(--size);
+}
+
+.btn-tapper {
+  --dimension: 8rem;
+  margin: 0 auto;
+  width: var(--dimension);
+  height: var(--dimension);
+  outline-color: var(--dark);
+  border: 0.5rem ridge var(--dark);
+  border-radius: var(--dimension);
+  background: var(--accent);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--dark);
+  text-shadow: 0 0 0.25rem rgba(var(--darkRGB), 0.25);
+  transition: transform var(--duration-sm);
+  animation: var(--softIn);
+}
+
+.btn-tapper:focus:not(:hover) {
+  animation: tapper 960ms infinite alternate;
+}
+
+@keyframes tapper {
+  from {
+    transform: rotate(-2.8125deg);
+  }
+  to {
+    transform: rotate(2.8125deg);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .btn-tapper {
+    grid-column-start: 2;
+  }
 }
