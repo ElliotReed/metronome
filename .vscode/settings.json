@@ -1,0 +1,13 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.foreground": "#dcd7d7",
+    "statusBar.background": "#32312e",
+    "statusBarItem.remoteBackground": "#94a88f",
+    "statusBarItem.remoteForeground": "#fcf4f1",
+    "titleBar.activeForeground": "#dcd7d7",
+    "titleBar.activeBackground": "#94a88f",
+    "titleBar.inactiveForeground": "#dcd7d7",
+    "titleBar.inactiveBackground": "#94a88f",
+  },
+  "workbench.colorTheme": "Magoon"
+}
