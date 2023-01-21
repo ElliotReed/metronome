@@ -48,7 +48,7 @@ export default function Collapsible({ shouldExpand, children, title, titleColor 
     , [isExpanded]);
 
   const buttonText = (
-    <Heading level="5" color={titleColor}>
+    <Heading level={5} color={titleColor}>
       {title}
     </Heading>
   );

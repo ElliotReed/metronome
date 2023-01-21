@@ -2,14 +2,21 @@ import * as React from "react";
 
 import "./mechanicalMetronome.css";
 
-export default function MechanicalMetronome({ bpm, clickLength, onChange }) {
+interface Props {
+  bpm: number,
+  clickLength: number,
+  onChange: () => void,
+}
+
+export default function MechanicalMetronome({ bpm, clickLength, onChange }: Props) {
   const [degrees, setDegrees] = React.useState(270);
   const [pointerEvents, setPointerEvents] = React.useState("all");
 
-  let swingAnimation = {
+
+  let swingAnimation: React.CSSProperties = {
     transform: `rotateZ(${degrees}deg)`,
     transitionDuration: `${clickLength}ms`,
-    pointerEvents: `${pointerEvents}`,
+    pointerEvents: `${pointerEvents}` as any,
   };
 
   const stopPendulum = () => {
