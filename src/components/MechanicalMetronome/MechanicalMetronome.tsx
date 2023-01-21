@@ -32,6 +32,7 @@ export default function MechanicalMetronome({ bpm, clickLength, onChange }) {
       setPointerEvents("none");
     }
   };
+
   return (
     <div className="mechanicalMetronome">
       <div className="metronome__body-faceplate" />
@@ -40,7 +41,7 @@ export default function MechanicalMetronome({ bpm, clickLength, onChange }) {
           <div className="pendulum__weight" />
         </div>
         <input
-          tabIndex="0"
+          tabIndex={0}
           className="pendulum__top"
           type="range"
           min="40"

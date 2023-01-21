@@ -1,17 +1,19 @@
 .Staff {
   --baseSize: 16px;
-  --maxWidth: 40rem;
+  --max-width: 40rem;
   position: relative;
   min-width: 76%;
-  max-width: var(--maxWidth);
+  max-width: var(--max-width);
   margin-top: 3rem;
   margin-left: 1rem;
   margin-right: 1rem;
   margin-bottom: -7rem;
-  font-size: var(--baseSize); /* set to work with the svg staff elements */
+  font-size: var(--baseSize);
+  /* set to work with the svg staff elements */
   color: var(--light);
   user-select: none;
 }
+
 @media screen and (min-width: 42rem) {
   .Staff {
     margin-left: auto;
@@ -19,6 +21,7 @@
     margin-bottom: -6rem;
   }
 }
+
 @media screen and (min-width: 67.5rem) {
   .Staff {
     margin-bottom: -5rem;
@@ -94,6 +97,7 @@
   transition: var(--elementTransition);
   outline: none;
 }
+
 .MeterBtn:hover,
 .CircularBtn:hover,
 .CloseBtn:hover {
@@ -133,8 +137,9 @@
   background: var(--light);
   color: var(--accent);
 }
+
 .CloseBtn:hover {
-  background: var(--accentDark);
+  background: var(--accent-dark);
   color: var(--light);
 }
 
@@ -170,6 +175,7 @@
   min-width: calc(var(--baseSize) * 3);
   text-align: center;
 }
+
 .Note:hover {
   cursor: pointer;
 }

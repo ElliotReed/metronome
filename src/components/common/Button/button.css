@@ -71,7 +71,7 @@
   font-weight: 700;
   font-size: 1.5rem;
   color: var(--dark);
-  text-shadow: 0 0 0.25rem rgba(var(--darkRGB), 0.25);
+  text-shadow: 0 0 0.05rem rgb(var(--dark-rgb)/ 0.25);
   transition: transform var(--duration-sm);
   animation: var(--softIn);
 }
@@ -84,6 +84,7 @@
   from {
     transform: rotate(-2.8125deg);
   }
+
   to {
     transform: rotate(2.8125deg);
   }

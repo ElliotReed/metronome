@@ -2,8 +2,14 @@ import classNames from "classnames";
 
 import "./heading.css";
 
-export default function Heading({ level, size, color = "default", children }) {
-  const HeadingTag = `h${level || 5}`;
+interface Headings {
+  level?: string,
+  size?: string,
+  color: string,
+  children: any,
+}
+export default function Heading({ level, size, color = "default", children }:Headings) {
+  const HeadingTag:string = `h${level || 5}`;
   const headingColor =
     color === "dark" ? "heading__text-dark" : "heading__text-default";
 

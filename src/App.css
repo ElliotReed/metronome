@@ -1,3 +1,27 @@
 .main {
   overflow-y: auto;
 }
+
+.scrollbar {
+  scrollbar-color: var(--accent);
+  scrollbar-width: thin;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 1rem;
+  background-color: var(--accent);
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--accent-dark);
+  border-radius: 0;
+}
+
+/* prevents gaps at top and bottom */
+body.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 0;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--dark-accent);
+}

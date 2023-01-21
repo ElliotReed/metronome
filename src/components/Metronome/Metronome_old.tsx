@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import MechanicalMetronome from "../MechanicalMetronome";
+// import MechanicalMetronome from "../MechanicalMetronome";
 import Staff from "../Staff";
 import TempoTapper from "../TempoTapper";
 
@@ -10,26 +10,32 @@ import MeshContainer from "../common/MeshContainer";
 
 import "./metronome.css";
 
+function intervalFromBpm(bpm: number) {
+  return Math.round((60 / bpm) * 1000);
+}
+
 export default function Metronome() {
   const [bpm, setBpm] = React.useState(100);
   const [isPlaying, setIsPlaying] = React.useState(false);
-  const [timer, setTimer] = React.useState(null);
+  const [timer, setTimer] = React.useState<number>();
 
   const [beatCount, setBeatCount] = React.useState(0);
   const [beatsPerMeasure, setBeatsPerMeasure] = React.useState(4);
 
-  const [count, setCount] = React.useState(0);
-  const [clickLength, setClickLength] = React.useState(1);
+  // for mechanical metronome NOT IMPLEMENTED
+  // const [count, setCount] = React.useState(0);
+  // const [clickLength, setClickLength] = React.useState(1);
 
-  const initializeTimer = (timerInterval) => {
+  const initializeTimer = (timerInterval: number) => {
     setTimer(
-      setInterval(() => {
+      window.setTimeout(() => {
         triggerEffects();
+        initializeTimer(intervalFromBpm(bpm))
       }, timerInterval)
     );
   };
 
-  const updatedBeatCount = (prevBeatCount) =>
+  const updatedBeatCount = (prevBeatCount: number) =>
     prevBeatCount < beatsPerMeasure ? prevBeatCount + 1 : 1;
 
   const triggerEffects = () => {
@@ -39,10 +45,12 @@ export default function Metronome() {
     // setCount((count + 1) % beatsPerMeasure);
   };
 
+
+
   const startStop = () => {
     if (!isPlaying) {
       // Start a timer with the current BPM
-      const timerInterval = ((60 / bpm) * 1000).toFixed(0);
+      const timerInterval = intervalFromBpm(bpm);
       initializeTimer(timerInterval);
       setIsPlaying(true);
     } else {
@@ -58,21 +66,30 @@ export default function Metronome() {
     // swingPendulum();
   };
 
-  const handleBpmChange = (event) => {
-    const newBPM = event.target.value;
-    setBpm(newBPM);
+  // for Mechanical Metronome handles range input change
+  // const handleBpmChange = () => {
+  //   const newBPM = Number(event.target.value);
+  //   setBpm(newBPM);
 
-    if (isPlaying) {
-      // Stop old timer and start a new one
-      clearInterval(timer);
-      const timerInterval = ((60 / newBPM) * 1000).toFixed(0);
-      initializeTimer(timerInterval);
-      // setCount(0);
-    }
-  };
+  //   if (isPlaying) {
+  //     // Stop old timer and start a new one
+  //     clearInterval(timer);
+  //     const timerInterval = Math.floor((60 / newBPM) * 1000);
+  //     initializeTimer(timerInterval);
+  //     // setCount(0);
+  //   }
+  // };
+
+  React.useEffect(() => {
+    if (!isPlaying) return;
+
+    clearInterval(timer);
+    const newInterval = intervalFromBpm(bpm);
+    initializeTimer(newInterval);
+  }, [bpm])
 
   return (
-    <section className="Metronome">
+    <div className="Metronome">
       {/* <MechanicalMetronome
           bpm={bpm}
           clickLength={clickLength}
@@ -95,38 +112,58 @@ export default function Metronome() {
           <TempoTapper setBpm={setBpm} />
         </Collapsible>
       </MetronomeControls>
-    </section>
+    </div>
   );
 }
 
-function MetronomeControls({ bpm, children, setBpm }) {
-  const [time, setTime] = React.useState(160);
-  const intervalRef = React.useRef(null);
+interface IMetronomeControls {
+  bpm: number,
+  children: any,
+  setBpm: Function,
+}
+function MetronomeControls({ bpm, children, setBpm }: IMetronomeControls) {
+  const DEFAULT_DELAY_IN_MILLISECONDS = 160;
+  const timeoutRef = React.useRef<number | null>(null);
+  const incrementBpm = () => setBpm((bpm: number) => bpm + 1);
+  const decrementBpm = () => setBpm((bpm: number) => bpm - 1);
+  const initializeTimer = (callback: Function, interval: number,) => {
+    const MAXIMUM_SPEED_IN_MILLISECONDS = 25;
+    timeoutRef.current = (
+      window.setTimeout(() => {
+        callback();
+        let newInterval = interval;
+        if (interval > MAXIMUM_SPEED_IN_MILLISECONDS) {
+          newInterval = interval - 5;
+        }
 
-  const handleDecrementMouseDown = () => {
-    if (intervalRef.current) return;
-    setBpm((bpm) => bpm - 1);
-    intervalRef.current = setInterval(() => {
-      setBpm((bpm) => bpm - 1);
-    }, time);
+        initializeTimer(callback, newInterval,)
+      }, interval)
+    );
   };
+  const handleDecrementMouseDown = () => {
+    decrementBpm()
+    initializeTimer(decrementBpm, DEFAULT_DELAY_IN_MILLISECONDS,);
+  };
+
   const handleIncrementMouseDown = () => {
-    if (intervalRef.current) return;
-    setBpm((bpm) => bpm + 1);
-    intervalRef.current = setInterval(() => {
-      setBpm((bpm) => bpm + 1);
-    }, time);
+    incrementBpm()
+    initializeTimer(incrementBpm, DEFAULT_DELAY_IN_MILLISECONDS,);
   };
 
   const handleMouseUp = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
+    window.clearTimeout(timeoutRef.current);
+    // if (intervalRef.current) {
+    //   clearInterval(intervalRef.current);
+    //   intervalRef.current = null;
+    // }
   };
 
   React.useEffect(() => {
-    return () => handleMouseUp();
+    console.log('controls rendered')
+  });
+
+  React.useEffect(() => {
+    return () => window.clearTimeout(timeoutRef.current);
   }, []);
 
   return (
