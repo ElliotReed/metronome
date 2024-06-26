@@ -73,3 +73,29 @@
   box-shadow: 2px 2px 2px black;
 }
 /* #endregion */
+
+/* #region Pracice Mode Component*/
+
+.practice-mode {
+  z-index: 10;
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25em;
+}
+
+.choices li button {
+  background: var(--dark);
+  color: var(--light);
+  border-radius: 5rem;
+  padding:.125em .5em ;
+}
+.choices li button:hover {
+  cursor: pointer;
+  background: var(--dark-accent);
+}
+/* #endregion */

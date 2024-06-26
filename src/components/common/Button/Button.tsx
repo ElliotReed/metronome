@@ -15,7 +15,7 @@ function BaseButton({
   children,
   btnClass = "default",
   ...restProps
-}: Button) {
+}: Readonly<Button>) {
   return (
     <button className={`btn ${btnClass}`} {...restProps}>
       {children}
@@ -26,7 +26,7 @@ function BaseButton({
 export function ChevronDown({
   children,
   ...restProps
-}: Button) {
+}: Readonly<Button>) {
   const btnClass = "btn-chevron";
   return (
     <BaseButton btnClass={btnClass} {...restProps}>
@@ -38,7 +38,7 @@ export function ChevronDown({
 export function ChevronUp({
   children,
   ...restProps
-}: Button) {
+}: Readonly<Button>) {
   const btnClass = "btn-chevron";
   return (
     <BaseButton btnClass={btnClass} {...restProps}>
@@ -50,7 +50,7 @@ export function ChevronUp({
 export function Circular({
   children,
   ...restProps
-}: Button) {
+}: Readonly<Button>) {
   const btnClass = "btn-circular";
 
   return (
@@ -63,8 +63,8 @@ export function Circular({
 export function Close({
   children,
   ...restProps
-}: Button) {
-  const btnClass = "btn-circular";
+}: Readonly<Button>) {
+  const btnClass = "btn-close";
   return (
     <BaseButton btnClass={btnClass} {...restProps}>
       {children}
@@ -75,14 +75,14 @@ export function Close({
 export function Default({
   children,
   ...restProps
-}: Button) {
+}: Readonly<Button>) {
   return <BaseButton {...restProps}>{children}</BaseButton>;
 }
 
 export function Meter({
   children,
   ...restProps
-}: Button) {
+}: Readonly<Button>) {
   const btnClass = "btn-tapper";
   return (
     <BaseButton btnClass={btnClass} {...restProps}>
@@ -90,11 +90,24 @@ export function Meter({
     </BaseButton>
   );
 }
+
 export function Tapper({
   children,
   ...restProps
-}: Button) {
+}: Readonly<Button>) {
   const btnClass = "btn-tapper";
+  return (
+    <BaseButton btnClass={btnClass} {...restProps}>
+      {children}
+    </BaseButton>
+  );
+}
+
+export function PracticeMode({
+  children,
+  ...restProps
+}: Readonly<Button>) {
+  const btnClass = "btn-practice";
   return (
     <BaseButton btnClass={btnClass} {...restProps}>
       {children}
