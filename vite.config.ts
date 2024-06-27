@@ -1,9 +1,21 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import viteReact from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import path from 'node:path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+  plugins: [
+    viteReact(),
+    viteTsconfigPaths(),
+    svgrPlugin(),
+    TanStackRouterVite(),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    }
+  }
 });

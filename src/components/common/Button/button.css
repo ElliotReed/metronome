@@ -95,3 +95,8 @@
     grid-column-start: 2;
   }
 }
+
+.btn-practice {
+  --padding: .5em;
+  font-size: .5em;
+}

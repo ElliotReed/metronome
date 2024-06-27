@@ -27,16 +27,13 @@ export default function Metronome() {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const timeoutRef = React.useRef<number | null>(null);
 
-  const [isPracticeMode, setIsPracticeMode] = React.useState(false)
-  const [practiceBPM, setPracticeBPM] = React.useState(0)
-  const [pickedStop, setPickedStop] = React.useState<number | undefined>(undefined)
-  const [isWinner, setIsWinner] = React.useState(false);
+  console.log('component render');
 
   const initializeTimer = (timerInterval: number) => {
     timeoutRef.current = (
       window.setTimeout(() => {
         triggerEffects();
-        initializeTimer(intervalFromBpm(isPracticeMode ? practiceBPM : bpm));
+        initializeTimer(intervalFromBpm(bpm));
       }, timerInterval)
     );
   };
@@ -58,7 +55,7 @@ export default function Metronome() {
   const startStop = React.useCallback(() => {
     if (!isPlaying) {
       // Start a timer with the current BPM
-      const timerInterval = intervalFromBpm(isPracticeMode ? practiceBPM : bpm);
+      const timerInterval = intervalFromBpm(bpm);
       initializeTimer(timerInterval);
       setIsPlaying(true);
     } else {
@@ -67,51 +64,49 @@ export default function Metronome() {
       setIsPlaying(false);
       setBeatCount(0);
     }
-  }, [isPlaying, isPracticeMode, practiceBPM, bpm]);
+  }, [isPlaying, bpm]);
 
   React.useEffect(() => {
     if (!isPlaying) return;
 
     clearIfRefCurrentExists();
 
-    initializeTimer(intervalFromBpm(isPracticeMode ? practiceBPM : bpm));
+    initializeTimer(intervalFromBpm(bpm));
 
     return () => {
       clearIfRefCurrentExists();
     };
   });
 
-  function handlePracticeStart() {
-    setPickedStop(undefined)
-    setIsWinner(false)
-    const randomStopIndex = Math.floor(Math.random() * metronomeStops.length)
-    setPracticeBPM(() => metronomeStops[randomStopIndex])
-    startStop()
+  // raf timer
+  const frameIdRef = React.useRef<number | null>(null);
+  const startTimeRef = React.useRef(0);
+  const elapsedTimeRef = React.useRef(0);
+
+  function beatTick(timestamp: number) {
+    if (!startTimeRef.current) {
+      startTimeRef.current = timestamp;
+    }
+
+    const timeDelta = timestamp - startTimeRef.current;
+    elapsedTimeRef.current += timeDelta;
+
+    if (elapsedTimeRef.current >= intervalFromBpm(bpm)) {
+
+      console.log('tick');
+      elapsedTimeRef.current = 0;
+    }
+
+    startTimeRef.current = timestamp;
+    frameIdRef.current = requestAnimationFrame(beatTick);
+
   }
 
-  const handleTempoPick = React.useCallback((stop: number | undefined) => {
-    if (stop === undefined) return;
-
-    const offset = 10;
-    setPickedStop(stop);
-    startStop(); // Ensure startStop is being called correctly
-    if (stop === practiceBPM || (stop >= practiceBPM - offset && stop <= practiceBPM + offset)) {
-      setIsWinner(true);
-    } else {
-      setIsWinner(false);
-    }
-  }, [startStop, practiceBPM]);
-
+  // frameIdRef.current = requestAnimationFrame(beatTick);
+  // raf timer end
 
   return (
     <div className="Metronome">
-      <Button.Default
-        onClick={() => {
-          isPlaying && startStop()
-          setIsPracticeMode(!isPracticeMode)
-        }}>
-        {isPracticeMode ? 'Exit Practice Mode' : 'Practice Mode'}
-      </Button.Default>
       <Staff
         defaultSound={defaultSound}
         accentSound={accentSound}
@@ -120,59 +115,24 @@ export default function Metronome() {
         setBeatsPerMeasure={setBeatsPerMeasure}
       />
 
-      {
-        isPracticeMode
-          ? (
-            <div className="practice-mode">
-              <Button.Default
-                onClick={() => handlePracticeStart()}>
-                Play?
-              </Button.Default>
+      <MetronomeControls>
+        <BpmIncreaseOrDecrease
+          setBpm={setBpm}
+        >
+          <BpmDisplay bpm={bpm} />
+        </BpmIncreaseOrDecrease>
 
-              <MeshContainer>
-                <p>
-                  Actual: {pickedStop !== undefined ? practiceBPM : '?'}
-                  {' - '}
-                  Your pick: {pickedStop ?? '?'}
-                </p>
-                <p>
-                  {pickedStop == undefined && 'Status: ?'}
-                  {pickedStop !== undefined && isWinner && 'You win!'}
-                  {pickedStop !== undefined && !isWinner && 'Nice try...'}
-                </p>
-              </MeshContainer>
-              <ul className="choices">
-                {metronomeStops.map(stop => (
-                  <li key={stop}>
-                    <button
-                      onClick={() => handleTempoPick(stop)}
-                    >{stop}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )
-          : (<MetronomeControls>
-            <BpmIncreaseOrDecrease
-              setBpm={setBpm}
-            >
-              <BpmDisplay bpm={bpm} />
-            </BpmIncreaseOrDecrease>
-
-            <Button.Default onClick={startStop}>
-              {isPlaying ? "Stop" : "Start"}
-            </Button.Default>
-            <Collapsible
-              shouldExpand={false}
-              title={"Tempo Tapper"}
-              titleColor="dark"
-            >
-              <TempoTapper setBpm={setBpm} />
-            </Collapsible>
-          </MetronomeControls>
-          )
-      }
+        <Button.Default onClick={startStop}>
+          {isPlaying ? "Stop" : "Start"}
+        </Button.Default>
+        <Collapsible
+          shouldExpand={false}
+          title={"Tempo Tapper"}
+          titleColor="dark"
+        >
+          <TempoTapper setBpm={setBpm} />
+        </Collapsible>
+      </MetronomeControls>
     </div >
   );
 }
@@ -194,5 +154,5 @@ function BpmDisplay({ bpm }: Readonly<{ bpm: number }>) {
 }
 
 function intervalFromBpm(bpm: number) {
-  return Math.round((60 / bpm) * 1000);
+  return Math.floor((60 / bpm) * 1000);
 }

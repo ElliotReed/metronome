@@ -11,6 +11,12 @@
       "vite-plugin-svgr/client"
     ],
     "allowJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+    },
     "skipLibCheck": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
@@ -25,6 +31,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "src/components/MechanicalMetronome"  ]
+    "src",
+    "src/components/MechanicalMetronome"
+  ]
 }

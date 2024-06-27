@@ -18,7 +18,6 @@ export default function Note({ id, beatUnit, beat, defaultSound, accentSound }: 
   const playSound = () => {
     status === "accent" && accentSound.play();
     status === "default" && defaultSound.play();
-    return;
   };
 
   const handleBeatEvent = (beat: number) => {

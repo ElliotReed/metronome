@@ -1,16 +1,23 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import "./normalize.css";
-import "./index.css";
-import App from "./App";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { routeTree } from './routeTree.gen';
 
-const rootElement = document.getElementById("metronome-root");
-// for typescript so null does not throw an error
-if (!rootElement) throw new Error('Failed to find the root element');
-const root = createRoot(rootElement);
+const router = createRouter({ routeTree });
 
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
+const rootElement = document.getElementById('metronome-root')!;
+if (!rootElement.innerHTML) {
+  const root = createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+
+  )
+};

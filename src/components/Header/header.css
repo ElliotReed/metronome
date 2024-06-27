@@ -3,10 +3,30 @@
   background-color: var(--dark);
 }
 
+.header-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .header-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+
+    :first-child {
+      grid-column: 2/3;
+    }
+  }
+}
+
 .header__title {
   display: inline-block;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   line-height: 1;
   color: var(--accent);
   text-align: center;
@@ -23,3 +43,7 @@
   border: 2px ridge var(--light);
   border-radius: 0.5rem;
 }
+
+
+
+
