@@ -1,0 +1,27 @@
+.practice-mode {
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+/* the play button */
+.practice-mode > button:first-child {
+  margin-block: 1em;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25em;
+}
+
+.choices li button {
+  background: var(--dark);
+  color: var(--light);
+  border-radius: 5rem;
+  padding:.125em .5em ;
+}
+.choices li button:hover {
+  cursor: pointer;
+  background: var(--dark-accent);
+}
+/* #endregion */

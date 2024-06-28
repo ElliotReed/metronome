@@ -1,0 +1,15 @@
+.button-link {
+  border: 2px ridge var(--light);
+  border-radius: 1.5rem;
+  background: var(--dark);
+  padding: var(--padding) calc(var(--padding) * 1.5);
+  color: var(--light);
+  transition: all var(--duration-sm);
+  user-select: none;
+  filter: drop-shadow(var(--filterShadowElevationOne));
+  outline-width: 0;
+  outline-color: inherit;
+  outline-style: dotted;
+  outline-offset: 2px;
+  text-transform: uppercase;
+}

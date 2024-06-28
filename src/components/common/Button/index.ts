@@ -6,5 +6,4 @@ export {
   Default,
   Meter,
   Tapper,
-  PracticeMode,
 } from "./Button";

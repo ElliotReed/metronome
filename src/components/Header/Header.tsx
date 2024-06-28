@@ -1,7 +1,6 @@
 import { Link } from '@tanstack/react-router';
 
 import MeshContainer from '@/components/common/MeshContainer';
-import * as Button from '@/components/common/Button';
 import "./header.css";
 
 export default function Header() {
@@ -14,10 +13,8 @@ export default function Header() {
               <h1 className="header__title">Metronome</h1>
             </div>
           </Link>
-          <Link to="/game">
-            <Button.PracticeMode>
-              Practice Mode
-            </Button.PracticeMode>
+          <Link to="/game" className="header__button-link">
+            Practice Mode
           </Link>
         </nav>
       </MeshContainer>

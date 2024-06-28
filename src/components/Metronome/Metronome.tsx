@@ -11,14 +11,12 @@ import MeshContainer from "../common/MeshContainer";
 import click from "../../assets/click.wav";
 import clickAccent from "../../assets/clickAccent.wav";
 
+import getIntervalFromBpm from "@/utils/getBpmFromInterval";
+
 import "./metronome.css";
 
 const defaultSound = new Audio(click);
 const accentSound = new Audio(clickAccent);
-
-const metronomeStops = [
-  40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 63, 66, 69, 72, 76, 80, 84, 88, 92, 96, 100, 104, 108, 112, 116, 120, 126, 132, 138, 142, 148, 152, 160, 168, 176, 184, 192, 200, 208
-]
 
 export default function Metronome() {
   const [bpm, setBpm] = React.useState(100);
@@ -27,13 +25,11 @@ export default function Metronome() {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const timeoutRef = React.useRef<number | null>(null);
 
-  console.log('component render');
-
   const initializeTimer = (timerInterval: number) => {
     timeoutRef.current = (
       window.setTimeout(() => {
         triggerEffects();
-        initializeTimer(intervalFromBpm(bpm));
+        initializeTimer(getIntervalFromBpm(bpm));
       }, timerInterval)
     );
   };
@@ -55,7 +51,7 @@ export default function Metronome() {
   const startStop = React.useCallback(() => {
     if (!isPlaying) {
       // Start a timer with the current BPM
-      const timerInterval = intervalFromBpm(bpm);
+      const timerInterval = getIntervalFromBpm(bpm);
       initializeTimer(timerInterval);
       setIsPlaying(true);
     } else {
@@ -71,39 +67,12 @@ export default function Metronome() {
 
     clearIfRefCurrentExists();
 
-    initializeTimer(intervalFromBpm(bpm));
+    initializeTimer(getIntervalFromBpm(bpm));
 
     return () => {
       clearIfRefCurrentExists();
     };
   });
-
-  // raf timer
-  const frameIdRef = React.useRef<number | null>(null);
-  const startTimeRef = React.useRef(0);
-  const elapsedTimeRef = React.useRef(0);
-
-  function beatTick(timestamp: number) {
-    if (!startTimeRef.current) {
-      startTimeRef.current = timestamp;
-    }
-
-    const timeDelta = timestamp - startTimeRef.current;
-    elapsedTimeRef.current += timeDelta;
-
-    if (elapsedTimeRef.current >= intervalFromBpm(bpm)) {
-
-      console.log('tick');
-      elapsedTimeRef.current = 0;
-    }
-
-    startTimeRef.current = timestamp;
-    frameIdRef.current = requestAnimationFrame(beatTick);
-
-  }
-
-  // frameIdRef.current = requestAnimationFrame(beatTick);
-  // raf timer end
 
   return (
     <div className="Metronome">
@@ -151,8 +120,4 @@ function BpmDisplay({ bpm }: Readonly<{ bpm: number }>) {
       <div className="bpm-display">{bpm}</div>
     </MeshContainer>
   )
-}
-
-function intervalFromBpm(bpm: number) {
-  return Math.floor((60 / bpm) * 1000);
 }
