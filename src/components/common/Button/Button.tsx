@@ -103,14 +103,3 @@ export function Tapper({
   );
 }
 
-export function PracticeMode({
-  children,
-  ...restProps
-}: Readonly<Button>) {
-  const btnClass = "btn-practice";
-  return (
-    <BaseButton btnClass={btnClass} {...restProps}>
-      {children}
-    </BaseButton>
-  );
-}
