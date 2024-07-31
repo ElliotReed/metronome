@@ -45,7 +45,7 @@
 }
 
 .header__button-link {
-  // styles from button
+  /* styles from button */
   display: inline-block;
   font-size: .5em;
   margin-block: .5em;

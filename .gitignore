@@ -6,6 +6,9 @@
 # dependencies
 /node_modules
 
+# env
+.env
+
 # testing
 /coverage
 

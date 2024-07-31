@@ -3,10 +3,11 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
-    "@tanstack/react-router": "^1.40.0",
+    "@tanstack/react-router": "^1.45.16",
     "classnames": "^2.5.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "dotenv": "^16.4.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "scripts": {
     "build": "tsc && vite build",
@@ -28,13 +29,14 @@
     ]
   },
   "devDependencies": {
-    "@tanstack/router-devtools": "^1.40.0",
-    "@tanstack/router-plugin": "^1.39.13",
-    "@types/react": "^18.2.74",
-    "@types/react-dom": "^18.2.24",
-    "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.4.4",
-    "vite": "^5.2.8",
+    "@tanstack/router-devtools": "^1.45.16",
+    "@tanstack/router-plugin": "^1.45.13",
+    "@types/node": "^22.0.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.5",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2"
   },
