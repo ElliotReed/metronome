@@ -8,8 +8,8 @@ import * as Button from "../common/Button";
 import Collapsible from "../common/Collapsible";
 import MeshContainer from "../common/MeshContainer";
 
-import click from "../../assets/click.wav";
-import clickAccent from "../../assets/clickAccent.wav";
+import click from "/assets/click.wav";
+import clickAccent from "/assets/clickAccent.wav";
 
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
 

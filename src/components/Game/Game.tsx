@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Button from '@/components/common/Button';
 import MeshContainer from '@/components/common/MeshContainer';
 
-import click from '@/assets/click.wav';
+import click from '/assets/click.wav';
 
 import './game.css';
 
