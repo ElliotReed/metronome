@@ -35,9 +35,10 @@ const setLocalStorage = (data: StorageData) => {
 }
 
 export default function Metronome() {
-  const [bpm, setBpm] = React.useState(getLocalStorage().bpm);
+
+  const [bpm, setBpm] = React.useState(getLocalStorage()?.bpm || 120);
   const [beatCount, setBeatCount] = React.useState(0);
-  const [beatsPerMeasure, setBeatsPerMeasure] = React.useState(getLocalStorage().beatsPerMeasure);
+  const [beatsPerMeasure, setBeatsPerMeasure] = React.useState(getLocalStorage()?.beatsPerMeasure || 4);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const timeoutRef = React.useRef<number | null>(null);
 
@@ -49,6 +50,16 @@ export default function Metronome() {
       }, timerInterval)
     );
   };
+
+  const setInitialState = (data: StorageData) => {
+    if (!data.bpm || !data.beatsPerMeasure) {
+      setBpm(120)
+      setBeatsPerMeasure(4)
+     } else {
+       setBpm(data.bpm)
+       setBeatsPerMeasure(data.beatsPerMeasure)
+     }
+  }
 
   const updatedBeatCount = (prevBeatCount: number) =>
     prevBeatCount < beatsPerMeasure ? prevBeatCount + 1 : 1;
@@ -93,12 +104,6 @@ export default function Metronome() {
   React.useEffect(() => {
     setLocalStorage({ bpm, beatsPerMeasure,})
   }, [bpm, beatsPerMeasure]);
-
-  // React.useEffect(() => {
-  //  const {bpm, beatsPerMeasure} = getLocalStorage()
-  //  setBpm(bpm)
-  //  setBeatsPerMeasure(beatsPerMeasure)
-  // }, []);
 
   return (
     <div className="Metronome">
