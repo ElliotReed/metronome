@@ -14,14 +14,30 @@ import clickAccent from "/assets/clickAccent.wav";
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
 
 import "./metronome.css";
+import { json } from "stream/consumers";
 
 const defaultSound = new Audio(click);
 const accentSound = new Audio(clickAccent);
 
+const getLocalStorage = () => {
+  const storedData = localStorage.getItem('data')
+  if (!storedData) return
+  return JSON.parse(storedData)
+}
+
+type StorageData = {
+  bpm: number;
+  beatsPerMeasure: number;
+}
+
+const setLocalStorage = (data: StorageData) => {
+  localStorage.setItem('data',JSON.stringify(data))
+}
+
 export default function Metronome() {
-  const [bpm, setBpm] = React.useState(100);
+  const [bpm, setBpm] = React.useState(getLocalStorage().bpm);
   const [beatCount, setBeatCount] = React.useState(0);
-  const [beatsPerMeasure, setBeatsPerMeasure] = React.useState(4);
+  const [beatsPerMeasure, setBeatsPerMeasure] = React.useState(getLocalStorage().beatsPerMeasure);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const timeoutRef = React.useRef<number | null>(null);
 
@@ -73,6 +89,16 @@ export default function Metronome() {
       clearIfRefCurrentExists();
     };
   });
+
+  React.useEffect(() => {
+    setLocalStorage({ bpm, beatsPerMeasure,})
+  }, [bpm, beatsPerMeasure]);
+
+  // React.useEffect(() => {
+  //  const {bpm, beatsPerMeasure} = getLocalStorage()
+  //  setBpm(bpm)
+  //  setBeatsPerMeasure(beatsPerMeasure)
+  // }, []);
 
   return (
     <div className="Metronome">
