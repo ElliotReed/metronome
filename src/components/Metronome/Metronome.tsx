@@ -12,33 +12,40 @@ import click from "/assets/click.wav";
 import clickAccent from "/assets/clickAccent.wav";
 
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
+import createLocalStorageService from '@/services/localStorageService';
 
 import "./metronome.css";
-import { json } from "stream/consumers";
+
+const METRONOME_STORAGE_KEY = 'metronome_state';
 
 const defaultSound = new Audio(click);
 const accentSound = new Audio(clickAccent);
 
-const getLocalStorage = () => {
-  const storedData = localStorage.getItem('data')
-  if (!storedData) return
-  return JSON.parse(storedData)
-}
-
-type StorageData = {
+type MetronomeStorageData = {
   bpm: number;
   beatsPerMeasure: number;
 }
 
-const setLocalStorage = (data: StorageData) => {
-  localStorage.setItem('data',JSON.stringify(data))
-}
+const metronomeStateStorage = createLocalStorageService(METRONOME_STORAGE_KEY);
+
+const initialMetronomeState = () => {
+  const storedState: MetronomeStorageData = metronomeStateStorage.get();
+  return {
+    bpm: storedState?.bpm ?? 120,
+    beatsPerMeasure: storedState?.beatsPerMeasure ?? 4
+  };
+};
+
+const storeMetronomeState = (bpm: number, beatsPerMeasure: number) => {
+  const dataToStore = { bpm, beatsPerMeasure };
+  metronomeStateStorage.set(dataToStore);
+};
 
 export default function Metronome() {
-
-  const [bpm, setBpm] = React.useState(getLocalStorage()?.bpm || 120);
+  const [bpm, setBpm] = React.useState(() => initialMetronomeState().bpm);
+  const [beatsPerMeasure, setBeatsPerMeasure] = React.useState(() => initialMetronomeState().beatsPerMeasure);
   const [beatCount, setBeatCount] = React.useState(0);
-  const [beatsPerMeasure, setBeatsPerMeasure] = React.useState(getLocalStorage()?.beatsPerMeasure || 4);
+
   const [isPlaying, setIsPlaying] = React.useState(false);
   const timeoutRef = React.useRef<number | null>(null);
 
@@ -50,16 +57,6 @@ export default function Metronome() {
       }, timerInterval)
     );
   };
-
-  const setInitialState = (data: StorageData) => {
-    if (!data.bpm || !data.beatsPerMeasure) {
-      setBpm(120)
-      setBeatsPerMeasure(4)
-     } else {
-       setBpm(data.bpm)
-       setBeatsPerMeasure(data.beatsPerMeasure)
-     }
-  }
 
   const updatedBeatCount = (prevBeatCount: number) =>
     prevBeatCount < beatsPerMeasure ? prevBeatCount + 1 : 1;
@@ -102,7 +99,7 @@ export default function Metronome() {
   });
 
   React.useEffect(() => {
-    setLocalStorage({ bpm, beatsPerMeasure,})
+    storeMetronomeState(bpm, beatsPerMeasure);
   }, [bpm, beatsPerMeasure]);
 
   return (
