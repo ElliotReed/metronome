@@ -104,7 +104,7 @@ export default function NoteImage({ status, beatUnit }: { status: string, beatUn
       case 4:
         restPath = quarterRestPath;
         break;
-      case 8 || 8:
+      case 8:
         restPath = eightRestPath;
         break;
       case 16:
