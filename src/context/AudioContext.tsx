@@ -1,26 +1,22 @@
-import * as React from 'react';
+import React, { createContext, useContext } from "react";
+import AudioEngine from '@/utils/AudioEngine';
 
-import AudioEngine from '../utils/AudioEngine';
+const AudioEngineContext = createContext<AudioEngine | null>(null);
 
-const AudioContext = React.createContext<AudioEngine | null>(null);
+export const AudioEngineProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const audioEngine = AudioEngine.getInstance();
 
-export const AudioProvider: React.FC<{ children: React.ReactNode }> =
-    ({ children }) => {
-        const audioEngine = new AudioEngine();
-
-        return (
-            <AudioContext.Provider value={audioEngine}>
-                {children}
-            </AudioContext.Provider>
-        );
-    };
+    return (
+        <AudioEngineContext.Provider value={audioEngine}>
+            {children}
+        </AudioEngineContext.Provider>
+    );
+};
 
 export const useAudioEngine = () => {
-    const context = React.useContext(AudioContext);
-
+    const context = useContext(AudioEngineContext);
     if (!context) {
-        throw new Error("use Audio must be used within an AudioProvider");
+        throw new Error("useAudioEngine must be used within an AudioEngineProvider");
     }
-
     return context;
-}
+};

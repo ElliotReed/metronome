@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 
+import App from '@/App';
+
 const TanStackRouterDevtools =
   import.meta.env.VITE_NODE_ENV === 'production'
     ? () => null
@@ -10,20 +12,13 @@ const TanStackRouterDevtools =
       })),
     )
 
-import Header from '@/components/Header';
-
-import '@/normalize.css';
-import '@/index.css';
-import '@/App.css';
-
 export const Route = createRootRoute({
   component: () => (
     <>
-      <Header />
-    { console.log('env ', import.meta.env.VITE_NODE_ENV)}
-      <main className="main scrollbar0">
+      {/* {console.log('env ', import.meta.env.VITE_NODE_ENV)} */}
+      <App>
         <Outlet />
-      </main>
+      </App>
       <TanStackRouterDevtools />
     </>
   )

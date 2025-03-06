@@ -1,17 +1,16 @@
-import { isNull } from 'util';
-import { MidiNote } from '../data/midiNote';
+//  File: AudioEngine.ts
+// This class handles the audio  (and the clock, oops) for the metronome.
+//  It creates an AudioContext and a master volume,  default sound volume and the accent sound volume.
+//   It also contains methods to load and play audio files for the default sound and accent sound, The class also contains  a timer worker that sends messages to the main thread at a specified interval. 
 
-const CLICK_URL = '/click.wav';
-
-class AudioEngine {
+export default class AudioEngine {
+    private static instance: AudioEngine;
     private audioContext: AudioContext;
     public masterGain: GainNode;
-    private envelopeNode: GainNode;
-    private metronomeGain: GainNode;
-    private oscillatorNode: OscillatorNode | null = null;
-    private toneGain: GainNode;
-    private clickBuffer: AudioBuffer | null = null;
-    private clickSource: AudioBufferSourceNode | null = null;
+    private defaultSoundGain: GainNode;
+    private accentSoundGain: GainNode;
+    private defaultSoundBuffer: AudioBuffer | null = null;
+    private accentSoundBuffer: AudioBuffer | null = null;
     private rampTimeMinimum: number = 0.05;
 
     private timerWorker: Worker;
@@ -19,136 +18,36 @@ class AudioEngine {
 
     constructor() {
         this.audioContext = new AudioContext();
-        this.envelopeNode = this.audioContext.createGain();
 
         this.masterGain = this.audioContext.createGain();
         this.masterGain.gain.setValueAtTime(0, this.audioContext.currentTime);
 
-        this.metronomeGain = this.audioContext.createGain();
-        this.metronomeGain.gain.setValueAtTime(
+        this.defaultSoundGain = this.audioContext.createGain();
+        this.defaultSoundGain.gain.setValueAtTime(
+            0, this.audioContext.currentTime
+        );
+        this.accentSoundGain = this.audioContext.createGain();
+        this.accentSoundGain.gain.setValueAtTime(
             0, this.audioContext.currentTime
         );
 
-        this.toneGain = this.audioContext.createGain();
-        this.toneGain.gain.setValueAtTime(0, this.audioContext.currentTime);
-
-        this.envelopeNode.connect(this.toneGain);
-        this.metronomeGain.connect(this.masterGain);
-        this.toneGain.connect(this.masterGain);
+        this.defaultSoundGain.connect(this.masterGain);
+        this.accentSoundGain.connect(this.masterGain);
 
         this.masterGain.connect(this.audioContext.destination);
 
-        this.loadAudioFile(CLICK_URL)
-            .catch(console.error);
 
         this.timerWorker = new Worker(new URL('./timerWorker.ts', import.meta.url),
             { type: 'module' }
         );
+        // console.log('AudioEngine initialized');
     }
 
-    connectToEnvelopeNode(node: AudioNode) {
-        node.connect(this.envelopeNode);
-    }
-
-    // connectToToneGain(node: AudioNode) {
-    //     console.log('constructed');
-    //     node.connect(this.toneGain);
-    // }
-
-    createToneOscillator(
-        frequency: number,
-        loudnessAdjustment: number = 1,
-        startTime?: number,
-        stopTime?: number,
-    ): {
-        toneOscillator: OscillatorNode,
-        startTone: (startTime: number) => void,
-        stopTone: (stopTime: number) => void,
-    } {
-
-        const toneOscillator = this.audioContext.createOscillator();
-        toneOscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
-        this.connectToEnvelopeNode(toneOscillator);
-        ///////////////////////
-        let attack = 0.05;
-        let release = 0.05;
-        const releaseOffset = release / 2;
-
-        const startTone = (startTime: number) => {
-            this.envelopeNode?.gain
-                .setValueAtTime(0, startTime)
-                .linearRampToValueAtTime(
-                    1 * loudnessAdjustment,
-                    startTime + attack
-                )
-            toneOscillator.start(startTime);
+    public static getInstance(): AudioEngine {
+        if (!AudioEngine.instance) {
+            AudioEngine.instance = new AudioEngine();
         }
-
-        const stopTone = (stopTime: number) => {
-            if (stopTime === this.audioContext.currentTime) {
-                this.envelopeNode.gain
-                    .linearRampToValueAtTime(
-                        1 * loudnessAdjustment,
-                        stopTime
-                    )
-                    .linearRampToValueAtTime(
-                        0,
-                        stopTime + releaseOffset
-                    )
-                toneOscillator.stop(stopTime + release);
-            }
-
-
-            this.envelopeNode.gain
-                .linearRampToValueAtTime(
-                    1 * loudnessAdjustment,
-                    stopTime - release
-                )
-                .linearRampToValueAtTime(
-                    0,
-                    stopTime - releaseOffset
-                )
-            toneOscillator.stop(stopTime);
-        }
-
-        toneOscillator.onended = () => toneOscillator.disconnect();
-
-        if (startTime !== undefined) {
-            startTone(startTime);
-            if (stopTime !== undefined) {
-                stopTone(stopTime);
-            }
-        }
-
-        return {
-            toneOscillator,
-            startTone,
-            stopTone,
-        };
-    }
-
-    play(midiNote: MidiNote, startTime: number, duration: number) {
-        const currentTime = this.audioContext.currentTime;
-        console.log('midiNote: ', midiNote);
-        if (startTime < 0 || duration <= 0) {
-            throw new Error("startTime and duration must be positive numbers.");
-        }
-
-        if (this.audioContext.state === "suspended") {
-            this.audioContext.resume()
-        }
-
-        this.createOscillatorNode(midiNote.frequency);
-
-        if (this.oscillatorNode) {
-            this.oscillatorNode.start(currentTime + startTime)
-            this.oscillatorNode.stop(currentTime + startTime + duration);
-            this.setEnvelope(startTime, duration, midiNote);
-        }
-    }
-
-    stop() {
-        this.oscillatorNode?.stop(0);
+        return AudioEngine.instance;
     }
 
     startTimer() {
@@ -177,87 +76,53 @@ class AudioEngine {
         );
     }
 
-    setMetronomeVolume(volume: number) {
-        this.metronomeGain.gain.linearRampToValueAtTime(
+    setDefaultSoundVolume(volume: number) {
+        this.defaultSoundGain.gain.linearRampToValueAtTime(
             volume, this.audioContext.currentTime + this.rampTimeMinimum
         );
     }
 
-    setToneVolume(volume: number) {
-        this.toneGain.gain.linearRampToValueAtTime(
+    setAccentSoundVolume(volume: number) {
+        this.accentSoundGain.gain.linearRampToValueAtTime(
             volume, this.audioContext.currentTime + this.rampTimeMinimum
         );
     }
 
-    // temp to bridge vibrato refactor
-    getAudioContext() {
-        return this.audioContext;
-    }
-    // temp to 
-    playClick(time: number) {
-        this.createClickSource();
-        this.clickSource?.start(time);
-    }
-    // temp to test
-    getCurrentTime(): number {
-        return this.audioContext.currentTime;
+    playDefaultSound() {
+        if (this.defaultSoundBuffer) {
+            this.playSound(this.defaultSoundBuffer, this.defaultSoundGain);
+        }
     }
 
-    private async loadAudioFile(url: string): Promise<void> {
+    playAccentSound() {
+        if (this.accentSoundBuffer) {
+            this.playSound(this.accentSoundBuffer, this.accentSoundGain);
+        }
+    }
+
+    loadDefaultSound(url: string) {
+        this.loadAudioFile(url).then((buffer) => {
+            this.defaultSoundBuffer = buffer;
+        });
+    }
+
+    loadAccentSound(url: string) {
+        this.loadAudioFile(url).then((buffer) => {
+            this.accentSoundBuffer = buffer;
+        });
+    }
+
+    private async loadAudioFile(url: string): Promise<AudioBuffer> {
         const response = await fetch(url);
         const arrayBuffer = await response.arrayBuffer();
-        this.clickBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
-        this.createClickSource();
+        const decodedBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+        return decodedBuffer;
     }
 
-    private createClickSource(): void {
-        if (this.clickBuffer) {
-            this.clickSource = this.audioContext.createBufferSource();
-            this.clickSource.buffer = this.clickBuffer;
-            this.clickSource.connect(this.metronomeGain);
-        } else {
-            console.error('Click buffer is not loaded');
-        }
+    private playSound(buffer: AudioBuffer, gain: GainNode) {
+        const source = this.audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(gain);
+        source.start();
     }
-
-    private cleanupOscillator() {
-        if (this.oscillatorNode) {
-            this.oscillatorNode.disconnect();
-            this.oscillatorNode = null;
-        }
-    }
-
-    private createOscillatorNode(frequency: number) {
-        this.oscillatorNode = this.audioContext.createOscillator();
-        this.oscillatorNode.frequency.value = frequency;
-        this.oscillatorNode.connect(this.envelopeNode);
-        this.oscillatorNode.onended = () => this.cleanupOscillator();
-    }
-
-    private setEnvelope(
-        startTime: number, duration: number, midiNote: MidiNote
-    ) {
-        let attack = 0.05;
-        let release = 0.05;
-        const currentTime = this.audioContext.currentTime;
-        const releaseOffset = release / 2;
-
-        this.envelopeNode?.gain
-            .setValueAtTime(0, currentTime + startTime)
-            .linearRampToValueAtTime(
-                midiNote.loudnessAdjustment,
-                currentTime + startTime + attack
-            )
-            .linearRampToValueAtTime(
-                midiNote.loudnessAdjustment,
-                currentTime + startTime + duration - release
-            )
-            .linearRampToValueAtTime(
-                0,
-                currentTime + startTime + duration - releaseOffset
-            )
-    }
-
 }
-
-export default AudioEngine;

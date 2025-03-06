@@ -2,6 +2,8 @@ import * as React from "react";
 
 import NoteImage from "./NoteImage";
 
+import { useAudioEngine } from '@/context/AudioContext';
+
 interface NoteType {
   id: number,
   beatUnit: number,
@@ -12,12 +14,17 @@ interface NoteType {
 
 export default function Note({ id, beatUnit, beat, defaultSound, accentSound }: NoteType) {
   const [status, setStatus] = React.useState("default");
+  const audioEngine = useAudioEngine();
 
   let noteClass = `Note ${status} ${beat === id ? "isPlaying" : ""}`;
 
+  // const playSound = () => {
+  //   status === "accent" && accentSound.play();
+  //   status === "default" && defaultSound.play();
+  // };
   const playSound = () => {
-    status === "accent" && accentSound.play();
-    status === "default" && defaultSound.play();
+    status === "accent" && audioEngine.playAccentSound();
+    status === "default" && audioEngine.playDefaultSound();
   };
 
   const handleBeatEvent = (beat: number) => {

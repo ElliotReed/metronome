@@ -55,6 +55,29 @@ Tags: Metroneme , Web app
   /* timing */
   --duration-sm: 160ms;
   --duration-md: 320ms;
+
+  /* from vocal trainer  */
+  --clr-primary: hsl(180, 20%, 33%);
+  --clr-accent: hsl(from var(--clr-primary) calc(h + 180) s l);
+  --clr-dark: hsl(from var(--clr-primary) calc(h + 180) 5% 10%);
+  --clr-light: hsl(from var(--clr-primary) calc(h + 180) 5% 90%);
+  --clr-body-text-light: var(--clr-light);
+  --clr-body-text-dark: var(--clr-dark);
+  --clr-body-bg-light: var(--clr-light);
+  --clr-body-bg-dark: var(--clr-dark);
+
+  --em-xs: 0.5em;
+  --em-sm: 0.75em;
+  --em-md: 1em;
+  --em-lg: 1.25em;
+  --em-xl: 1.5em;
+
+
+  --fs-sm: .75em;
+  --fs-md: 1em;
+
+  --border-radius: 0.5rem;
+  --padding-box: 0.5em 1.5em;
 }
 
 html {
@@ -63,6 +86,14 @@ html {
   font-family: var(--fontStackSans);
   font-size: calc(.9375rem + 0.390625vw);
   line-height: 1.5;
+  /* font-family: system-ui, sans-serif; */
+  /* font-size: calc(15px + 0.390625vw); */
+  font-synthesis: none;
+  /* font-weight: 400; */
+  /* line-height: 1.6; */
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {

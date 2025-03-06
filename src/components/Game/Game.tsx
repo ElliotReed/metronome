@@ -2,17 +2,21 @@ import * as React from 'react';
 import * as Button from '@/components/common/Button';
 import MeshContainer from '@/components/common/MeshContainer';
 
-import click from '/assets/click.wav';
+import click from '/assets/drumstick.wav';
+import { useAudioEngine } from '@/context/AudioContext';
 
 import './game.css';
 
 import { timerInstance } from '@/utils/timerEngine';
 
-const defaultSound = new Audio(click);
-
+// const defaultSound = new Audio(click);
+import defaultSound from "/assets/drumstick.wav";
+import accentSound from "/assets/drumstick-accent.wav";
 import metronomeStops from '@/utils/metronomeStops';
 
 export default function Game() {
+  const audioEngine = useAudioEngine();
+
   const [bpm, setBpm] = React.useState(0)
   const [pickedStop, setPickedStop] = React.useState<number | undefined>(undefined)
   const [isWinner, setIsWinner] = React.useState(false);
@@ -40,7 +44,10 @@ export default function Game() {
   };
 
   const handleTick = () => {
-    defaultSound.play()
+    // defaultSound.play();
+    console.log('tick');
+    // audioEngine.playDefaultSound();
+    audioEngine.playAccentSound();
   }
 
   React.useEffect(() => {

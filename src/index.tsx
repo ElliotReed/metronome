@@ -1,9 +1,13 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 
-import { AudioProvider } from './context/AudioContext';
+import { AudioEngineProvider } from './context/AudioContext';
+
+import '@/normalize.css';
+import '@/index.css';
 
 const router = createRouter({ routeTree });
 
@@ -18,10 +22,9 @@ if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <AudioProvider>
+      <AudioEngineProvider>
         <RouterProvider router={router} />
-      </AudioProvider>
+      </AudioEngineProvider>
     </React.StrictMode>
-
   )
 };

@@ -1,0 +1,146 @@
+.volume-slider {
+    display: grid;
+    grid-template-columns: auto max(140px, 12ch);
+    grid-template-rows: repeat(2, auto);
+    column-gap: 0.25em;
+    padding-block: 0.1em;
+    padding-inline: 0.25em;
+    border-radius: var(--border-radius);
+    border: 1px solid transparent;
+
+    &:has(input:focus) {
+        border-color: hsl(from var(--clr-primary) h s 75%);
+    }
+
+
+    label {
+        grid-row: 1;
+        grid-column: 1 / -1;
+        padding: 0;
+        user-select: none;
+    }
+
+    svg {
+        grid-row: 2;
+        fill: light-dark(var(--clr-primary), var(--clr-light));
+        width: 1.5rem;
+        aspect-ratio: 1;
+    }
+
+    input {
+        grid-row: 2;
+        --track-border-radius: 10rem;
+        --track-border: 1px solid hsl(from var(--clr-accent) h s 33%);
+        --track-background: var(--clr-accent);
+        --track-focus-background: #0001;
+        --track-height: 8px;
+        --track-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        --thumb-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        --thumb-border: 1px solid hsl(from var(--clr-primary) h s 66%);
+        --thumb-size: calc(var(--track-height) * 2);
+        --thumb-border-radius: 50%;
+        --thumb-background: var(--clr-primary);
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        padding: 0;
+        background: transparent;
+
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            border-color: transparent;
+        }
+
+        &::-webkit-slider-runnable-track {
+            width: 100%;
+            height: var(--track-height);
+            cursor: pointer;
+            box-shadow: var(--track-shadow);
+            background: var(--track-background);
+            border-radius: var(--track-border-radius);
+            border: var(--track-border);
+        }
+
+        &::-webkit-slider-thumb {
+            box-shadow: var(--thumb-shadow);
+            border: var(--thumb-border);
+            width: var(--thumb-size);
+            aspect-ratio: 1;
+            border-radius: var(--thumb-border-radius);
+            background: var(--thumb-background);
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: calc(var(--thumb-size) * -0.25);
+        }
+
+        &:focus::-webkit-slider-runnable-track {
+            background: var(--track-focus-background);
+        }
+
+        &::-moz-range-track {
+            width: 100%;
+            height: var(--track-height);
+            cursor: pointer;
+            box-shadow: var(--track-shadow);
+            background: var(--track-background);
+            border-radius: var(--track-border-radius);
+            border: var(--track-border);
+        }
+
+        &::-moz-range-thumb {
+            box-shadow: var(--thumb-shadow);
+            border: var(--thumb-border);
+            border-radius: var(--thumb-border-radius);
+            width: var(--thumb-size);
+            aspect-ratio: 1;
+            background: var(--thumb-background);
+            cursor: pointer;
+        }
+
+        &::-ms-track {
+            width: 100%;
+            height: var(--track-height);
+            cursor: pointer;
+            background: transparent;
+            border-color: transparent;
+            border-width: 16px 0;
+            color: transparent;
+        }
+
+        &::-ms-fill-lower {
+            background: var(--track-background);
+            border: var(--track-border);
+            border-radius: var(--track-border-radius);
+            box-shadow: var(--track-shadow);
+        }
+
+        &::-ms-fill-upper {
+            background: var(--track-background);
+            border: var(--track-border);
+            border-radius: var(--track-border-radius);
+            box-shadow: var(--track-shadow);
+        }
+
+        &::-ms-thumb {
+            box-shadow: var(--thumb-shadow);
+            border: var(--thumb-border);
+            width: var(--thumb-size);
+            aspect-ratio: 1;
+            border-radius: var(--thumb-border-radius);
+            background: var(--thumb-background);
+            cursor: pointer;
+        }
+
+        &:focus::-ms-fill-lower {
+            background: var(--track-focus-background);
+        }
+
+        &:focus::-ms-fill-upper {
+            background: var(--track-focus-background);
+        }
+    }
+}

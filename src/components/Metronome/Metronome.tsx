@@ -8,8 +8,8 @@ import * as Button from "../common/Button";
 import Collapsible from "../common/Collapsible";
 import MeshContainer from "../common/MeshContainer";
 
-import click from "/assets/click.wav";
-import clickAccent from "/assets/clickAccent.wav";
+import drumstickSound from "/assets/drumstick.wav";
+import drumstickAccentSound from "/assets/drumstick-accent.wav";
 
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
 import createLocalStorageService from '@/services/localStorageService';
@@ -18,8 +18,8 @@ import "./metronome.css";
 
 const METRONOME_STORAGE_KEY = 'metronome_state';
 
-const defaultSound = new Audio(click);
-const accentSound = new Audio(clickAccent);
+const defaultSound = new Audio(drumstickSound);
+const accentSound = new Audio(drumstickAccentSound);
 
 type MetronomeStorageData = {
   bpm: number;
