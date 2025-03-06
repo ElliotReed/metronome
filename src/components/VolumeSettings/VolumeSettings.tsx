@@ -13,14 +13,13 @@ export default function VolumeSettings() {
 
     const saveToVolumeSettings = () => {
         localStorageService.set({
-            masterVolume: audioEngine.getMasterVolume(),
-            defaultVolume: audioEngine.getDefaultSoundVolume(),
-            accentVolume: audioEngine.getAccentSoundVolume(),
+            // masterVolume: audioEngine.getMasterVolume(),
+            // defaultVolume: audioEngine.getDefaultSoundVolume(),
+            // accentVolume: audioEngine.getAccentSoundVolume(),
         });
     }
     const handleMasterVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         audioEngine.setMasterVolume(Number(event.target.value) / 100);
-        l
     };
 
     const handleDefaultVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
