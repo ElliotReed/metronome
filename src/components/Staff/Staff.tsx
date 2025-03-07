@@ -1,28 +1,20 @@
 import * as React from "react";
+import useMetronomeStore from '@/store/useMetronomeStore';
 
-import Note from "./Note";
 import BeatsPerMeasure from "./BeatsPerMeasure";
 import BeatUnits from "./BeatUnits";
-
 import MeshContainer from "../common/MeshContainer";
+import Note from "./Note";
 
 import "./staff.css";
 
-interface Props {
-  beatCount: number;
-  beatsPerMeasure: number;
-  setBeatsPerMeasure: React.Dispatch<React.SetStateAction<number>>;
-  defaultSound: HTMLAudioElement,
-  accentSound: HTMLAudioElement,
-}
+interface Props { beatCount: number; }
+
 export default function Staff({
   beatCount,
-  beatsPerMeasure,
-  setBeatsPerMeasure,
-  defaultSound,
-  accentSound,
 }: Props) {
   const [beatUnit, setBeatUnit] = React.useState(4);
+  const { beatsPerMeasure } = useMetronomeStore();
 
   const handleBeatUnitClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target;
@@ -38,10 +30,7 @@ export default function Staff({
       </MeshContainer>
       <div className="staff__content">
         <aside className="staffContent__aside">
-          <BeatsPerMeasure
-            beatsPerMeasure={beatsPerMeasure}
-            setBeatsPerMeasure={setBeatsPerMeasure}
-          />
+          <BeatsPerMeasure />
           <BeatUnits
             beatUnit={beatUnit}
             handleBeatUnitClick={handleBeatUnitClick}
@@ -55,8 +44,6 @@ export default function Staff({
                 id={i + 1}
                 beat={beatCount}
                 beatUnit={beatUnit}
-                defaultSound={defaultSound}
-                accentSound={accentSound}
               />
             ))}
           </ul>

@@ -12,10 +12,10 @@
 
 @media screen and (min-width: 768px) {
   .header-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
 
     :first-child {
       grid-column: 2/3;
@@ -38,7 +38,7 @@
 .header__title-wrapper {
   max-width: max-content;
   margin: 0 auto;
-  padding: var(--paddingBox);
+  padding: var(--padding-box);
   background: var(--dark);
   border: 2px ridge var(--light);
   border-radius: 0.5rem;
@@ -64,6 +64,7 @@
   outline-offset: 2px;
   text-transform: uppercase;
 }
+
 .header__button-link:hover {
   cursor: pointer;
   transform: scale(1.025);
@@ -79,5 +80,3 @@
 .header__button-link:focus {
   outline-width: 1px;
 }
-
-

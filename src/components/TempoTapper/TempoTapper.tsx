@@ -1,23 +1,23 @@
 import * as React from "react";
+import useMetronomeStore from '@/store/useMetronomeStore';
 
 import * as Button from "../common/Button";
-import Heading from "../common/Heading";
 
 import "./tempoTapper.css";
 
-function convertToSeconds(milliseconds : number) {
+function convertToSeconds(milliseconds: number) {
   return milliseconds / 1000;
 }
 
-function wasDelayed(taps : Date[]) {
-  const lastTap : any = taps[taps.length - 1];
-  const nextToLastTap : any = taps[taps.length - 2]
+function wasDelayed(taps: Date[]) {
+  const lastTap: any = taps[taps.length - 1];
+  const nextToLastTap: any = taps[taps.length - 2]
   const differenceInMilliseconds = lastTap - nextToLastTap;
 
   return convertToSeconds(differenceInMilliseconds) > 3;
 }
 
-export const calculteBeatsPerMinute = (taps : any) => {
+export const calculteBeatsPerMinute = (taps: any) => {
   const length = taps.length;
   const totalTime = taps[length - 1] - taps[0];
   const seconds = totalTime / 1000;
@@ -27,19 +27,18 @@ export const calculteBeatsPerMinute = (taps : any) => {
   return bpm;
 };
 
-export default function TempoTapper({setBpm} : {
-  setBpm: Function
-}) {
+export default function TempoTapper() {
+  const { setBpm } = useMetronomeStore();
   const [taps,
-    setTaps] = React.useState < Date[] > ([]);
+    setTaps] = React.useState<Date[]>([]);
   const [tempo,
-    setTempo] = React.useState < number | string > ("tap button to start");
+    setTempo] = React.useState<number | string>("tap button to start");
 
   const handleTempoTap = () => {
     const TAP_MESSAGE = 'keep tapping';
     const MAX_LENGTH = 6;
     const newTapDate = new Date();
-    const updatedTaps : Date[] = [
+    const updatedTaps: Date[] = [
       ...taps,
       newTapDate
     ];
@@ -75,10 +74,10 @@ export default function TempoTapper({setBpm} : {
           <p className="tapper__tempo">{tempo}</p>
           <Button.Default
             onClick={() => {
-            typeof tempo !== "number"
-              ? setBpm(100)
-              : setBpm(tempo);
-          }}>
+              typeof tempo !== "number"
+                ? setBpm(100)
+                : setBpm(tempo);
+            }}>
             Set BPM
           </Button.Default>
         </div>

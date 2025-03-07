@@ -1,5 +1,5 @@
 .meshContainer {
-  border-radius: var(--borderRadius);
+  border-radius: var(--border-radius);
   border: 2px ridge var(--dark);
   padding: 1rem;
   background-image: url(./mesh.svg);

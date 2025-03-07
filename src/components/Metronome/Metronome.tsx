@@ -1,49 +1,23 @@
 import * as React from "react";
+import useMetronomeStore from '@/store/useMetronomeStore';
 
 import BpmIncreaseOrDecrease from "./BpmIncreaseOrDecrease";
-import Staff from "../Staff";
-import TempoTapper from "../TempoTapper";
+import Staff from "@/components/Staff";
+import TempoTapper from "@/components/TempoTapper";
 
-import * as Button from "../common/Button";
-import Collapsible from "../common/Collapsible";
-import MeshContainer from "../common/MeshContainer";
+import * as Button from "@/components/common/Button";
+import Collapsible from "@/components/common/Collapsible";
+import MeshContainer from "@/components/common/MeshContainer";
 
 import drumstickSound from "/assets/drumstick.wav";
 import drumstickAccentSound from "/assets/drumstick-accent.wav";
 
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
-import createLocalStorageService from '@/services/localStorageService';
 
 import "./metronome.css";
 
-const METRONOME_STORAGE_KEY = 'metronome_state';
-
-const defaultSound = new Audio(drumstickSound);
-const accentSound = new Audio(drumstickAccentSound);
-
-type MetronomeStorageData = {
-  bpm: number;
-  beatsPerMeasure: number;
-}
-
-const metronomeStateStorage = createLocalStorageService(METRONOME_STORAGE_KEY);
-
-const initialMetronomeState = () => {
-  const storedState: MetronomeStorageData = metronomeStateStorage.get();
-  return {
-    bpm: storedState?.bpm ?? 120,
-    beatsPerMeasure: storedState?.beatsPerMeasure ?? 4
-  };
-};
-
-const storeMetronomeState = (bpm: number, beatsPerMeasure: number) => {
-  const dataToStore = { bpm, beatsPerMeasure };
-  metronomeStateStorage.set(dataToStore);
-};
-
 export default function Metronome() {
-  const [bpm, setBpm] = React.useState(() => initialMetronomeState().bpm);
-  const [beatsPerMeasure, setBeatsPerMeasure] = React.useState(() => initialMetronomeState().beatsPerMeasure);
+  const { bpm, setBpm, beatsPerMeasure } = useMetronomeStore();
   const [beatCount, setBeatCount] = React.useState(0);
 
   const [isPlaying, setIsPlaying] = React.useState(false);
@@ -98,25 +72,13 @@ export default function Metronome() {
     };
   });
 
-  React.useEffect(() => {
-    storeMetronomeState(bpm, beatsPerMeasure);
-  }, [bpm, beatsPerMeasure]);
-
   return (
     <div className="Metronome">
-      <Staff
-        defaultSound={defaultSound}
-        accentSound={accentSound}
-        beatCount={beatCount}
-        beatsPerMeasure={beatsPerMeasure}
-        setBeatsPerMeasure={setBeatsPerMeasure}
-      />
+      <Staff beatCount={beatCount} />
 
       <MetronomeControls>
-        <BpmIncreaseOrDecrease
-          setBpm={setBpm}
-        >
-          <BpmDisplay bpm={bpm} />
+        <BpmIncreaseOrDecrease>
+          <BpmDisplay />
         </BpmIncreaseOrDecrease>
 
         <Button.Default onClick={startStop}>
@@ -127,7 +89,7 @@ export default function Metronome() {
           title={"Tempo Tapper"}
           titleColor="dark"
         >
-          <TempoTapper setBpm={setBpm} />
+          <TempoTapper />
         </Collapsible>
       </MetronomeControls>
     </div >
@@ -142,7 +104,8 @@ function MetronomeControls({ children }: Readonly<React.PropsWithChildren>) {
   );
 }
 
-function BpmDisplay({ bpm }: Readonly<{ bpm: number }>) {
+function BpmDisplay() {
+  const { bpm } = useMetronomeStore();
   return (
     <MeshContainer size="stretch">
       <div className="bpm-display">{bpm}</div>

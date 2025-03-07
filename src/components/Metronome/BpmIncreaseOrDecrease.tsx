@@ -1,18 +1,14 @@
 import * as React from 'react';
+import useMetronomeStore from '@/store/useMetronomeStore';
 
 import * as Buttons from '../common/Button';
 
-interface Props {
-  setBpm: React.Dispatch<React.SetStateAction<number>>;
-}
+const DEFAULT_DELAY_IN_MILLISECONDS = 160;
 
-export default function BpmIncreaseOrDecrease({ setBpm, children }:
-  React.PropsWithChildren<Props>) {
-  const DEFAULT_DELAY_IN_MILLISECONDS = 160;
+export default function BpmIncreaseOrDecrease({ children }:
+  { children: React.ReactNode }) {
   const timeoutRef = React.useRef<number | null>(null);
-
-  const incrementBpm = () => setBpm((prev: number) => prev + 1);
-  const decrementBpm = () => setBpm((prev: number) => prev - 1);
+  const { incrementBpm, decrementBpm } = useMetronomeStore();
 
   const initializeTimer = (callback: Function, interval: number,) => {
     const MAXIMUM_SPEED_IN_MILLISECONDS = 25;

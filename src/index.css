@@ -22,6 +22,15 @@ Tags: Metroneme , Web app
   /* --white: #dcd7d7; */
   /* --medium: #716a65; */
   /* --black: #282828; */
+  /* from vocal trainer  */
+  --clr-primary: hsl(180, 20%, 33%);
+  --clr-accent: hsl(from var(--clr-primary) calc(h + 180) s l);
+  --clr-dark: hsl(from var(--clr-primary) calc(h + 180) 5% 10%);
+  --clr-light: hsl(from var(--clr-primary) calc(h + 180) 5% 90%);
+  --clr-body-text-light: var(--clr-light);
+  --clr-body-text-dark: var(--clr-dark);
+  --clr-body-bg-light: var(--clr-light);
+  --clr-body-bg-dark: var(--clr-dark);
 
   /* sizes */
   --tablet: 768px;
@@ -33,6 +42,16 @@ Tags: Metroneme , Web app
   --size-sm: 0.75rem;
   --size-md: 1rem;
   --size-lg: 2rem;
+  /* from vocal trainer  */
+  --em-xs: 0.5em;
+  --em-sm: 0.75em;
+  --em-md: 1em;
+  --em-lg: 1.25em;
+  --em-xl: 1.5em;
+
+
+  --fs-sm: .75em;
+  --fs-md: 1em;
 
   /* box model */
   --shadowRatio: 2;
@@ -44,10 +63,14 @@ Tags: Metroneme , Web app
   --filterShadowElevationOne: 1px 2px 3px var(--shadow);
   --filterShadowElevationTwo: 2px 4px 4px var(--shadow);
   --border: 2px solid var(--dark);
-  --borderRadius: 1.5rem;
+  --border-radius: 1.5rem;
+  --border-radius-sm: 1rem;
   --fontStackSans: "Lexend Mega", sans-serif;
   --fontStackSerif: "Georgia", serif;
-  --paddingBox: var(--padding) calc(var(--padding) * 1.5);
+  --padding-box-sm: var(--em-sm) calc(var(--em-sm) * 1.5);
+  --padding-box: var(--em-md) calc(var(--em-md) * 1.5);
+  /* from vocal trainer  */
+  /* --border-radius: 0.5rem; */
 
   /* animations */
   --softIn: softIn 0.33s ease-in;
@@ -55,29 +78,6 @@ Tags: Metroneme , Web app
   /* timing */
   --duration-sm: 160ms;
   --duration-md: 320ms;
-
-  /* from vocal trainer  */
-  --clr-primary: hsl(180, 20%, 33%);
-  --clr-accent: hsl(from var(--clr-primary) calc(h + 180) s l);
-  --clr-dark: hsl(from var(--clr-primary) calc(h + 180) 5% 10%);
-  --clr-light: hsl(from var(--clr-primary) calc(h + 180) 5% 90%);
-  --clr-body-text-light: var(--clr-light);
-  --clr-body-text-dark: var(--clr-dark);
-  --clr-body-bg-light: var(--clr-light);
-  --clr-body-bg-dark: var(--clr-dark);
-
-  --em-xs: 0.5em;
-  --em-sm: 0.75em;
-  --em-md: 1em;
-  --em-lg: 1.25em;
-  --em-xl: 1.5em;
-
-
-  --fs-sm: .75em;
-  --fs-md: 1em;
-
-  --border-radius: 0.5rem;
-  --padding-box: 0.5em 1.5em;
 }
 
 html {

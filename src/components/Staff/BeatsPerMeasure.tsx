@@ -4,15 +4,16 @@ import MeterElementContainer from "./MeterElementContainer";
 import { CircularBtn, MeterBtn, CloseBtn } from "./StaffButtons";
 
 import OutsideAlerter from "../common/OutsideAlerter/OutsideAlerter";
+import useMetronomeStore from '@/store/useMetronomeStore';
 
 interface Props {
   beatsPerMeasure: number;
   setBeatsPerMeasure: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function BeatsPerMeasure({ beatsPerMeasure, setBeatsPerMeasure }: Props) {
+export default function BeatsPerMeasure() {
   const [shouldShowBeatEditor, setShouldShowBeatEditor] = React.useState(false);
-
+  const { beatsPerMeasure, setBeatsPerMeasure } = useMetronomeStore();
   const handleBeatsIncrement = () => {
     beatsPerMeasure < 16 && setBeatsPerMeasure(beatsPerMeasure + 1);
   };

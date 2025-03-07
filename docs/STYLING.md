@@ -6,4 +6,10 @@ Styled with css modules.
 
 normalize.css imorted in src/index.tsx, top-level component.
 
+## Root
 
+In src/index.tsx
+
+### Custom Properties
+
+Use kebab case.

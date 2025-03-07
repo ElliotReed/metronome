@@ -17,7 +17,7 @@ function BaseButton({
   ...restProps
 }: Readonly<Button>) {
   return (
-    <button className={`btn ${btnClass}`} {...restProps}>
+    <button type='button' className={`btn ${btnClass}`} {...restProps}>
       {children}
     </button>
   );
@@ -96,6 +96,18 @@ export function Tapper({
   ...restProps
 }: Readonly<Button>) {
   const btnClass = "btn-tapper";
+  return (
+    <BaseButton btnClass={btnClass} {...restProps}>
+      {children}
+    </BaseButton>
+  );
+}
+
+export function VolumeSettings({
+  children,
+  ...restProps
+}: Readonly<Button>) {
+  const btnClass = "btn-volume-settings";
   return (
     <BaseButton btnClass={btnClass} {...restProps}>
       {children}

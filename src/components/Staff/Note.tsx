@@ -8,20 +8,14 @@ interface NoteType {
   id: number,
   beatUnit: number,
   beat: number,
-  defaultSound: HTMLAudioElement,
-  accentSound: HTMLAudioElement,
 }
 
-export default function Note({ id, beatUnit, beat, defaultSound, accentSound }: NoteType) {
+export default function Note({ id, beatUnit, beat }: NoteType) {
   const [status, setStatus] = React.useState("default");
   const audioEngine = useAudioEngine();
 
   let noteClass = `Note ${status} ${beat === id ? "isPlaying" : ""}`;
 
-  // const playSound = () => {
-  //   status === "accent" && accentSound.play();
-  //   status === "default" && defaultSound.play();
-  // };
   const playSound = () => {
     status === "accent" && audioEngine.playAccentSound();
     status === "default" && audioEngine.playDefaultSound();
