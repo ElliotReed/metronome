@@ -27,3 +27,5 @@ version 2.1.0
 ## Overview
 
 Use a seperate "engine" to run the clock and send custom events to notify elements that respond to metronome clicks
+
+Using zustand for state and local storage.
