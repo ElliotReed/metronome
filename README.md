@@ -10,6 +10,7 @@ version 2.1.0
     classnames
     react
     react-dom
+    zustand
 
 ### DevDependencies
 
