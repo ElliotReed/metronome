@@ -4,8 +4,6 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 
-import { AudioEngineProvider } from './context/AudioContext';
-
 import '@/normalize.css';
 import '@/index.css';
 
@@ -22,9 +20,7 @@ if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <AudioEngineProvider>
-        <RouterProvider router={router} />
-      </AudioEngineProvider>
+      <RouterProvider router={router} />
     </React.StrictMode>
   )
 };

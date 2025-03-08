@@ -4,8 +4,8 @@
 */
 
 import React from 'react';
-import { useAudioEngine } from '@/context/AudioContext';
-import useAudioStore from '@/store/useAudioStore';
+
+import { useAudioStore } from '@/store/useAudioStore';
 import VolumeSlider from '@/components/VolumeSlider';
 import * as Button from "@/components/common/Button";
 import './volume_settings.css';
@@ -14,7 +14,6 @@ const VOLUME_SETTINGS_KEY = 'volume-settings';
 
 export default function VolumeSettings() {
     const [isOpened, setIsOpened] = React.useState(false);
-    const audioEngine = useAudioEngine();
     const {
         masterVolume,
         setMasterVolume,
@@ -25,21 +24,15 @@ export default function VolumeSettings() {
     } = useAudioStore();
 
     const handleMasterVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = Number(event.target.value);
-        audioEngine.setMasterVolume(inputValue);
-        setMasterVolume(inputValue);
+        setMasterVolume(Number(event.target.value));
     };
 
     const handleDefaultVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = Number(event.target.value);
-        audioEngine.setDefaultSoundVolume(inputValue);
-        setDefaultSoundVolume(inputValue);
+        setDefaultSoundVolume(Number(event.target.value));
     };
 
     const handleAccentVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = Number(event.target.value);
-        audioEngine.setAccentSoundVolume(inputValue);
-        setAccentSoundVolume(inputValue);
+        setAccentSoundVolume(Number(event.target.value));
     };
 
     return (

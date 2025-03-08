@@ -9,15 +9,12 @@ import * as Button from "@/components/common/Button";
 import Collapsible from "@/components/common/Collapsible";
 import MeshContainer from "@/components/common/MeshContainer";
 
-import drumstickSound from "/assets/drumstick.wav";
-import drumstickAccentSound from "/assets/drumstick-accent.wav";
-
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
 
 import "./metronome.css";
 
 export default function Metronome() {
-  const { bpm, setBpm, beatsPerMeasure } = useMetronomeStore();
+  const { bpm, beatsPerMeasure } = useMetronomeStore();
   const [beatCount, setBeatCount] = React.useState(0);
 
   const [isPlaying, setIsPlaying] = React.useState(false);
