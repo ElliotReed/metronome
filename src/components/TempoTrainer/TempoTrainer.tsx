@@ -6,11 +6,11 @@ import { timerInstance } from '@/utils/timerEngine';
 import * as Button from '@/components/common/Button';
 import MeshContainer from '@/components/common/MeshContainer';
 
-import './game.css';
-
 import metronomeStops from '@/utils/metronomeStops';
 
-export default function Game() {
+import './tempo-trainer.css';
+
+export default function TempoTrainer() {
   const { playDefaultSound } = useAudioStore();
 
   const [bpm, setBpm] = React.useState(0)

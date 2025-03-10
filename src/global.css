@@ -18,7 +18,7 @@ Tags: Metroneme , Web app
 
   --accent: #9a9e9a;
   --accent-dark: #7d827d;
-  /* --accent-rgb: 154 158 154; */
+  --accent-rgb: 154 158 154;
 
   /* Noise color 
       The noise darkens or lightens the background color, the noise source color compensates for the change.
@@ -40,8 +40,6 @@ Tags: Metroneme , Web app
 
   --dark-accent: #4d4b47;
   --dark-rgb: 50 49 46;
-  --light: #cdc8c8;
-  --noise-light: #cdc8c8;
   /* --light-rgb: 205 200 200; */
 
   /* --clr-dark: hsl(from var(--clr-primary) calc(h + 180) 5% 10%); */

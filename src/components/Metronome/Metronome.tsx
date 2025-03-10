@@ -3,10 +3,8 @@ import useMetronomeStore from '@/store/useMetronomeStore';
 
 import BpmIncreaseOrDecrease from "./BpmIncreaseOrDecrease";
 import Staff from "@/components/Staff";
-import TempoTapper from "@/components/TempoTapper";
 
 import * as Button from "@/components/common/Button";
-import Collapsible from "@/components/common/Collapsible";
 import MeshContainer from "@/components/common/MeshContainer";
 
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
@@ -81,13 +79,6 @@ export default function Metronome() {
         <Button.Default onClick={startStop}>
           {isPlaying ? "Stop" : "Start"}
         </Button.Default>
-        <Collapsible
-          shouldExpand={false}
-          title={"Tempo Tapper"}
-          titleColor="dark"
-        >
-          <TempoTapper />
-        </Collapsible>
       </MetronomeControls>
     </div >
   );
