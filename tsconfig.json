@@ -13,10 +13,10 @@
       "vite-plugin-svgr/client",
     ],
     "allowJs": false,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
       "@/*": [
-        "src/*"
+        "*"
       ],
     },
     "skipLibCheck": false,

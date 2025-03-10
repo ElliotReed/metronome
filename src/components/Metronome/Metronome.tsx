@@ -70,7 +70,7 @@ export default function Metronome() {
   });
 
   return (
-    <div className="Metronome">
+    <div className="metronome">
       <Staff beatCount={beatCount} />
 
       <MetronomeControls>

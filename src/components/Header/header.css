@@ -1,6 +1,6 @@
 .header {
   padding: var(--padding);
-  background-color: var(--dark);
+  background-image: var(--bg-noise-dark);
 }
 
 .header-grid {
@@ -30,8 +30,8 @@
   line-height: 1;
   color: var(--accent);
   text-align: center;
-  text-shadow: 1px 1px 0 var(--dark), -1px 1px 0 var(--dark),
-    1px -1px 0 var(--dark), -1px -1px 0 var(--dark);
+  text-shadow: 1px 1px 0 var(--clr-dark), -1px 1px 0 var(--clr-dark),
+    1px -1px 0 var(--clr-dark), -1px -1px 0 var(--clr-dark);
   filter: drop-shadow(0px 0px 1px var(--accent));
 }
 
@@ -39,8 +39,8 @@
   max-width: max-content;
   margin: 0 auto;
   padding: var(--padding-box);
-  background: var(--dark);
-  border: 2px ridge var(--light);
+  background: var(--clr-dark);
+  border: 2px ridge var(--clr-light);
   border-radius: 0.5rem;
 }
 
@@ -50,11 +50,11 @@
   font-size: .5em;
   margin-block: .5em;
   --padding: .5em;
-  border: 2px ridge var(--light);
+  border: 2px ridge var(--clr-light);
   border-radius: 1.5rem;
-  background: var(--dark);
+  background: var(--clr-dark);
   padding: var(--padding) calc(var(--padding) * 1.5);
-  color: var(--light);
+  color: var(--clr-light);
   transition: all var(--duration-sm);
   user-select: none;
   filter: drop-shadow(var(--filterShadowElevationOne));

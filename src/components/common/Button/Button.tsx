@@ -1,5 +1,7 @@
 import "./button.css";
 
+import { CloseIcon } from '@/components/icons/Icons';
+
 interface Button {
   children?: any,
   btnClass?: string,
@@ -67,7 +69,7 @@ export function Close({
   const btnClass = "btn-close";
   return (
     <BaseButton btnClass={btnClass} {...restProps}>
-      {children}
+      <CloseIcon />
     </BaseButton>
   );
 }

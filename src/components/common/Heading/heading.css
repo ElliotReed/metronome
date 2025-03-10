@@ -1,21 +1,33 @@
 .heading h1 {
   font-size: 2.5rem;
-} /* 68px */
+}
+
+/* 68px */
 .heading h2 {
   font-size: 2.25rem;
-} /* 42px */
+}
+
+/* 42px */
 .heading h3 {
   font-size: 1.5rem;
-} /* 26px */
+}
+
+/* 26px */
 .heading h4 {
   font-size: 1.25rem;
-} /* 20px */
+}
+
+/* 20px */
 .heading h5 {
   font-size: 1rem;
-} /* 16px */
+}
+
+/* 16px */
 .heading h6 {
   font-size: 0.75rem;
-} /* 13px */
+}
+
+/* 13px */
 
 .heading h1,
 .heading h2,
@@ -28,8 +40,9 @@
 }
 
 .heading__text-default {
-  color: var(--light);
+  color: var(--clr-light);
 }
+
 .heading__text-dark {
-  color: var(--dark);
+  color: var(--clr-dark);
 }

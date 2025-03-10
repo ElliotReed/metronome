@@ -1,5 +1,6 @@
 .tapper {
   padding: var(--size-lg);
+  background-image: var(--bg-noise-light);
 }
 
 .tapper__main {
@@ -21,7 +22,7 @@
 .tapper__heading,
 .tapper__tempo {
   font-weight: 700;
-  color: var(--dark);
+  color: var(--clr-dark);
   text-align: center;
 }
 
@@ -53,10 +54,7 @@
 
 .tapper__display .tapper__tempo {
   margin: 0 1.25em 1.25em 1.25em;
-
-  color: var(--dark);
-  text-shadow: 1px 1px 0em var(--accent), -1px -1px 0em var(--accent),
-    0 0 4px var(--light);
+  color: var(--clr-dark);
 }
 
 .tapper__display button {

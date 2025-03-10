@@ -4,7 +4,7 @@
   justify-content: center;
   width: 15em;
   height: 0;
-  border-bottom: 21em solid var(--dark);
+  border-bottom: 21em solid var(--clr-dark);
   border-left: 5em solid transparent;
   border-right: 5em solid transparent;
   border-radius: var(--border-radius);

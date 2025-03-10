@@ -6,8 +6,10 @@
 import React from 'react';
 
 import { useAudioStore } from '@/store/useAudioStore';
+
 import VolumeSlider from '@/components/VolumeSlider';
 import * as Button from "@/components/common/Button";
+import { SpeakerOnSVG } from '@/components/icons/Icons';
 import './volume_settings.css';
 
 const VOLUME_SETTINGS_KEY = 'volume-settings';
@@ -38,7 +40,8 @@ export default function VolumeSettings() {
     return (
         <div className="volume-settings">
             <Button.VolumeSettings onClick={() => setIsOpened(!isOpened)}>
-                <span className='heading'>View Volume Settings</span>
+                <SpeakerOnSVG />
+                <span>Settings</span>
             </Button.VolumeSettings>
 
             <form

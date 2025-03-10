@@ -1,9 +1,9 @@
 .button-link {
-  border: 2px ridge var(--light);
+  border: 2px ridge var(--clr-light);
   border-radius: 1.5rem;
-  background: var(--dark);
+  background: var(--clr-dark);
   padding: var(--padding) calc(var(--padding) * 1.5);
-  color: var(--light);
+  color: var(--clr-light);
   transition: all var(--duration-sm);
   user-select: none;
   filter: drop-shadow(var(--filterShadowElevationOne));

@@ -31,7 +31,7 @@
         grid-row: 2;
         --track-border-radius: 10rem;
         --track-border: 1px solid hsl(from var(--clr-accent) h s 33%);
-        --track-background: var(--clr-accent);
+        --track-background: var(--accent-dark);
         --track-focus-background: #0001;
         --track-height: 8px;
         --track-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;

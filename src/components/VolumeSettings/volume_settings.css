@@ -1,8 +1,8 @@
 .volume-settings {
     position: relative;
-    display: flex;
-    justify-content: center;
-    padding: var(--padding-box);
+    /* display: flex; */
+    /* justify-content: center; */
+    /* padding: var(--padding-box); */
 
     /* TODO fix transition */
     #controls {
@@ -13,7 +13,7 @@
         gap: 1rem;
         padding: var(--padding-box);
         width: 100%;
-        background-color: var(--dark);
+        background-color: var(--clr-dark);
         border: var(--border);
         overflow: hidden;
         transition: max-height var(--duration-md);

@@ -9,28 +9,53 @@ Tags: Metroneme , Web app
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@300;400;700&display=swap");
 
 :root {
-  /* colors */
+  /* Colors */
+  --clr-primary: #929691;
+  --clr-light:
+    hsl(from var(--clr-primary) calc(h - 45) s calc(l + 20));
+  --clr-dark:
+    hsl(from var(--clr-primary) calc(h - 90) s calc(l - 45));
+
   --accent: #9a9e9a;
   --accent-dark: #7d827d;
   /* --accent-rgb: 154 158 154; */
-  --dark: #32312f;
+
+  /* Noise color 
+      The noise darkens or lightens the background color, the noise source color compensates for the change.
+      The primary noise color is the same as the primary color. Pretty much neutral.
+      The dark noise source is darkened to compensate for the lightening of the background color.
+      The light noise source is lightened to compensate for the darkening of the background color.
+  */
+  /* Set by noise generator in App.tsx */
+  --bg-noise-primary: null;
+  --bg-noise-dark: null;
+  --bg-noise-light: null;
+
+  --clr-dark-noise-source:
+    hsl(from var(--clr-dark) h s 0%);
+  --clr-light-noise-source:
+    hsl(from var(--clr-light) h s calc(l + 25));
+
+
+
   --dark-accent: #4d4b47;
   --dark-rgb: 50 49 46;
   --light: #cdc8c8;
+  --noise-light: #cdc8c8;
   /* --light-rgb: 205 200 200; */
 
+  /* --clr-dark: hsl(from var(--clr-primary) calc(h + 180) 5% 10%); */
   /* --white: #dcd7d7; */
   /* --medium: #716a65; */
   /* --black: #282828; */
   /* from vocal trainer  */
-  --clr-primary: hsl(180, 20%, 33%);
-  --clr-accent: hsl(from var(--clr-primary) calc(h + 180) s l);
-  --clr-dark: hsl(from var(--clr-primary) calc(h + 180) 5% 10%);
+  /* --clr-primary: hsl(180, 20%, 33%); */
+  /* --clr-accent: hsl(from var(--clr-primary) calc(h + 180) s l);
   --clr-light: hsl(from var(--clr-primary) calc(h + 180) 5% 90%);
   --clr-body-text-light: var(--clr-light);
   --clr-body-text-dark: var(--clr-dark);
   --clr-body-bg-light: var(--clr-light);
-  --clr-body-bg-dark: var(--clr-dark);
+  --clr-body-bg-dark: var(--clr-dark); */
 
   /* sizes */
   --tablet: 768px;
@@ -49,6 +74,11 @@ Tags: Metroneme , Web app
   --em-lg: 1.25em;
   --em-xl: 1.5em;
 
+  --rem-xs: 0.5em;
+  --rem-sm: 0.75em;
+  --rem-md: 1em;
+  --rem-lg: 1.25em;
+  --rem-xl: 1.5em;
 
   --fs-sm: .75em;
   --fs-md: 1em;
@@ -62,11 +92,13 @@ Tags: Metroneme , Web app
   --boxShadowElevationOne: 1px 2px 2px var(--shadow);
   --filterShadowElevationOne: 1px 2px 3px var(--shadow);
   --filterShadowElevationTwo: 2px 4px 4px var(--shadow);
-  --border: 2px solid var(--dark);
+  --border: 2px solid var(--clr-dark);
   --border-radius: 1.5rem;
   --border-radius-sm: 1rem;
   --fontStackSans: "Lexend Mega", sans-serif;
   --fontStackSerif: "Georgia", serif;
+  --line-height-sm: 1.25;
+  --line-height-md: 1.5;
   --padding-box-sm: var(--em-sm) calc(var(--em-sm) * 1.5);
   --padding-box: var(--em-md) calc(var(--em-md) * 1.5);
   /* from vocal trainer  */
@@ -85,12 +117,8 @@ html {
   height: 100%;
   font-family: var(--fontStackSans);
   font-size: calc(.9375rem + 0.390625vw);
-  line-height: 1.5;
-  /* font-family: system-ui, sans-serif; */
-  /* font-size: calc(15px + 0.390625vw); */
+  line-height: var(--line-height-md);
   font-synthesis: none;
-  /* font-weight: 400; */
-  /* line-height: 1.6; */
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -99,8 +127,8 @@ html {
 body {
   height: 100%;
   margin: 0;
-  background: var(--accent);
-  color: var(--light);
+  background-image: var(--bg-noise-primary);
+  color: var(--clr-light);
 }
 
 *,
@@ -110,8 +138,8 @@ body {
 }
 
 ::selection {
-  background: var(--dark);
-  color: var(--light);
+  background: var(--clr-dark);
+  color: var(--clr-light);
 }
 
 #metronome-root {
@@ -161,12 +189,12 @@ h5,
 h6 {
   line-height: 1.75;
   font-family: var(--fontStackSans);
-  color: var(--light);
+  color: var(--clr-light);
 }
 
 p {
   font-family: var(--fontStackSans);
-  color: var(--light);
+  color: var(--clr-light);
   margin: var(--size-md);
 }
 
@@ -182,19 +210,19 @@ ul {
 
 blockquote {
   font-family: var(--fontStackSans);
-  color: var(--dark);
+  color: var(--clr-dark);
 }
 
 cite {
   font-family: var(--fontStackSans);
   font-size: 0.66rem;
   font-weight: normal;
-  color: var(--dark);
+  color: var(--clr-dark);
 }
 
 input,
 textarea {
-  outline-color: var(--light);
+  outline-color: var(--clr-light);
 }
 
 @keyframes softIn {
@@ -205,16 +233,4 @@ textarea {
   to {
     opacity: 1;
   }
-}
-
-.noise-accent {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='10' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='500' height='500' fill='%23929691'/%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
-}
-
-.noise-light {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='10' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='500' height='500' fill='%23cdc8c8'/%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
-}
-
-.noise-dark {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='10' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='500' height='500' fill='%2332312e'/%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
 }

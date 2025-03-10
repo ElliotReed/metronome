@@ -9,7 +9,7 @@
   margin-bottom: -7rem;
   font-size: var(--baseSize);
   /* set to work with the svg staff elements */
-  color: var(--light);
+  color: var(--clr-light);
   user-select: none;
 }
 
@@ -28,12 +28,12 @@
 }
 
 .StaffImage {
-  color: var(--light);
+  color: var(--clr-light);
   display: block;
   position: relative;
   top: 0em;
   pointer-events: none;
-  background: var(--dark);
+  background: var(--clr-dark);
   z-index: 1;
 }
 
@@ -66,7 +66,7 @@
 }
 
 .MeterElementContainer.show {
-  border: var(--borderSize) solid var(--light);
+  border: var(--borderSize) solid var(--clr-light);
   background: var(--accent);
   transform-origin: left;
   transform: scale(2);
@@ -115,7 +115,7 @@
   background: transparent;
   font-size: 32px;
   line-height: 32px;
-  color: var(--light);
+  color: var(--clr-light);
   text-shadow: 1px 1px 0 var(--accent), -1px -1px 0 var(--accent);
 }
 
@@ -123,23 +123,23 @@
   font-size: 16px;
   line-height: 1;
   font-weight: 400;
-  border: var(--borderSize) solid var(--light);
+  border: var(--borderSize) solid var(--clr-light);
 }
 
 .CircularBtn {
-  background: var(--dark);
-  border: var(--borderSize) solid var(--light);
-  color: var(--light);
+  background: var(--clr-dark);
+  border: var(--borderSize) solid var(--clr-light);
+  color: var(--clr-light);
 }
 
 .CloseBtn {
-  background: var(--light);
+  background: var(--clr-light);
   color: var(--accent);
 }
 
 .CloseBtn:hover {
   background: var(--accent-dark);
-  color: var(--light);
+  color: var(--clr-light);
 }
 
 .contract {
@@ -182,10 +182,10 @@
 .NoteImage {
   transition: var(--elementTransition);
   filter: drop-shadow(0px 0px 0px rgba(40, 40, 40, 0.25));
-  /* background: var(--dark); */
+  /* background: var(--clr-dark); */
 }
 
-.isPlaying > .NoteImage {
+.isPlaying>.NoteImage {
   transform: scale(1.1);
   filter: drop-shadow(4px 4px 1px rgba(0, 0, 0, 0.25));
 }

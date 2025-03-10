@@ -67,7 +67,7 @@ export default function TempoTapper() {
   };
 
   return (
-    <section className="tapper noise-light">
+    <section className="tapper">
       <div className="tapper__main">
         <div className="tapper__display">
           <h2 className="tapper__heading">Tempo</h2>

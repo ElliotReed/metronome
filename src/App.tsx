@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { useAudioStore } from './store/useAudioStore';
+
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import { NoiseBackgroundGenerator } from "@/components/BackgroundNoiseGenerator";
 
-import { useAudioStore } from './store/useAudioStore';
 
 import defaultSound from "/assets/drumstick.wav";
 import accentSound from "/assets/drumstick-accent.wav";
@@ -22,6 +24,20 @@ export default function App({ children }: { children: React.ReactNode }) {
     return (
         <>
             <Header />
+            <NoiseBackgroundGenerator
+                sourceColorVar="--clr-primary"
+                targetBackgroundVar='--bg-noise-primary'
+            />
+            <NoiseBackgroundGenerator
+                sourceColorVar="--clr-dark-noise-source"
+                targetBackgroundVar='--bg-noise-dark'
+                opacity={0.3}
+            />
+            <NoiseBackgroundGenerator
+                sourceColorVar="--clr-light-noise-source"
+                targetBackgroundVar='--bg-noise-light'
+                opacity={0.6}
+            />
             <main className="main scrollbar">
                 {children}
             </main>
