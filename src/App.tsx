@@ -14,13 +14,14 @@ import "./App.css";
 
 export default function App({ children }: { children: React.ReactNode }) {
     const { loadAccentSound, loadDefaultSound, initializeAudio } = useAudioStore();
-
+    //  Instantiates the audio store and loads the default and accent sounds
     React.useEffect(() => {
         initializeAudio();
         loadDefaultSound(defaultSound);
         loadAccentSound(accentSound);
     }, [useAudioStore]);
 
+    //  NoiseBackgroundGenerator sets custom properties on the root element to generate noise backgrounds
     return (
         <>
             <Header />
