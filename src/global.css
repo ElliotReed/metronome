@@ -17,6 +17,7 @@ Tags: Metroneme , Web app
     hsl(from var(--clr-primary) calc(h - 90) s calc(l - 45));
 
   --accent: #9a9e9a;
+  --clr-accent: hsl(from var(--clr-primary) h calc(s - 5%) calc(l - 2%));
   --accent-dark: #7d827d;
   --accent-rgb: 154 158 154;
 
@@ -72,14 +73,21 @@ Tags: Metroneme , Web app
   --em-lg: 1.25em;
   --em-xl: 1.5em;
 
-  --rem-xs: 0.5em;
-  --rem-sm: 0.75em;
-  --rem-md: 1em;
-  --rem-lg: 1.25em;
-  --rem-xl: 1.5em;
+  --rem-xs: 0.5rem;
+  --rem-sm: 0.75rem;
+  --rem-md: 1rem;
+  --rem-lg: 1.25rem;
+  --rem-xl: 1.5rem;
 
+  --fs-xs: 0.5rem;
   --fs-sm: .75em;
   --fs-md: 1em;
+  --fs-lg: 1.25em;
+
+  /* font weights */
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-bold: 700;
 
   /* box model */
   --shadowRatio: 2;
@@ -90,13 +98,15 @@ Tags: Metroneme , Web app
   --boxShadowElevationOne: 1px 2px 2px var(--shadow);
   --filterShadowElevationOne: 1px 2px 3px var(--shadow);
   --filterShadowElevationTwo: 2px 4px 4px var(--shadow);
-  --border: 2px solid var(--clr-dark);
-  --border-radius: 1.5rem;
-  --border-radius-sm: 1rem;
+  --border-size: 2px;
+  --border: var(--border-size) solid var(--clr-dark);
+  --border-ridged: var(--border-size) ridge var(--clr-light);
+  --border-radius: 1rem;
   --fontStackSans: "Lexend Mega", sans-serif;
   --fontStackSerif: "Georgia", serif;
   --line-height-sm: 1.25;
   --line-height-md: 1.5;
+  --padding-box-xs: var(--em-xs) calc(var(--em-xs) * 1.5);
   --padding-box-sm: var(--em-sm) calc(var(--em-sm) * 1.5);
   --padding-box: var(--em-md) calc(var(--em-md) * 1.5);
   /* from vocal trainer  */
@@ -115,8 +125,8 @@ html {
   height: 100%;
   font-family: var(--fontStackSans);
   font-size: calc(.9375rem + 0.390625vw);
-  line-height: var(--line-height-md);
   font-synthesis: none;
+  line-height: var(--line-height-md);
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -197,8 +207,7 @@ p {
 }
 
 a {
-  text-decoration: none;
-  color: var(--green);
+  color: var(--clr-primary);
 }
 
 ul {

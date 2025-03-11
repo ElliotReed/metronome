@@ -1,82 +1,71 @@
 .header {
-  padding: var(--padding);
   background-image: var(--bg-noise-dark);
-}
 
-.header-grid {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  .logo-header {
+    padding: var(--padding-box-sm);
 
-@media screen and (min-width: 768px) {
-  .header-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-    align-items: center;
+    a {
+      display: block;
+      margin: 0 auto;
+      max-width: max-content;
+      padding: var(--padding-box-sm);
+      border: var(--border-ridged);
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      background-image: var(--bg-noise-dark);
 
-    :first-child {
-      grid-column: 2/3;
+      .logo {
+        color: var(--clr-light);
+        font-size: var(--fs-lg);
+        font-weight: 700;
+        line-height: 1;
+        filter: drop-shadow(0px 0px 2px var(--clr-primary));
+        /* The shadow adds a little bit of clarity against the filter */
+        text-shadow: 1px 1px 0 var(--clr-dark), -1px 1px 0 var(--clr-dark),
+          1px -1px 0 var(--clr-dark), -1px -1px 0 var(--clr-dark);
+      }
     }
   }
-}
 
-.header__title {
-  display: inline-block;
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1;
-  color: var(--accent);
-  text-align: center;
-  text-shadow: 1px 1px 0 var(--clr-dark), -1px 1px 0 var(--clr-dark),
-    1px -1px 0 var(--clr-dark), -1px -1px 0 var(--clr-dark);
-  filter: drop-shadow(0px 0px 1px var(--accent));
-}
+  .apps-header nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--em-xs);
+    padding-block-end: var(--em-sm);
+    padding-inline: var(--em-md);
 
-.header__title-wrapper {
-  max-width: max-content;
-  margin: 0 auto;
-  padding: var(--padding-box);
-  background: var(--clr-dark);
-  border: 2px ridge var(--clr-light);
-  border-radius: 0.5rem;
-}
+    a {
+      --outline-width: 1px;
+      display: block;
+      flex: 1 0 max-content;
+      padding: var(--padding-box-xs);
+      /* Something funky here? */
+      border-radius: var(--rem-xs);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-bold);
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      outline-width: 0;
+      outline-color: inherit;
+      outline-style: dotted;
+      outline-offset: calc(var(--outline-width) * -1);
+      user-select: none;
 
-.header__button-link {
-  /* styles from button */
-  display: inline-block;
-  font-size: .5em;
-  margin-block: .5em;
-  --padding: .5em;
-  border: 2px ridge var(--clr-light);
-  border-radius: 1.5rem;
-  background: var(--clr-dark);
-  padding: var(--padding) calc(var(--padding) * 1.5);
-  color: var(--clr-light);
-  transition: all var(--duration-sm);
-  user-select: none;
-  filter: drop-shadow(var(--filterShadowElevationOne));
-  outline-width: 0;
-  outline-color: inherit;
-  outline-style: dotted;
-  outline-offset: 2px;
-  text-transform: uppercase;
-}
+      /* Acive state not working? */
+      &:active {
+        color: var(--clr-primary);
+        background-image: var(--bg-noise-dark);
+      }
 
-.header__button-link:hover {
-  cursor: pointer;
-  transform: scale(1.025);
-  filter: drop-shadow(var(--filterShadowElevationTwo));
-}
+      &:not(.active) {
+        color: var(--clr-dark);
+        background-image: var(--bg-noise-primary);
+      }
 
-.header__button-link:active {
-  transform: scale(0.995);
-  box-shadow: var(--boxShadowElevationNone);
-  filter: drop-shadow(0 0 0 black);
-}
-
-.header__button-link:focus {
-  outline-width: 1px;
+      &:focus {
+        outline-width: var(--outline-width);
+      }
+    }
+  }
 }

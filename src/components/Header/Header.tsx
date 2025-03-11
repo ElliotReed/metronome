@@ -3,28 +3,31 @@ import { Link } from '@tanstack/react-router';
 import MeshContainer from '@/components/common/MeshContainer';
 import "./header.css";
 
+// The div wrapper is neccesary because the apps grid has one spot for the header
 export default function Header() {
   return (
-    <header >
-      <div className="header">
+    <div className="header">
+      <header className="logo-header">
         <MeshContainer>
-          <nav className="header-grid">
-            <Link to="/">
-              <div className="header__title-wrapper">
-                <h1 className="header__title">Metronome</h1>
-              </div>
-            </Link>
-          </nav>
+          <Link to="/">
+            <span className="logo">Cool Metronome</span>
+          </Link>
         </MeshContainer>
-      </div>
-      <nav className="header-grid">
-        <Link to="/tempo-trainer" className="header__button-link">
-          Tempo Trainer
-        </Link>
-        <Link to="/tempo-tapper" className="header__button-link">
-          Tempo Tapper
-        </Link>
-      </nav>
-    </header>
+      </header>
+
+      <header className="apps-header">
+        <nav>
+          <Link to="/">
+            Metronome
+          </Link>
+          <Link to="/tempo-tapper">
+            Tempo Tapper
+          </Link>
+          <Link to="/tempo-trainer">
+            Tempo Trainer
+          </Link>
+        </nav>
+      </header>
+    </div>
   );
 }

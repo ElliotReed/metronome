@@ -69,7 +69,7 @@
   color: var(--clr-light);
   background: var(--clr-dark);
   border: 0;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius);
   filter: unset;
   outline-width: 0;
   outline-color: inherit;
@@ -134,7 +134,7 @@
   font-size: var(--fs-sm);
   border-color: transparent;
   filter: unset;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius);
   outline-offset: calc(var(--rem-xs) * -1);
 
   svg {
