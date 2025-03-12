@@ -16,7 +16,7 @@
 
       .logo {
         color: var(--clr-light);
-        font-size: var(--fs-lg);
+        font-size: var(--fs-md);
         font-weight: 700;
         line-height: 1;
         filter: drop-shadow(0px 0px 2px var(--clr-primary));
