@@ -1,29 +1,49 @@
-.practice-mode {
+.tempo-trainer {
   max-width: 36rem;
   margin-inline: auto;
+
+  .status {
+    color: var(--clr-dark);
+
+    p {
+      color: inherit;
+    }
+  }
+
+  .range-group {
+    h3 {
+      font-size: var(--fs-sm);
+      font-style: italic;
+      margin: 0;
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+      border-radius: var(--border-radius);
+    }
+  }
+
+  /* the play button */
+  &>button:first-child {
+    margin-block: 1em;
+  }
 }
 
-/* the play button */
-.practice-mode>button:first-child {
-  margin-block: 1em;
-}
 
-.choices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .25em;
-}
-
-.choices li button {
+/* TODO Define the button in buttons.css */
+.metronome-stop-button {
   background: var(--clr-dark);
   color: var(--clr-light);
-  border-radius: 5rem;
   padding: .125em .5em;
-}
 
-.choices li button:hover {
-  cursor: pointer;
-  background: var(--dark-accent);
+  &:hover {
+    cursor: pointer;
+    background: var(--dark-accent);
+  }
 }
 
 /* #endregion */

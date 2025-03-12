@@ -10,6 +10,17 @@ import metronomeStops from '@/utils/metronomeStops';
 
 import './tempo-trainer.css';
 
+const LARGO_START = 40;
+const LARGO_END = 72;
+const ANDANTE_START = 76;
+const ANDANTE_END = 96;
+const MODERATO_START = 100;
+const MODERATO_END = 116;
+const ALLEGRO_START = 120;
+const ALLEGRO_END = 160;
+const PRESTO_START = 168;
+const PRESTO_END = 208;
+
 export default function TempoTrainer() {
   const { playDefaultSound } = useAudioStore();
 
@@ -44,6 +55,37 @@ export default function TempoTrainer() {
     console.log('tick');
   }
 
+
+  const largoStops = metronomeStops.filter(stop => stop >= LARGO_START && stop <= LARGO_END);
+  const andanteStops = metronomeStops.filter(stop => stop >= ANDANTE_START && stop <= ANDANTE_END);
+  const moderatoStops = metronomeStops.filter(stop => stop >= MODERATO_START && stop <= MODERATO_END);
+  const allegroStops = metronomeStops.filter(stop => stop >= ALLEGRO_START && stop <= ALLEGRO_END);
+  const prestoStops = metronomeStops.filter(stop => stop >= PRESTO_START && stop <= PRESTO_END);
+
+  // TODO Define the button in Buttons.tsx
+  const getTempoStopGroupListItems = (metronomeStops: number[]) => {
+    return metronomeStops.map(stop => (
+      <li key={stop}>
+        <button
+          className="metronome-stop-button"
+          onClick={() => handleTempoPick(stop)}
+        >{stop}
+        </button>
+      </li>
+    ));
+  }
+
+  const getRangeGroup = (stops: number[], title: string) => {
+    return (
+      <div className="range-group">
+        <h3>{title}</h3>
+        <ul className="choices">
+          {getTempoStopGroupListItems(stops)}
+        </ul>
+      </div>
+    )
+  }
+
   React.useEffect(() => {
     document.addEventListener('metronome:tick', handleTick as EventListener);
 
@@ -53,13 +95,8 @@ export default function TempoTrainer() {
   }, [])
 
   return (
-    <div className="practice-mode">
-      <Button.Default
-        onClick={handlePracticeStart}>
-        Play?
-      </Button.Default>
-
-      <MeshContainer>
+    <div className="tempo-trainer">
+      <div className="status">
         <p>
           Actual: {pickedStop !== undefined ? bpm : '?'}
           {' - '}
@@ -70,17 +107,18 @@ export default function TempoTrainer() {
           {pickedStop !== undefined && isWinner && 'You win!'}
           {pickedStop !== undefined && !isWinner && 'Nice try...'}
         </p>
+      </div>
+      <MeshContainer>
+        {getRangeGroup(largoStops, 'largo')}
+        {getRangeGroup(andanteStops, 'andante')}
+        {getRangeGroup(moderatoStops, 'moderato')}
+        {getRangeGroup(allegroStops, 'allegro')}
+        {getRangeGroup(prestoStops, 'presto')}
       </MeshContainer>
-      <ul className="choices">
-        {metronomeStops.map(stop => (
-          <li key={stop}>
-            <button
-              onClick={() => handleTempoPick(stop)}
-            >{stop}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <Button.Default
+        onClick={handlePracticeStart}>
+        Play?
+      </Button.Default>
     </div>
   );
 }

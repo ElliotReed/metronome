@@ -62,23 +62,26 @@ Tags: Metroneme , Web app
 
   --margin: 1rem;
   --padding: 0.75rem;
-  --max-width: 80rem;
+  --max-width: 70ch;
   --size-sm: 0.75rem;
   --size-md: 1rem;
   --size-lg: 2rem;
-  /* from vocal trainer  */
+
+  /* spaces em */
   --em-xs: 0.5em;
   --em-sm: 0.75em;
   --em-md: 1em;
   --em-lg: 1.25em;
   --em-xl: 1.5em;
 
+  /* spaces rem */
   --rem-xs: 0.5rem;
   --rem-sm: 0.75rem;
   --rem-md: 1rem;
   --rem-lg: 1.25rem;
   --rem-xl: 1.5rem;
 
+  /* font sizes */
   --fs-xs: 0.5rem;
   --fs-sm: .75em;
   --fs-md: 1em;

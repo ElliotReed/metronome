@@ -1,8 +1,10 @@
 /* #region Metronome Component */
 .metronome {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  place-content: center;
+  height: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 @media only screen and (min-width: 768px) {

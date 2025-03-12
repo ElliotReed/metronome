@@ -1,28 +1,19 @@
+/* Issue with the staff and positioning that has a large margin bottom, compensated with the negative margin. Restructure to fix */
 .Staff {
   --baseSize: 16px;
   --max-width: 50rem;
   position: relative;
-  min-width: 66%;
-  margin-top: 4rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
   margin-bottom: -7rem;
   font-size: var(--baseSize);
   /* set to work with the svg staff elements */
   color: var(--clr-light);
   user-select: none;
-}
 
-@media screen and (min-width: 42rem) {
-  .Staff {
-    margin-left: auto;
-    margin-right: auto;
+  @media screen and (min-width: 42rem) {
     margin-bottom: -6rem;
   }
-}
 
-@media screen and (min-width: 67.5rem) {
-  .Staff {
+  @media screen and (min-width: 67.5rem) {
     margin-bottom: -5rem;
   }
 }

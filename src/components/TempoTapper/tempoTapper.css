@@ -1,23 +1,21 @@
 .tapper {
-  padding: var(--size-lg);
-  background-image: var(--bg-noise-light);
-}
-
-.tapper__main {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  /* tap button is inverted on children*/
-  margin: 0 auto;
-  /* padding-bottom: 0rem; */
-  max-width: 30rem;
-}
+  justify-self: center;
+  align-items: center;
+  height: 100%;
+  padding: var(--size-lg);
+  background-image: var(--bg-noise-light);
+  border: var(--border);
+  border-radius: var(--border-radius);
 
-@media only screen and (min-width: 768px) {
-  .tapper__main {
+  /* tap button is inverted on children*/
+  @media only screen and (min-width: 768px) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;
   }
 }
+
 
 .tapper__heading,
 .tapper__tempo {

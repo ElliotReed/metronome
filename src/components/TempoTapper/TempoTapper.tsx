@@ -67,26 +67,24 @@ export default function TempoTapper() {
   };
 
   return (
-    <section className="tapper">
-      <div className="tapper__main">
-        <div className="tapper__display">
-          <h2 className="tapper__heading">Tempo</h2>
-          <p className="tapper__tempo">{tempo}</p>
-          <Button.Default
-            onClick={() => {
-              typeof tempo !== "number"
-                ? setBpm(100)
-                : setBpm(tempo);
-            }}>
-            Set BPM
-          </Button.Default>
-        </div>
-        <Button.Tapper
-          title="Provide at least 6 newTaps for greater accuracy!"
-          onClick={handleTempoTap}>
-          Tap!
-        </Button.Tapper>
+    <div className="tapper">
+      <div className="tapper__display">
+        <h2 className="tapper__heading">Tempo</h2>
+        <p className="tapper__tempo">{tempo}</p>
+        <Button.Default
+          onClick={() => {
+            typeof tempo !== "number"
+              ? setBpm(100)
+              : setBpm(tempo);
+          }}>
+          Set BPM
+        </Button.Default>
       </div>
-    </section>
+      <Button.Tapper
+        title="Provide at least 6 newTaps for greater accuracy!"
+        onClick={handleTempoTap}>
+        Tap!
+      </Button.Tapper>
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 .main {
   overflow-y: auto;
+  padding: var(--em-sm);
 }
 
 .scrollbar {
