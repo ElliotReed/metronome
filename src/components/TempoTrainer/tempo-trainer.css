@@ -1,13 +1,51 @@
 .tempo-trainer {
-  max-width: 36rem;
-  margin-inline: auto;
+  display: grid;
+  justify-content: center;
+  margin-inline: var(--em-md);
+  max-width: var(--max-width);
+
+  &>* {
+    margin-bottom: var(--em-md);
+  }
+
+  dl {
+    display: flex;
+    align-items: center;
+    gap: var(--em-sm);
+    margin-block: var(--em-sm);
+    margin-inline: var(--em-sm);
+  }
+
+  dt {
+    font-size: var(--fs-sm);
+    text-transform: uppercase;
+    font-weight: var(--fw-bold);
+  }
+
+  dd {
+    margin-inline-start: 0;
+  }
+
+  .info-box {
+    color: var(--clr-dark);
+    background-image: var(--bg-noise-light);
+    border: var(--border);
+    border-radius: var(--border-radius);
+  }
+
+  .level,
+  .score {}
 
   .status {
-    color: var(--clr-dark);
-
-    p {
+    .message {
       color: inherit;
+      margin-block: var(--em-sm);
+      text-align: center;
     }
+
+    .answers {}
+
+
   }
 
   .range-group {
@@ -27,12 +65,15 @@
     }
   }
 
-  /* the play button */
-  &>button:first-child {
-    margin-block: 1em;
+  .title {
+    margin-block: var(--em-sm);
+    color: var(--clr-dark);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-bold);
+    text-align: center;
+    text-transform: uppercase;
   }
 }
-
 
 /* TODO Define the button in buttons.css */
 .metronome-stop-button {

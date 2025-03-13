@@ -111,7 +111,7 @@ Tags: Metroneme , Web app
   --line-height-md: 1.5;
   --padding-box-xs: var(--em-xs) calc(var(--em-xs) * 1.5);
   --padding-box-sm: var(--em-sm) calc(var(--em-sm) * 1.5);
-  --padding-box: var(--em-md) calc(var(--em-md) * 1.5);
+  --padding-box-md: var(--em-md) calc(var(--em-md) * 1.5);
   /* from vocal trainer  */
   /* --border-radius: 0.5rem; */
 

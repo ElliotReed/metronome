@@ -67,7 +67,7 @@ export default function TempoTapper() {
   };
 
   return (
-    <div className="tapper">
+    <div className="tempo-tapper">
       <div className="tapper__display">
         <h2 className="tapper__heading">Tempo</h2>
         <p className="tapper__tempo">{tempo}</p>

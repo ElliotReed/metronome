@@ -69,17 +69,20 @@ export default function Metronome() {
 
   return (
     <div className="metronome">
-      <Staff beatCount={beatCount} />
+      <div className="display">
 
-      <MetronomeControls>
-        <BpmIncreaseOrDecrease>
-          <BpmDisplay />
-        </BpmIncreaseOrDecrease>
+        <Staff beatCount={beatCount} />
 
-        <Button.Default onClick={startStop}>
-          {isPlaying ? "Stop" : "Start"}
-        </Button.Default>
-      </MetronomeControls>
+        <MetronomeControls>
+          <BpmIncreaseOrDecrease>
+            <BpmDisplay />
+          </BpmIncreaseOrDecrease>
+
+          <Button.Default onClick={startStop}>
+            {isPlaying ? "Stop" : "Start"}
+          </Button.Default>
+        </MetronomeControls>
+      </div>
     </div >
   );
 }

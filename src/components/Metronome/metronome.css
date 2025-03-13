@@ -1,17 +1,19 @@
 /* #region Metronome Component */
 .metronome {
-  display: grid;
-  place-content: center;
-  height: 100%;
+  display: flex;
+  justify-content: center;
   max-width: var(--max-width);
-  margin: 0 auto;
+  margin-block: var(--em-md);
+  margin-inline: auto;
+
+  .display {
+    margin-inline: var(--em-md)
+  }
 }
 
 @media only screen and (min-width: 768px) {
   .Metronome {
     --gap: 4rem;
-    /* grid-template-columns: 1fr 1fr; */
-    /* gap: var(--gap); */
   }
 }
 
