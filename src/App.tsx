@@ -10,7 +10,7 @@ import { NoiseBackgroundGenerator } from "@/components/BackgroundNoiseGenerator"
 import defaultSound from "/assets/drumstick.wav";
 import accentSound from "/assets/drumstick-accent.wav";
 
-import "@/app.css";
+import '@/app.css';
 import '@/common.css';
 
 export default function App({ children }: { children: React.ReactNode }) {
