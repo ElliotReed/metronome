@@ -1,0 +1,14 @@
+.settings-link {
+    a {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--em-xs);
+        padding: var(--padding-box-xs);
+        text-underline-offset: 0.38em;
+    }
+
+    svg {
+        height: var(--em-md);
+        fill: var(--clr-light);
+    }
+}
