@@ -107,7 +107,7 @@
   transition: transform var(--duration-sm);
   animation: var(--softIn);
 
-  &r:focus:not(:hover) {
+  &:focus:not(:hover) {
     animation: tapper 960ms infinite alternate;
   }
 
