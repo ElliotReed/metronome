@@ -1,0 +1,18 @@
+.page-heading {
+    font-size: var(--em-sm);
+    text-transform: uppercase;
+    /* margin-inline-start: var(--em-md); */
+
+    &.dark {
+        color: var(--clr-dark);
+    }
+
+    &.light {
+        color: var(--clr-light);
+    }
+
+    &.primary {
+        color: var(--clr-primary);
+    }
+
+}

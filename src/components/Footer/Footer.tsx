@@ -1,11 +1,11 @@
-import VolumeSettings from '@/components/VolumeSettings';
+import SettingsLink from '../Settings/SettingsLink';
 
 import "./footer.css";
 
 export default function Footer() {
   return (
     <footer className="footer ">
-      <VolumeSettings />
+      <SettingsLink />
     </footer>
   );
 }

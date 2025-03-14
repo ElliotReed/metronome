@@ -1,0 +1,12 @@
+.volume-settings {
+    /* display: grid; */
+    background-color: var(--clr-dark);
+
+    #controls {
+        /* display: grid; */
+        /* display: block; */
+        /* padding: var(--padding-box-md); */
+        border: var(--border);
+        /* grid-column: pad-start / pad-end; */
+    }
+}

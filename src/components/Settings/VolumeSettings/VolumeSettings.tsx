@@ -8,9 +8,8 @@ import React from 'react';
 import { useAudioStore } from '@/store/useAudioStore';
 
 import VolumeSlider from '@/components/VolumeSlider';
-import * as Button from "@/components/common/Button";
-import { SpeakerOnSVG } from '@/components/icons/Icons';
-import './volume_settings.css';
+
+import './volume-settings.css';
 
 const VOLUME_SETTINGS_KEY = 'volume-settings';
 
@@ -37,9 +36,10 @@ export default function VolumeSettings() {
     };
 
     return (
-        <div className="volume-settings">
+        <div className="volume-settings main-layout-grid-full-width main-layout-grid">
             <form
                 id="controls"
+                className="pad-width"
             >
                 <VolumeSlider
                     label='default volume'

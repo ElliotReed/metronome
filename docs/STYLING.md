@@ -18,6 +18,20 @@ In src/global.css
 
 Use kebab case.
 
+## Common
+
+common.css is imported in App.tsx for utility styles.
+
+## Main Layout Grid
+
+  Grid to set seral page with padding the main-layout-grid creates the grid with default pad-start for children
+
+  Override styles per child. 
+
+  - main-layout-grid-full-width
+  - main-layout-grid-gutter-width
+  - main-layout-left-gutter
+
 ## Background Noise Generator
 
 This component allows the creation of svg's for tiling as background image.

@@ -1,3 +1,25 @@
+.main-layout-grid {
+  display: grid;
+  grid-template-columns: [start] var(--em-md) [pad-start]1fr[pad-end]var(--em-md) [end];
+
+  &>* {
+    grid-column: pad-start / pad-end;
+  }
+
+  .main-layout-grid-with-gutter {
+    grid-column: pad-start / pad-end;
+  }
+
+  .main-layout-grid-left-gutter {
+    grid-column-start: pad-start;
+    grid-column-end: auto;
+  }
+
+  .main-layout-grid-full-width {
+    grid-column: start / end;
+  }
+}
+
 .button-link {
   border: 2px ridge var(--clr-light);
   border-radius: 1.5rem;

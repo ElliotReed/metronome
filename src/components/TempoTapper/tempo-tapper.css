@@ -1,0 +1,67 @@
+.tempo-tapper {
+
+  .content-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-self: center;
+    align-items: center;
+    /* height: 100%; */
+    /* margin: var(--em-md); */
+    margin-inline: auto;
+    padding: var(--size-lg);
+    background-image: var(--bg-noise-light);
+    border: var(--border);
+    border-radius: var(--border-radius);
+
+    /* tap button is inverted on children*/
+    @media only screen and (min-width: 768px) {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .tapper__heading,
+    .tapper__tempo {
+      font-weight: 700;
+      color: var(--clr-dark);
+      text-align: center;
+    }
+
+    .tapper__heading {
+      font-size: 1rem;
+      margin-block-start: 1rem;
+      margin-block-end: 0;
+    }
+
+    .tapper__tempo {
+      font-size: 1rem;
+    }
+
+    .tapper__display {
+      grid-row-start: 2;
+    }
+
+    @media only screen and (min-width: 768px) {
+      .tapper__display .tapper__heading {
+        margin: 0;
+      }
+
+      .tapper__display {
+        min-width: 16em;
+        grid-column-start: 1;
+        grid-row-start: 1;
+      }
+    }
+
+    .tapper__display .tapper__tempo {
+      margin: 0 1.25em 1.25em 1.25em;
+      color: var(--clr-dark);
+    }
+
+    .tapper__display button {
+      display: block;
+      margin: 0 auto;
+    }
+
+  }
+
+}

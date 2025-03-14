@@ -10,6 +10,7 @@ import MeshContainer from '@/components/common/MeshContainer';
 import metronomeStops from '@/utils/metronomeStops';
 
 import './tempo-trainer.css';
+import PageHeading from '../common/PageHeading';
 
 const LARGO_START = 40;
 const LARGO_END = 72;
@@ -101,8 +102,9 @@ export default function TempoTrainer() {
   }, [])
 
   return (
-    <div className="tempo-trainer">
-      <h1 className="title">Tempo Trainer</h1>
+    <div className="tempo-trainer main-layout-grid">
+      <PageHeading>Tempo Trainer</PageHeading>
+
       <div className="info-box user">
         <dl className="level">
           <dt>Level:</dt>

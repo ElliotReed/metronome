@@ -1,13 +1,8 @@
 /* #region Metronome Component */
 .metronome {
-  display: flex;
-  justify-content: center;
-  max-width: var(--max-width);
-  margin-block: var(--em-md);
-  margin-inline: auto;
-
   .display {
-    margin-inline: var(--em-md)
+    margin-inline: auto;
+    max-width: var(--max-width);
   }
 }
 

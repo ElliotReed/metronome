@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as TempoTrainerImport } from './routes/tempo-trainer'
 import { Route as TempoTapperImport } from './routes/tempo-tapper'
+import { Route as SettingsImport } from './routes/settings'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -26,6 +27,12 @@ const TempoTrainerRoute = TempoTrainerImport.update({
 const TempoTapperRoute = TempoTapperImport.update({
   id: '/tempo-tapper',
   path: '/tempo-tapper',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SettingsRoute = SettingsImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -44,6 +51,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsImport
       parentRoute: typeof rootRoute
     }
     '/tempo-tapper': {
@@ -67,12 +81,14 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/settings': typeof SettingsRoute
   '/tempo-tapper': typeof TempoTapperRoute
   '/tempo-trainer': typeof TempoTrainerRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/settings': typeof SettingsRoute
   '/tempo-tapper': typeof TempoTapperRoute
   '/tempo-trainer': typeof TempoTrainerRoute
 }
@@ -80,27 +96,30 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/settings': typeof SettingsRoute
   '/tempo-tapper': typeof TempoTapperRoute
   '/tempo-trainer': typeof TempoTrainerRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/tempo-tapper' | '/tempo-trainer'
+  fullPaths: '/' | '/settings' | '/tempo-tapper' | '/tempo-trainer'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tempo-tapper' | '/tempo-trainer'
-  id: '__root__' | '/' | '/tempo-tapper' | '/tempo-trainer'
+  to: '/' | '/settings' | '/tempo-tapper' | '/tempo-trainer'
+  id: '__root__' | '/' | '/settings' | '/tempo-tapper' | '/tempo-trainer'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SettingsRoute: typeof SettingsRoute
   TempoTapperRoute: typeof TempoTapperRoute
   TempoTrainerRoute: typeof TempoTrainerRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SettingsRoute: SettingsRoute,
   TempoTapperRoute: TempoTapperRoute,
   TempoTrainerRoute: TempoTrainerRoute,
 }
@@ -116,12 +135,16 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/settings",
         "/tempo-tapper",
         "/tempo-trainer"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/settings": {
+      "filePath": "settings.tsx"
     },
     "/tempo-tapper": {
       "filePath": "tempo-tapper.tsx"

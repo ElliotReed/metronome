@@ -3,7 +3,8 @@ import useMetronomeStore from '@/store/useMetronomeStore';
 
 import * as Button from "../common/Button";
 
-import "./tempoTapper.css";
+import "./tempo-tapper.css";
+import PageHeading from '../common/PageHeading';
 
 function convertToSeconds(milliseconds: number) {
   return milliseconds / 1000;
@@ -67,24 +68,28 @@ export default function TempoTapper() {
   };
 
   return (
-    <div className="tempo-tapper">
-      <div className="tapper__display">
-        <h2 className="tapper__heading">Tempo</h2>
-        <p className="tapper__tempo">{tempo}</p>
-        <Button.Default
-          onClick={() => {
-            typeof tempo !== "number"
-              ? setBpm(100)
-              : setBpm(tempo);
-          }}>
-          Set BPM
-        </Button.Default>
+    <div className="tempo-tapper main-layout-grid">
+      <PageHeading>Tempo Tapper</PageHeading>
+
+      <div className="content-container main-layout-grid-with-gutter">
+        <div className="tapper__display">
+          <h2 className="tapper__heading">Tempo</h2>
+          <p className="tapper__tempo">{tempo}</p>
+          <Button.Default
+            onClick={() => {
+              typeof tempo !== "number"
+                ? setBpm(100)
+                : setBpm(tempo);
+            }}>
+            Set BPM
+          </Button.Default>
+        </div>
+        <Button.Tapper
+          title="Provide at least 6 newTaps for greater accuracy!"
+          onClick={handleTempoTap}>
+          Tap!
+        </Button.Tapper>
       </div>
-      <Button.Tapper
-        title="Provide at least 6 newTaps for greater accuracy!"
-        onClick={handleTempoTap}>
-        Tap!
-      </Button.Tapper>
     </div>
   );
 }

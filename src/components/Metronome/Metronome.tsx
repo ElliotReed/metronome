@@ -10,6 +10,7 @@ import MeshContainer from "@/components/common/MeshContainer";
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
 
 import "./metronome.css";
+import PageHeading from '../common/PageHeading';
 
 export default function Metronome() {
   const { bpm, beatsPerMeasure } = useMetronomeStore();
@@ -68,9 +69,10 @@ export default function Metronome() {
   });
 
   return (
-    <div className="metronome">
-      <div className="display">
+    <div className="metronome main-layout-grid">
+      <PageHeading>Metronome</PageHeading>
 
+      <div className="display">
         <Staff beatCount={beatCount} />
 
         <MetronomeControls>

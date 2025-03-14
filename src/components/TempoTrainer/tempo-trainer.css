@@ -1,10 +1,10 @@
 .tempo-trainer {
   display: grid;
   justify-content: center;
-  margin-inline: var(--em-md);
+  /* margin-inline: var(--em-md); */
   max-width: var(--max-width);
 
-  &>* {
+  &>*:not(.page-heading) {
     margin-bottom: var(--em-md);
   }
 

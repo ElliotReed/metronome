@@ -1,34 +1,22 @@
 .volume-slider {
-    display: grid;
-    grid-template-columns: auto max(140px, 12ch);
-    grid-template-rows: repeat(2, auto);
-    column-gap: 0.25em;
-    padding-block: 0.1em;
-    padding-inline: 0.25em;
-    border-radius: var(--border-radius);
     border: 1px solid transparent;
 
     &:has(input:focus) {
         border-color: hsl(from var(--clr-primary) h s 75%);
     }
 
-
     label {
-        grid-row: 1;
-        grid-column: 1 / -1;
-        padding: 0;
+        display: block;
         user-select: none;
     }
 
     svg {
-        grid-row: 2;
         fill: light-dark(var(--clr-primary), var(--clr-light));
         width: 1.5rem;
         aspect-ratio: 1;
     }
 
     input {
-        grid-row: 2;
         --track-border-radius: 10rem;
         --track-border: 1px solid hsl(from var(--clr-accent) h s 33%);
         --track-background: var(--accent-dark);
@@ -42,10 +30,9 @@
         --thumb-background: var(--clr-primary);
         -webkit-appearance: none;
         appearance: none;
-        width: 100%;
+        /* width: 100%; */
         padding: 0;
         background: transparent;
-
 
         &:focus {
             outline: none;
