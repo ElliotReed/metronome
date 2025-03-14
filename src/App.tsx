@@ -11,7 +11,7 @@ import defaultSound from "/assets/drumstick.wav";
 import accentSound from "/assets/drumstick-accent.wav";
 
 import '@/common.css';
-import '@/App.css';
+import '@/App.css'; // netlify build fails if this is renamed to 'app.css', weird?
 
 export default function App({ children }: { children: React.ReactNode }) {
     const { loadAccentSound, loadDefaultSound, initializeAudio } = useAudioStore();
