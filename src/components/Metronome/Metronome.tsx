@@ -100,7 +100,7 @@ function MetronomeControls({ children }: Readonly<React.PropsWithChildren>) {
 function BpmDisplay() {
   const { bpm } = useMetronomeStore();
   return (
-    <MeshContainer size="stretch">
+    <MeshContainer>
       <div className="bpm-display">{bpm}</div>
     </MeshContainer>
   )

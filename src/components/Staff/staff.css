@@ -18,7 +18,13 @@
   }
 }
 
+/* Some magic numbers here, whole display needs rewrite  */
 .StaffImage {
+  --inline-width: 24px;
+  margin-block-start: 48px;
+  margin-block-end: 46px;
+  margin-inline: var(--inline-width);
+  max-width: calc(100% - (var(--inline-width) * 2));
   color: var(--clr-light);
   display: block;
   position: relative;

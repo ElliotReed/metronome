@@ -135,11 +135,13 @@ export default function TempoTrainer() {
       </div>
 
       <MeshContainer>
-        {getRangeGroup(largoStops, 'largo')}
-        {getRangeGroup(andanteStops, 'andante')}
-        {getRangeGroup(moderatoStops, 'moderato')}
-        {getRangeGroup(allegroStops, 'allegro')}
-        {getRangeGroup(prestoStops, 'presto')}
+        <div className="tempos">
+          {getRangeGroup(largoStops, 'largo')}
+          {getRangeGroup(andanteStops, 'andante')}
+          {getRangeGroup(moderatoStops, 'moderato')}
+          {getRangeGroup(allegroStops, 'allegro')}
+          {getRangeGroup(prestoStops, 'presto')}
+        </div>
       </MeshContainer>
 
       <Button.Default

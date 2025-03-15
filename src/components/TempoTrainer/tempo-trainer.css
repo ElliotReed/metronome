@@ -44,8 +44,11 @@
     }
 
     .answers {}
+  }
 
-
+  .tempos {
+    margin-block: var(--em-xs);
+    margin-inline: var(--em-sm);
   }
 
   .range-group {

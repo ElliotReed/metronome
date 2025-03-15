@@ -25,7 +25,7 @@ export default function Staff({
 
   return (
     <div className="Staff">
-      <MeshContainer id="staff">
+      <MeshContainer>
         <StaffImage />
       </MeshContainer>
       <div className="staff__content">

@@ -1,8 +1,7 @@
 .mesh-container {
-  border-radius: var(--border-radius);
-  border: 2px ridge var(--clr-light);
-  /* padding: var(--padding-box-sm); */
   background-image: url(./mesh.svg);
   background-size: 6rem;
+  border: 2px ridge var(--clr-light);
+  border-radius: var(--border-radius);
   box-shadow: var(--boxShadowElevationNone);
 }
