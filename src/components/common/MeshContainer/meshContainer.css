@@ -1,16 +1,8 @@
-.meshContainer {
+.mesh-container {
   border-radius: var(--border-radius);
   border: 2px ridge var(--clr-light);
-  padding: var(--padding-box-sm);
+  /* padding: var(--padding-box-sm); */
   background-image: url(./mesh.svg);
   background-size: 6rem;
   box-shadow: var(--boxShadowElevationNone);
-}
-
-.meshContainer.stretch {
-  padding: 1rem 2.5rem;
-}
-
-.meshContainer.staff {
-  padding: 48px 24px 42px;
 }
