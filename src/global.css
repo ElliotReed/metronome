@@ -68,6 +68,7 @@ Tags: Metroneme , Web app
   --size-lg: 2rem;
 
   /* spaces em */
+  --em-sixteenth: 0.25em;
   --em-xs: 0.5em;
   --em-sm: 0.75em;
   --em-md: 1em;
@@ -109,6 +110,7 @@ Tags: Metroneme , Web app
   --fontStackSerif: "Georgia", serif;
   --line-height-sm: 1.25;
   --line-height-md: 1.5;
+  --padding-box-xs-compressed: var(--em-sixteenth) calc(var(--em-xs) * 1.5);
   --padding-box-xs: var(--em-xs) calc(var(--em-xs) * 1.5);
   --padding-box-sm: var(--em-sm) calc(var(--em-sm) * 1.5);
   --padding-box-md: var(--em-md) calc(var(--em-md) * 1.5);

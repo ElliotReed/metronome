@@ -6,13 +6,15 @@
 
     a {
       display: block;
-      margin: 0 auto;
+      margin-block: var(--em-xs);
+      margin-inline: auto;
       max-width: max-content;
-      padding: var(--padding-box-sm);
+      padding: var(--padding-box-xs-compressed);
+
+      background-image: var(--bg-noise-dark);
       border: var(--border-ridged);
       border-radius: var(--border-radius);
       text-decoration: none;
-      background-image: var(--bg-noise-dark);
 
       .logo {
         color: var(--clr-light);
@@ -23,6 +25,11 @@
         /* The shadow adds a little bit of clarity against the filter */
         text-shadow: 1px 1px 0 var(--clr-dark), -1px 1px 0 var(--clr-dark),
           1px -1px 0 var(--clr-dark), -1px -1px 0 var(--clr-dark);
+      }
+
+      @media screen and (width: 768px) {
+        margin-block: var(--em-md);
+        padding: var(--padding-box-md);
       }
     }
   }
