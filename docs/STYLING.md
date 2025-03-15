@@ -6,6 +6,22 @@ Styles are scoped using css nesting.
 
 Custom properties for global reach in global.css
 
+### Contents
+
+- [Conceptualization](#conceptualization)
+- [Reset](#reset)
+- [Root](#root)
+- [Common](#common)
+- [Main Layout Grid](#main-layout-grid)
+- [Background Noise Generator](#background-noise-generator)
+
+---
+
+## Conceptualization
+
+- A container should only set it's intrinsic properties, not content placement.
+- Use named grid class for the containers margins
+
 ## Reset
 
 normalize.css imported in src/index.tsx, top-level component.
