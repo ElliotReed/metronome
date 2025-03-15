@@ -52,13 +52,18 @@
       outline-offset: calc(var(--outline-width) * -1);
       user-select: none;
 
-      /* Acive state not working? */
-      &:active {
+      &:not(.active) {
         color: var(--clr-primary);
         background-image: var(--bg-noise-dark);
       }
 
-      &:not(.active) {
+      /* Acive state not working? */
+      &.active {
+        color: var(--clr-dark);
+        background-image: var(--bg-noise-primary);
+      }
+
+      &:active {
         color: var(--clr-dark);
         background-image: var(--bg-noise-primary);
       }
