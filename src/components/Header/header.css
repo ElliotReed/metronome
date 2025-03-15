@@ -27,9 +27,9 @@
           1px -1px 0 var(--clr-dark), -1px -1px 0 var(--clr-dark);
       }
 
-      @media screen and (width: 768px) {
-        margin-block: var(--em-md);
-        padding: var(--padding-box-md);
+      @media screen and (min-width: 768px) {
+        margin-block: var(--em-sm);
+        padding: var(--padding-box-sm);
       }
     }
   }
@@ -64,15 +64,15 @@
         background-image: var(--bg-noise-dark);
       }
 
-      /* Acive state not working? */
       &.active {
         color: var(--clr-dark);
-        background-image: var(--bg-noise-primary);
+        background-image: var(--bg-noise-light);
       }
 
       &:active {
         color: var(--clr-dark);
-        background-image: var(--bg-noise-primary);
+        background-color: var(--clr-light);
+        background-image: unset;
       }
 
       &:focus {
