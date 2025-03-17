@@ -15,6 +15,8 @@ Tags: Metroneme , Web app
     hsl(from var(--clr-primary) calc(h - 45) s calc(l + 20));
   --clr-dark:
     hsl(from var(--clr-primary) calc(h - 90) s calc(l - 45));
+  --clr-error:
+    hsl(from var(--clr-primary) calc(h - 135) calc(s + 10) calc(l + 0));
 
   --accent: #9a9e9a;
   --clr-accent: hsl(from var(--clr-primary) h calc(s - 5%) calc(l - 2%));
@@ -37,24 +39,11 @@ Tags: Metroneme , Web app
   --clr-light-noise-source:
     hsl(from var(--clr-light) h s calc(l + 25));
 
-
-
   --dark-accent: #4d4b47;
   --dark-rgb: 50 49 46;
-  /* --light-rgb: 205 200 200; */
 
-  /* --clr-dark: hsl(from var(--clr-primary) calc(h + 180) 5% 10%); */
   /* --white: #dcd7d7; */
-  /* --medium: #716a65; */
   /* --black: #282828; */
-  /* from vocal trainer  */
-  /* --clr-primary: hsl(180, 20%, 33%); */
-  /* --clr-accent: hsl(from var(--clr-primary) calc(h + 180) s l);
-  --clr-light: hsl(from var(--clr-primary) calc(h + 180) 5% 90%);
-  --clr-body-text-light: var(--clr-light);
-  --clr-body-text-dark: var(--clr-dark);
-  --clr-body-bg-light: var(--clr-light);
-  --clr-body-bg-dark: var(--clr-dark); */
 
   /* sizes */
   --tablet: 768px;
@@ -87,6 +76,7 @@ Tags: Metroneme , Web app
   --fs-sm: .75em;
   --fs-md: 1em;
   --fs-lg: 1.25em;
+  --fs-xl: 1.5em;
 
   /* font weights */
   --fw-light: 300;
@@ -105,6 +95,7 @@ Tags: Metroneme , Web app
   --border-size: 2px;
   --border: var(--border-size) solid var(--clr-dark);
   --border-ridged: var(--border-size) ridge var(--clr-light);
+  --border-radius-sm: 0.5rem;
   --border-radius: 1rem;
   --fontStackSans: "Lexend Mega", sans-serif;
   --fontStackSerif: "Georgia", serif;
@@ -114,8 +105,6 @@ Tags: Metroneme , Web app
   --padding-box-xs: var(--em-xs) calc(var(--em-xs) * 1.5);
   --padding-box-sm: var(--em-sm) calc(var(--em-sm) * 1.5);
   --padding-box-md: var(--em-md) calc(var(--em-md) * 1.5);
-  /* from vocal trainer  */
-  /* --border-radius: 0.5rem; */
 
   /* animations */
   --softIn: softIn 0.33s ease-in;
