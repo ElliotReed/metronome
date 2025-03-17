@@ -1,92 +1,100 @@
 .tempo-trainer {
-  display: grid;
-  justify-content: center;
-  /* margin-inline: var(--em-md); */
-  max-width: var(--max-width);
+  .content-wrapper {
+    display: grid;
+    justify-content: center;
+    max-width: var(--max-width);
 
-  &>*:not(.page-heading) {
-    margin-bottom: var(--em-md);
-  }
-
-  dl {
-    display: flex;
-    align-items: center;
-    gap: var(--em-sm);
-    margin-block: var(--em-sm);
-    margin-inline: var(--em-sm);
-  }
-
-  dt {
-    font-size: var(--fs-sm);
-    text-transform: uppercase;
-    font-weight: var(--fw-bold);
-  }
-
-  dd {
-    margin-inline-start: 0;
-  }
-
-  .info-box {
-    color: var(--clr-dark);
-    background-image: var(--bg-noise-light);
-    border: var(--border);
-    border-radius: var(--border-radius);
-  }
-
-  .level,
-  .score {}
-
-  .status {
-    .message {
-      color: inherit;
-      margin-block: var(--em-sm);
-      text-align: center;
+    &>* {
+      margin-bottom: var(--em-md);
     }
 
-    .answers {}
-  }
+    .status {
 
-  .tempos {
-    margin-block: var(--em-xs);
-    margin-inline: var(--em-sm);
-  }
+      .level,
+      .points {
+        display: flex;
+        align-items: center;
+        gap: var(--em-sm);
+        margin-block: var(--em-xs);
+        margin-inline: 0;
+        line-height: 1;
+        color: var(--clr-dark);
+        font-size: var(--fs-sm);
+        text-transform: uppercase;
+        font-weight: var(--fw-bold);
 
-  .range-group {
-    h3 {
-      font-size: var(--fs-sm);
-      font-style: italic;
-      margin: 0;
+        span {
+          font-size: var(--fs-lg);
+          text-transform: none;
+          font-weight: var(--fw-normal);
+        }
+      }
     }
 
-    ul {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      margin: 0;
-      padding: 0;
-      border-radius: var(--border-radius);
+    .tempo-range-groups {
+
+      &>*:not(:last-child) {
+        margin-block-end: var(--em-md);
+      }
+
+      .tempo-range-group {
+        position: relative;
+
+        .tempo-range-title {
+          position: absolute;
+          margin: 0;
+          pointer-events: none;
+          top: -1em;
+          font-size: var(--fs-xl);
+          font-style: italic;
+          text-transform: uppercase;
+          opacity: 0.66;
+        }
+
+        .tempo-range-list {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          margin-inline-start: var(--em-md);
+          margin-block-end: 0;
+          margin-block-start: var(--em-sm);
+          padding: 0;
+          border-radius: var(--border-radius);
+
+          /* TODO Define the button in buttons.css */
+          .metronome-stop-button {
+            background: var(--clr-dark);
+            color: var(--clr-light);
+            padding: var(--em-sixteenth);
+            font-size: var(--fs-sm);
+            font-weight: var(--fw-bold);
+            min-width: 5ch;
+            border: var(--border);
+            border-color: var(--dark-accent);
+
+            &:hover {
+              cursor: pointer;
+              background: var(--dark-accent);
+            }
+
+            &.user-picked {
+              background: var(--clr-error);
+            }
+
+            &.trainer-picked {
+              background: var(--clr-primary);
+              color: var(--clr-dark);
+            }
+
+            &.user-picked+&.trainer-picked {
+              background: var(--clr-light);
+              color: var(--clr-dark)
+            }
+
+          }
+        }
+      }
     }
-  }
-
-  .title {
-    margin-block: var(--em-sm);
-    color: var(--clr-dark);
-    font-size: var(--fs-sm);
-    font-weight: var(--fw-bold);
-    text-align: center;
-    text-transform: uppercase;
-  }
-}
-
-/* TODO Define the button in buttons.css */
-.metronome-stop-button {
-  background: var(--clr-dark);
-  color: var(--clr-light);
-  padding: .125em .5em;
-
-  &:hover {
-    cursor: pointer;
-    background: var(--dark-accent);
   }
 }
 
