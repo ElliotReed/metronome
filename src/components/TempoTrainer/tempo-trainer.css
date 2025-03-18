@@ -1,101 +1,174 @@
 .tempo-trainer {
-  .content-wrapper {
-    display: grid;
-    justify-content: center;
-    max-width: var(--max-width);
+  .page-heading {
+    visibility: hidden;
+    height: 0;
 
-    &>* {
-      margin-bottom: var(--em-md);
+    @media screen and (min-width: 768px) {
+      visibility: visible;
+      height: auto;
     }
+  }
+}
 
-    .status {
+.tempo-trainer-content {
+  display: grid;
+  justify-content: center;
+  max-width: var(--max-width);
 
-      .level,
-      .points {
-        display: flex;
-        align-items: center;
-        gap: var(--em-sm);
-        margin-block: var(--em-xs);
-        margin-inline: 0;
-        line-height: 1;
-        color: var(--clr-dark);
-        font-size: var(--fs-sm);
-        text-transform: uppercase;
-        font-weight: var(--fw-bold);
+  &>* {
+    margin-bottom: var(--em-md);
+  }
 
-        span {
-          font-size: var(--fs-lg);
-          text-transform: none;
-          font-weight: var(--fw-normal);
-        }
-      }
-    }
+  .level,
+  .points {
+    display: flex;
+    align-items: center;
+    gap: var(--em-sm);
+    margin-block: var(--em-xs);
+    margin-inline: 0;
+    color: var(--clr-dark);
+    font-size: var(--fs-sm);
+    text-transform: uppercase;
+    font-weight: var(--fw-bold);
+    line-height: 1;
 
-    .tempo-range-groups {
+    span {
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-normal);
+      text-transform: none;
 
-      &>*:not(:last-child) {
-        margin-block-end: var(--em-md);
-      }
-
-      .tempo-range-group {
-        position: relative;
-
-        .tempo-range-title {
-          position: absolute;
-          margin: 0;
-          pointer-events: none;
-          top: -1em;
-          font-size: var(--fs-xl);
-          font-style: italic;
-          text-transform: uppercase;
-          opacity: 0.66;
-        }
-
-        .tempo-range-list {
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-          margin-inline-start: var(--em-md);
-          margin-block-end: 0;
-          margin-block-start: var(--em-sm);
-          padding: 0;
-          border-radius: var(--border-radius);
-
-          /* TODO Define the button in buttons.css */
-          .metronome-stop-button {
-            background: var(--clr-dark);
-            color: var(--clr-light);
-            padding: var(--em-sixteenth);
-            font-size: var(--fs-sm);
-            font-weight: var(--fw-bold);
-            min-width: 5ch;
-            border: var(--border);
-            border-color: var(--dark-accent);
-
-            &:hover {
-              cursor: pointer;
-              background: var(--dark-accent);
-            }
-
-            &.user-picked {
-              background: var(--clr-error);
-            }
-
-            &.trainer-picked {
-              background: var(--clr-primary);
-              color: var(--clr-dark);
-            }
-
-            &.user-picked.trainer-picked {
-              background: var(--clr-light);
-              color: var(--clr-dark)
-            }
-
-          }
-        }
+      &.point-difference {
+        font-size: var(--fs-md);
+        opacity: .75;
       }
     }
   }
 }
 
-/* #endregion */
+.tempo-trainer-range-groups {
+  margin-block-start: calc(var(--em-sixteenth) * -1);
+
+  &>*:not(:last-child) {
+    margin-block-end: var(--em-xl);
+
+    @media screen and (min-width: 768px) {
+      margin-block-end: var(--em-lg);
+    }
+  }
+
+  .tempo-range-group {
+    position: relative;
+
+    .tempo-range-title {
+      position: absolute;
+      top: -.75em;
+      margin: 0;
+      font-size: 2em;
+      font-style: italic;
+      line-height: 1;
+      text-transform: uppercase;
+      mix-blend-mode: color-dodge;
+      opacity: 0.2;
+      pointer-events: none;
+
+      @media screen and (min-width: 758px) {
+        position: relative;
+        top: unset;
+      }
+    }
+
+    .tempo-range-list {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--em-sixteenth);
+      margin-block-start: var(--em-sm);
+      margin-block-end: 0;
+      margin-inline-start: var(--em-md);
+      padding: 0;
+      border-radius: var(--border-radius);
+
+      @media screen and (min-width: 768px) {
+        margin-block-start: var(--em-sixteenth);
+      }
+    }
+  }
+}
+
+/* TODO Define the button in buttons.css */
+.metronome-stop-button {
+  position: relative;
+  min-width: 5ch;
+  padding: var(--em-sixteenth) var(--em-xs);
+  color: var(--clr-light);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  background: var(--clr-dark);
+  border: var(--border);
+  border-color: var(--dark-accent);
+  border-radius: var(--border-radius);
+
+  @media screen and (min-width: 768px) {
+    font-size: var(--fs-md);
+  }
+
+  &:hover {
+    background: var(--dark-accent);
+    cursor: pointer;
+  }
+
+  .point-difference-floater {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clr-light);
+    font-weight: bold;
+    opacity: 0;
+    will-change: opacity, transform;
+    z-index: 1;
+  }
+
+  &.trainer-picked {
+    background: var(--clr-primary);
+    color: var(--clr-dark);
+  }
+
+  &.user-picked {
+    background: var(--clr-error);
+
+    .point-difference-floater {
+      animation: points-float 3s ease-out forwards;
+    }
+  }
+
+  &.user-picked.trainer-picked {
+    color: var(--clr-dark);
+    background: var(--clr-light);
+  }
+}
+
+@keyframes points-float {
+  0% {
+    opacity: 0;
+    scale: 0;
+    transform: translate(0, 0);
+  }
+
+  10% {
+    opacity: 1;
+    scale: 2;
+    transform: translate(0, -50%);
+  }
+
+  90% {
+    opacity: 0;
+    scale: 2;
+    transform: translate(0, -200%);
+  }
+
+  100% {
+    scale: 0;
+  }
+}

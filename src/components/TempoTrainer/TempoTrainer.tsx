@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classnames from 'classnames';
 
 import { useAudioStore } from '@/store/useAudioStore';
 import { useTempoTrainerStore } from '@/store/useTempoTrainerStore';
@@ -28,6 +29,49 @@ const moderatoStops = metronomeStops.filter(stop => stop >= MODERATO_START && st
 const allegroStops = metronomeStops.filter(stop => stop >= ALLEGRO_START && stop <= ALLEGRO_END);
 const prestoStops = metronomeStops.filter(stop => stop >= PRESTO_START && stop <= PRESTO_END);
 
+function getSkillLevelString(points: number) {
+  const BEGINNER_START_POINTS = 0;
+  const BEGINNER_END_POINTS = 19;
+  const INTERMEDIATE_START_POINTS = 20;
+  const INTERMEDIATE_END_POINTS = 39;
+  const ADVANCED_START_POINTS = 40;
+  const ADVANCED_END_POINTS = 59;
+  const PROFESSIONAL_START_POINTS = 60;
+  const PROFESSIONAL_END_POINTS = Infinity;
+
+  if (points >= BEGINNER_START_POINTS && points <= BEGINNER_END_POINTS) {
+    return 'Beginner';
+  } else if (points >= INTERMEDIATE_START_POINTS && points <= INTERMEDIATE_END_POINTS) {
+    return 'Intermediate';
+  } else if (points >= ADVANCED_START_POINTS && points <= ADVANCED_END_POINTS) {
+    return 'Advanced';
+  } else if (points >= PROFESSIONAL_START_POINTS && points <= PROFESSIONAL_END_POINTS) {
+    return 'Professional';
+  } else {
+    return 'Unrecognized level';
+  }
+}
+
+function getSkillLevelRange(points: number) {
+  const centerOfRange = 1;
+  const beginnerRangeAboveOrBelow = 3;
+  const IntermediateRangeAboveOrBelow = 2;
+  const advancedRangeAboveOrBelow = 1;
+  const professionalRangeAboveOrBelow = advancedRangeAboveOrBelow;
+
+  switch (getSkillLevelString(points)) {
+    case 'Beginner': return beginnerRangeAboveOrBelow + centerOfRange;
+    case 'Intermediate': return IntermediateRangeAboveOrBelow + centerOfRange;
+    case 'Advanced': return advancedRangeAboveOrBelow + centerOfRange;
+    case 'Professional': return professionalRangeAboveOrBelow + centerOfRange;
+    default: return metronomeStops.length
+  }
+}
+
+function getAbsoluteDistanceBetweenMetronomeStops(trainerMetronomeStop: number, userMetronomeStop: number) {
+  return Math.abs(userMetronomeStop - trainerMetronomeStop);
+}
+
 export default function TempoTrainer() {
   const { playDefaultSound } = useAudioStore();
   const { points, incrementPoints, decrementPoints } = useTempoTrainerStore();
@@ -36,87 +80,53 @@ export default function TempoTrainer() {
   const [userSelectedStopIndex, setUserSelectedStopIndex] = React.useState<number | undefined>(undefined);
 
   const [isNewAttempt, setIsNewAttempt] = React.useState(false);
+  const [pointDifference, setPointDifference] = React.useState("");
 
-  function handleTrainingStart() {
+  const handleTrainingStart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Bug fix for sometimes submitting
     setIsNewAttempt(true);
     setUserSelectedStopIndex(undefined);
 
-    const randomMetronomeStopIndex = Math.floor(Math.random() * metronomeStops.length);
+    const randomMetronomeStopIndex =
+      Math.floor(Math.random() * metronomeStops.length);
+
     setTrainerSelectedStopIndex(randomMetronomeStopIndex);
-    console.log('trainerSelectedStop: ', metronomeStops[randomMetronomeStopIndex]);
+    // console.log('trainerSelectedStop: ', metronomeStops[randomMetronomeStopIndex]);
 
     const newBPM = metronomeStops[randomMetronomeStopIndex];
     timerInstance.updateBPM(newBPM);
     timerInstance.start();
   }
 
-  const getSkillLevelString = () => {
-    if (points >= 0 && points < 20) {
-      return 'Beginner';
-    } else if (points >= 20 && points < 40) {
-      return 'Intermediate';
-    } else if (points >= 40) {
-      return 'Advanced';
-    } else {
-      return 'Unrecognized level';
-    }
-  }
-
-  const getSkillLevelRange = () => {
-    const centerOfRange = 1;
-    const beginnerRangeAboveOrBelow = 3;
-    const IntermediateRangeAboveOrBelow = 2;
-    const advancedRangeAboveOrBelow = 1;
-
-    switch (getSkillLevelString()) {
-      case 'Beginner': return beginnerRangeAboveOrBelow + centerOfRange;
-      case 'Intermediate': return IntermediateRangeAboveOrBelow + centerOfRange;
-      case 'Advanced': return advancedRangeAboveOrBelow + centerOfRange;
-
-      default: return metronomeStops.length
-    }
-  }
-
   const handleTempoPick = (selectedMetronomeStopIndex: number | undefined) => {
-    console.log('selectedMetronomeStopIndex: ', selectedMetronomeStopIndex);
-    timerInstance.stop();
-    setIsNewAttempt(false);
-
     if (selectedMetronomeStopIndex === undefined) return;
 
+    timerInstance.stop();
+    setIsNewAttempt(false);
     setUserSelectedStopIndex(selectedMetronomeStopIndex);
 
-    // Get the absolute distance from trainingStopSelectionIndex to userSelectedStopIndex
-    function getAbsoluteDistanceBetweenMetronomeStops(trainerMetronomeStop: number, userMetronomeStop: number) {
-      return Math.abs(userMetronomeStop - trainerMetronomeStop);
-    }
-
     const absoluteDistanceBetweenMetronomeStops = getAbsoluteDistanceBetweenMetronomeStops(trainerSelectedStopIndex || 0, selectedMetronomeStopIndex);
-
-    console.log('absoluteDistanceBetweenMetronomeStops: ', absoluteDistanceBetweenMetronomeStops);
-
-    const skillLevelRange = getSkillLevelRange();
-    console.log('skillLevelRange: ', skillLevelRange);
-
+    const skillLevelRange = getSkillLevelRange(points);
     const accuracy = skillLevelRange - absoluteDistanceBetweenMetronomeStops
-    // If the distance is in the skillLevelRange, increment points by taking skillLevelRange - the distance
-    if (accuracy > 0) {
-      console.log('in range')
-      const offsetForZero = 0;
-      const newPoints = accuracy + offsetForZero
+
+    if (accuracy >= 0) {
+      // If the distance is in the skillLevelRange, increment points by taking skillLevelRange - the distance
+      const newPoints = accuracy;
+      setPointDifference(`+${newPoints}`);
       incrementPoints(newPoints);
     } else {
       // If the distance is outside of the skillLevelRange, decrecrement point by taking  + distance - skillLevelRange
-      console.log('out of range')
       const maximumDecrement = 5
       const amountToDecrement = absoluteDistanceBetweenMetronomeStops - skillLevelRange;
-      decrementPoints(amountToDecrement <= maximumDecrement ? amountToDecrement : maximumDecrement);
+      const normalizedDecrement = amountToDecrement <= maximumDecrement ? amountToDecrement : maximumDecrement
+      const newPoints = points - normalizedDecrement > 0 ? normalizedDecrement : 0;
+      setPointDifference(`-${newPoints}`);
+      decrementPoints(newPoints);
     }
   };
 
   const handleTick = () => {
     playDefaultSound();
-    console.log('tick');
   }
 
   // TODO Define the button in Buttons.tsx
@@ -124,22 +134,23 @@ export default function TempoTrainer() {
     return rangeStops.map(stop => (
       <li key={stop}>
         <button
-          className={`metronome-stop-button
-            ${userSelectedStopIndex
-              && trainerSelectedStopIndex === metronomeStops.indexOf(stop) ?
-              "trainer-picked"
-              : ""}
-            ${userSelectedStopIndex === metronomeStops.indexOf(stop) ? "user-picked" : ""}
-            `}
-          onClick={() => isNewAttempt && handleTempoPick(metronomeStops.indexOf(stop))}
-        >{stop}
+          type="button"
+          className={classnames("metronome-stop-button", {
+            "trainer-picked": userSelectedStopIndex
+              && trainerSelectedStopIndex === metronomeStops.indexOf(stop),
+            "user-picked": userSelectedStopIndex === metronomeStops.indexOf(stop)
+          })}
+          onClick={() => isNewAttempt &&
+            handleTempoPick(metronomeStops.indexOf(stop))}
+        >
+          {stop}
+          <span className="point-difference-floater">{pointDifference}</span>
         </button>
       </li>
     ));
   }
 
-  // TODO 
-  const getRangeGroup = (stops: number[], title: string) => {
+  function getRangeGroup(stops: number[], title: string) {
     return (
       <div className="tempo-range-group">
         <h3 className="tempo-range-title">{title}</h3>
@@ -162,13 +173,17 @@ export default function TempoTrainer() {
     <div className="tempo-trainer main-layout-grid">
       <PageHeading>Tempo Trainer</PageHeading>
 
-      <div className="content-wrapper">
+      <div className="tempo-trainer-content">
         <div className="status">
-          <p className="level">Level: <span>{getSkillLevelString()}</span></p>
-          <p className="points">Points: <span>{points}</span></p>
+          <p className="level">Level: <span>{getSkillLevelString(points)}</span></p>
+          <p className="points">
+            Points: <span>{points}</span>
+            {pointDifference != "" &&
+              <span className="point-difference">({pointDifference})</span>}
+          </p>
         </div>
 
-        <div className="tempo-range-groups">
+        <div className="tempo-trainer-range-groups">
           {getRangeGroup(largoStops, 'largo')}
           {getRangeGroup(andanteStops, 'andante')}
           {getRangeGroup(moderatoStops, 'moderato')}
@@ -177,7 +192,8 @@ export default function TempoTrainer() {
         </div>
 
         <Button.Default
-          onClick={handleTrainingStart}>
+          // Passing event to prevent default, bug fix
+          onClick={(e) => handleTrainingStart(e)}>
           Train
         </Button.Default>
       </div>
