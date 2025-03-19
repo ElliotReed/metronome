@@ -40,7 +40,7 @@ export default function App({ children }: { children: React.ReactNode }) {
                 targetBackgroundVar='--bg-noise-light'
                 opacity={0.6}
             />
-            <main className="main scrollbar">
+            <main className="main scrollbar main-layout-grid">
                 {children}
             </main>
             <Footer />
