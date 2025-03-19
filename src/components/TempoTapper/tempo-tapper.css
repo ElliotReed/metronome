@@ -1,67 +1,50 @@
 .tempo-tapper {
+  /* Namespace */
+}
 
-  .content-container {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    justify-self: center;
-    align-items: center;
-    /* height: 100%; */
-    /* margin: var(--em-md); */
-    margin-inline: auto;
-    padding: var(--size-lg);
-    background-image: var(--bg-noise-light);
-    border: var(--border);
-    border-radius: var(--border-radius);
+.tempo-tapper-content-container {
+  background-image: var(--bg-noise-light);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  gap: var(--em-lg);
 
-    /* tap button is inverted on children*/
-    @media only screen and (min-width: 768px) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr 1fr;
-    }
+  &>* {
+    margin-block-end: var(--em-md);
+  }
+}
 
-    .tapper__heading,
-    .tapper__tempo {
-      font-weight: 700;
-      color: var(--clr-dark);
-      text-align: center;
-    }
+.tempo-tapper__tempo-and-message-container {
+  --tempo-height: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tempo-height);
+  /* This element centers itself, so remove the default margin  */
+  margin-block-end: 0;
 
-    .tapper__heading {
-      font-size: 1rem;
-      margin-block-start: 1rem;
-      margin-block-end: 0;
-    }
-
-    .tapper__tempo {
-      font-size: 1rem;
-    }
-
-    .tapper__display {
-      grid-row-start: 2;
-    }
-
-    @media only screen and (min-width: 768px) {
-      .tapper__display .tapper__heading {
-        margin: 0;
-      }
-
-      .tapper__display {
-        min-width: 16em;
-        grid-column-start: 1;
-        grid-row-start: 1;
-      }
-    }
-
-    .tapper__display .tapper__tempo {
-      margin: 0 1.25em 1.25em 1.25em;
-      color: var(--clr-dark);
-    }
-
-    .tapper__display button {
-      display: block;
-      margin: 0 auto;
-    }
-
+  .tempo-display,
+  .tempo-tapper__message {
+    font-weight: 700;
+    color: var(--clr-dark);
   }
 
+  .tempo-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--em-sm);
+
+    .tempo-display__label {
+      font-size: var(--fs-md);
+      text-transform: uppercase;
+    }
+
+    .tempo-display__value {
+      font-size: var(--fs-lg);
+    }
+  }
+
+  .tempo-tapper__message {
+    text-align: center;
+  }
 }
