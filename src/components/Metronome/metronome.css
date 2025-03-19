@@ -1,17 +1,3 @@
-/* #region Metronome Component */
-.metronome {
-  .display {
-    margin-inline: auto;
-    max-width: var(--max-width);
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .Metronome {
-    --gap: 4rem;
-  }
-}
-
 .MetronomeControls {
   width: 100%;
   text-align: center;

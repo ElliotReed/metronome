@@ -170,7 +170,7 @@ export default function TempoTrainer() {
   }, [])
 
   return (
-    <div className="tempo-trainer main-layout-grid">
+    <div className="tempo-trainer">
       <PageHeading>Tempo Trainer</PageHeading>
 
       <div className="tempo-trainer-content">

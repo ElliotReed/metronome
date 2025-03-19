@@ -69,10 +69,10 @@ export default function Metronome() {
   });
 
   return (
-    <div className="metronome main-layout-grid">
+    <div className="metronome">
       <PageHeading>Metronome</PageHeading>
 
-      <div className="display">
+      <div className="display main-layout-grid__centered">
         <Staff beatCount={beatCount} />
 
         <MetronomeControls>
