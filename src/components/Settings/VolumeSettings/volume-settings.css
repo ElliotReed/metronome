@@ -1,7 +1,11 @@
 .volume-settings {
     background-color: var(--clr-dark);
 
-    #controls {
-        border: var(--border);
+    &>* {
+        margin-block-end: var(--em-md);
+    }
+
+    header {
+        margin-block: var(--em-md);
     }
 }

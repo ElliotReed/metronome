@@ -36,11 +36,12 @@ export default function VolumeSettings() {
     };
 
     return (
-        <div className="volume-settings main-layout-grid-full-width main-layout-grid">
+        <>
             <form
-                id="controls"
-                className="pad-width"
+                id="volume-settings__controls"
+                className="volume-settings main-layout-grid__full-width main-layout-grid"
             >
+                <header>Volume Settings</header>
                 <VolumeSlider
                     label='default volume'
                     volume={defaultSoundVolume}
@@ -57,6 +58,6 @@ export default function VolumeSettings() {
                     handleVolumeChange={handleMasterVolumeChange}
                 />
             </form>
-        </div>
+        </>
     );
 }

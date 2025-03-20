@@ -1,6 +1,7 @@
 .main-layout-grid {
   display: grid;
   grid-template-columns: [start] var(--em-md) [pad-start]1fr [center] 1fr[pad-end]var(--em-md) [end];
+  grid-auto-rows: min-content;
 
   &>* {
     grid-column: pad-start / pad-end;
