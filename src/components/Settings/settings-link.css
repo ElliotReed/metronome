@@ -4,11 +4,13 @@
         align-items: center;
         gap: var(--em-xs);
         padding: var(--padding-box-xs);
-        text-underline-offset: 0.38em;
+        font-size: var(--em-sm);
+        text-decoration: none;
+        text-transform: uppercase;
     }
 
     svg {
-        height: var(--em-md);
+        height: var(--em-lg);
         fill: var(--clr-light);
     }
 }
