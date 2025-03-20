@@ -1,4 +1,6 @@
 .mesh-container {
+  /* Default while image loads */
+  background-color: var(--clr-dark);
   background-image: url(./mesh.svg);
   background-size: 6rem;
   border: 2px ridge var(--clr-light);

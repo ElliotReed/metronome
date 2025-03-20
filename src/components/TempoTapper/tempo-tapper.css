@@ -1,12 +1,14 @@
-.tempo-tapper {
-  /* Namespace */
-}
+/* .tempo-tapper {
+  Namespace
+} */
 
 .tempo-tapper-content-container {
+  gap: var(--em-lg);
+  /* Default while image loads */
+  background-color: var(--clr-light);
   background-image: var(--bg-noise-light);
   border: var(--border);
   border-radius: var(--border-radius);
-  gap: var(--em-lg);
 
   &>* {
     margin-block-end: var(--em-md);

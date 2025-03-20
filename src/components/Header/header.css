@@ -1,4 +1,6 @@
 .header {
+  /* Default while image loads */
+  background-color: var(--clr-dark);
   background-image: var(--bg-noise-dark);
 
   .logo-header {
@@ -10,7 +12,8 @@
       margin-inline: auto;
       max-width: max-content;
       padding: var(--padding-box-xs-compressed);
-
+      /* Default while image loads */
+      background-color: var(--clr-dark);
       background-image: var(--bg-noise-dark);
       border: var(--border-ridged);
       border-radius: var(--border-radius);

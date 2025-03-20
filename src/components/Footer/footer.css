@@ -1,3 +1,5 @@
 .footer {
+  /* Default while image loads */
+  background-color: var(--clr-dark);
   background-image: var(--bg-noise-dark);
 }
