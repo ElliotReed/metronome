@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default function useOutsideAlerter(ref: React.RefObject<any>, callback: () => void) {
+export function useOutsideAlerter(ref: React.RefObject<any>, callback: () => void) {
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (!ref.current || ref.current.contains(e.target)) return;
