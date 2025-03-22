@@ -1,29 +1,31 @@
+import * as React from 'react';
 import "./button.css";
 
 import { CloseIcon } from '@/components/icons/Icons';
 
 interface Button {
+  ref?: React.Ref<HTMLButtonElement>,
   children?: any,
   btnClass?: string,
   title?: string,
   props?: any[],
-  handleClick?: React.MouseEventHandler<HTMLButtonElement>,
   onClick?: React.MouseEventHandler<HTMLButtonElement>,
   onPointerDown?: React.MouseEventHandler<HTMLButtonElement>,
   onPointerUp?: React.MouseEventHandler<HTMLButtonElement>,
   onPointerLeave?: React.MouseEventHandler<HTMLButtonElement>,
 }
-function BaseButton({
+
+const BaseButton = React.forwardRef(({
   children,
   btnClass = "default",
   ...restProps
-}: Readonly<Button>) {
+}: Readonly<Button>, ref: React.Ref<HTMLButtonElement>) => {
   return (
-    <button type='button' className={`btn ${btnClass}`} {...restProps}>
+    <button ref={ref} type='button' className={`btn ${btnClass}`} {...restProps}>
       {children}
     </button>
   );
-}
+});
 
 export function ChevronDown({
   children,
