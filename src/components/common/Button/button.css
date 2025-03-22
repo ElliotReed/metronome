@@ -20,6 +20,7 @@
     filter: drop-shadow(var(--filterShadowElevationTwo));
   }
 
+  &.simulate-active,
   &:active {
     transform: scale(0.995);
     box-shadow: var(--boxShadowElevationNone);
@@ -97,7 +98,7 @@
   width: var(--dimension);
   height: var(--dimension);
   outline-color: var(--clr-dark);
-  border: 0.5rem ridge var(--clr-dark);
+  border: 0.5rem solid var(--clr-dark);
   border-radius: var(--dimension);
   background: var(--accent);
   font-weight: 700;
