@@ -16,11 +16,10 @@
 }
 
 .tempo-tapper__tempo-and-message-container {
-  --tempo-height: 4em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--tempo-height);
+  position: relative;
+  /* display: grid; */
+  /* align-items: center; */
+  /* justify-content: center; */
   /* This element centers itself, so remove the default margin  */
   margin-block-end: 0;
 
@@ -35,6 +34,7 @@
     justify-content: center;
     align-items: center;
     gap: var(--em-sm);
+    width: 100%;
 
     .tempo-display__label {
       font-size: var(--fs-md);
@@ -47,6 +47,16 @@
   }
 
   .tempo-tapper__message {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--em-md)* -3);
+    padding-block: var(--em-sixteenth);
+    border: var(--border);
+    border-radius: var(--border-radius);
+    background-color: var(--clr-light);
+    background-image: var(--bg-noise-light);
+    transition: opacity var(--duration-md);
     text-align: center;
   }
 }
