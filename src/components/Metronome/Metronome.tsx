@@ -1,5 +1,6 @@
 import * as React from "react";
-import useMetronomeStore from '@/store/useMetronomeStore';
+
+import { useMetronomeStore } from '@/store';
 
 import BpmIncreaseOrDecrease from "./BpmIncreaseOrDecrease";
 import Staff from "@/components/Staff";

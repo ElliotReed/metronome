@@ -1,5 +1,5 @@
 import * as React from "react";
-import useMetronomeStore from '@/store/useMetronomeStore';
+import { useMetronomeStore } from '@/store';
 
 import BeatsPerMeasure from "./BeatsPerMeasure";
 import BeatUnits from "./BeatUnits";

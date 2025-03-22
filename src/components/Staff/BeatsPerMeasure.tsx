@@ -4,7 +4,7 @@ import MeterElementContainer from "./MeterElementContainer";
 import { CircularBtn, MeterBtn, CloseBtn } from "./StaffButtons";
 
 import OutsideAlerter from "../common/OutsideAlerter/OutsideAlerter";
-import useMetronomeStore from '@/store/useMetronomeStore';
+import { useMetronomeStore } from '@/store';
 
 interface Props {
   beatsPerMeasure: number;

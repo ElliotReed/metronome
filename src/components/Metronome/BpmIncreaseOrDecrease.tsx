@@ -1,5 +1,5 @@
 import * as React from 'react';
-import useMetronomeStore from '@/store/useMetronomeStore';
+import { useMetronomeStore } from '@/store';
 
 import * as Buttons from '../common/Button';
 
