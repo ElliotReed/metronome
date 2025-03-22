@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import useOutsideAlerter from "../../../hooks/useOutsideAlerter";
+import { useOutsideAlerter } from '@/hooks';
 
 interface Props {
   callback: () => void;

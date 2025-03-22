@@ -10,7 +10,7 @@ export type MetronomeSettings = {
     setBeatsPerMeasure: (beats: number) => void;
 }
 
-const useMetronomeStore = create<MetronomeSettings>()(persist(
+export const useMetronomeStore = create<MetronomeSettings>()(persist(
     (set) => ({
         bpm: 120,
         setBpm: (bpm: number) => set({ bpm }),
@@ -22,5 +22,3 @@ const useMetronomeStore = create<MetronomeSettings>()(persist(
     }),
     { name: 'cm-metronome-settings' }
 ));
-
-export default useMetronomeStore;
