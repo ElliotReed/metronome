@@ -131,12 +131,12 @@
 .btn-volume-settings {
   display: flex;
   align-items: center;
-  gap: var(--em-xs);
-  font-size: var(--fs-sm);
+  gap: var(--em-eighth);
+  font-size: var(--fs-eighth-dotted);
   border-color: transparent;
   filter: unset;
   border-radius: var(--border-radius);
-  outline-offset: calc(var(--rem-xs) * -1);
+  outline-offset: calc(var(--rem-sixteenth) * -1);
 
   svg {
     fill: var(--clr-light);

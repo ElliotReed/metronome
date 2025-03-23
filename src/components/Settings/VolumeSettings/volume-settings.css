@@ -2,10 +2,10 @@
     background-color: var(--clr-dark);
 
     &>* {
-        margin-block-end: var(--em-md);
+        margin-block-end: var(--em-quarter);
     }
 
     header {
-        margin-block: var(--em-md);
+        margin-block: var(--em-quarter);
     }
 }

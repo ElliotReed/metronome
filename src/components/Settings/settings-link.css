@@ -2,15 +2,15 @@
     a {
         display: inline-flex;
         align-items: center;
-        gap: var(--em-xs);
+        gap: var(--em-eighth);
         padding: var(--padding-box-xs);
-        font-size: var(--em-sm);
+        font-size: var(--fs-eighth-dotted);
         text-decoration: none;
         text-transform: uppercase;
     }
 
     svg {
-        height: var(--em-lg);
+        height: var(--em-quarter-sixteenth);
         fill: var(--clr-light);
     }
 }

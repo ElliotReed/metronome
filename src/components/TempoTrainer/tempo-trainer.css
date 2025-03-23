@@ -16,18 +16,18 @@
   max-width: var(--max-width);
 
   &>* {
-    margin-bottom: var(--em-md);
+    margin-bottom: var(--em-quarter);
   }
 
   .level,
   .points {
     display: flex;
     align-items: center;
-    gap: var(--em-sm);
-    margin-block: var(--em-xs);
+    gap: var(--em-eighth-dotted);
+    margin-block: var(--em-eighth);
     margin-inline: 0;
     color: var(--clr-dark);
-    font-size: var(--fs-sm);
+    font-size: var(--fs-eighth-dotted);
     text-transform: uppercase;
     font-weight: var(--fw-bold);
     line-height: 1;
@@ -49,10 +49,10 @@
   margin-block-start: calc(var(--em-sixteenth) * -1);
 
   &>*:not(:last-child) {
-    margin-block-end: var(--em-xl);
+    margin-block-end: var(--em-quarter-dotted);
 
     @media screen and (min-width: 768px) {
-      margin-block-end: var(--em-lg);
+      margin-block-end: var(--em-quarter-sixteenth);
     }
   }
 
@@ -82,9 +82,9 @@
       align-items: center;
       flex-wrap: wrap;
       gap: var(--em-sixteenth);
-      margin-block-start: var(--em-sm);
+      margin-block-start: var(--em-eighth-dotted);
       margin-block-end: 0;
-      margin-inline-start: var(--em-md);
+      margin-inline-start: var(--em-quarter);
       padding: 0;
       border-radius: var(--border-radius);
 
@@ -99,9 +99,9 @@
 .metronome-stop-button {
   position: relative;
   min-width: 5ch;
-  padding: var(--em-sixteenth) var(--em-xs);
+  padding: var(--em-sixteenth) var(--em-eighth);
   color: var(--clr-light);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-eighth-dotted);
   font-weight: var(--fw-bold);
   background: var(--clr-dark);
   border: var(--border);

@@ -8,7 +8,7 @@
 
     a {
       display: block;
-      margin-block: var(--em-xs);
+      margin-block: var(--em-eighth);
       margin-inline: auto;
       max-width: max-content;
       padding: var(--padding-box-xs-compressed);
@@ -31,7 +31,7 @@
       }
 
       @media screen and (min-width: 768px) {
-        margin-block: var(--em-sm);
+        margin-block: var(--em-eighth-dotted);
         padding: var(--padding-box-sm);
       }
     }
@@ -40,9 +40,9 @@
   .apps-header nav {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--em-xs);
-    padding-block-end: var(--em-sm);
-    padding-inline: var(--em-md);
+    gap: var(--em-eighth);
+    padding-block-end: var(--em-eighth-dotted);
+    padding-inline: var(--em-quarter);
 
     a {
       --outline-width: 1px;
@@ -50,8 +50,8 @@
       flex: 1 0 max-content;
       padding: var(--padding-box-xs);
       /* Something funky here? */
-      border-radius: var(--rem-xs);
-      font-size: var(--fs-sm);
+      border-radius: var(--rem-eighth);
+      font-size: var(--fs-eighth-dotted);
       font-weight: var(--fw-bold);
       text-align: center;
       text-decoration: none;

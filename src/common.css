@@ -1,6 +1,6 @@
 .main-layout-grid {
   display: grid;
-  grid-template-columns: [start] var(--em-md) [pad-start]1fr [center] 1fr[pad-end]var(--em-md) [end];
+  grid-template-columns: [start] var(--em-quarter) [pad-start]1fr [center] 1fr[pad-end]var(--em-quarter) [end];
   grid-auto-rows: min-content;
 
   &>* {

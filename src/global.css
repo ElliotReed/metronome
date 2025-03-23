@@ -48,35 +48,31 @@ Tags: Metroneme , Web app
   /* sizes */
   --tablet: 768px;
   --desktop: 1080px;
-
-  --margin: 1rem;
-  --padding: 0.75rem;
   --max-width: 70ch;
-  --size-sm: 0.75rem;
-  --size-md: 1rem;
-  --size-lg: 2rem;
 
   /* spaces em */
   --em-sixteenth: 0.25em;
-  --em-xs: 0.5em;
-  --em-sm: 0.75em;
-  --em-md: 1em;
-  --em-lg: 1.25em;
-  --em-xl: 1.5em;
+  --em-eighth: 0.5em;
+  --em-eighth-dotted: 0.75em;
+  --em-quarter: 1em;
+  --em-quarter-sixteenth: 1.25em;
+  --em-quarter-dotted: 1.5em;
+  --em-half: 2em;
 
   /* spaces rem */
-  --rem-xs: 0.5rem;
-  --rem-sm: 0.75rem;
-  --rem-md: 1rem;
-  --rem-lg: 1.25rem;
-  --rem-xl: 1.5rem;
+  --rem-eighth: 0.5rem;
+  --rem-eighth-dotted: 0.75rem;
+  --rem-quarter: 1rem;
+  --rem-quarter-sixteenth: 1.25rem;
+  --rem-quarter-dotted: 1.5rem;
+  --rem-half: 2rem;
 
   /* font sizes */
-  --fs-xs: 0.5rem;
-  --fs-sm: .75em;
-  --fs-md: 1em;
-  --fs-lg: 1.25em;
-  --fs-xl: 1.5em;
+  --fs-eighth: var(--em-eighth);
+  --fs-eighth-dotted: var(--em-eighth-dotted);
+  --fs-quarter: var(--em-quarter);
+  --fs-quarter-sixteenth: va(--em-quarter-sixteenth);
+  --fs-quarter-dotted: var(--em-quarter-dotted);
 
   /* font weights */
   --fw-light: 300;
@@ -101,10 +97,11 @@ Tags: Metroneme , Web app
   --fontStackSerif: "Georgia", serif;
   --line-height-sm: 1.25;
   --line-height-md: 1.5;
-  --padding-box-xs-compressed: var(--em-sixteenth) calc(var(--em-xs) * 4);
-  --padding-box-xs: var(--em-xs) calc(var(--em-xs) * 1.5);
-  --padding-box-sm: var(--em-sm) calc(var(--em-sm) * 1.5);
-  --padding-box-md: var(--em-md) calc(var(--em-md) * 1.5);
+  --padding-box-xs-compressed: var(--em-sixteenth) calc(var(--em-eighth) * 4);
+  --padding-box-xs: var(--em-eighth) calc(var(--em-eighth) * 1.5);
+  --padding-box-sm:
+    var(--em-eighth-dotted) calc(var(--em-eighth-dotted) * 1.5);
+  --padding-box-md: var(--em-quarter) calc(var(--em-quarter) * 1.5);
 
   /* animations */
   --softIn: softIn 0.33s ease-in;
