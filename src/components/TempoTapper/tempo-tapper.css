@@ -3,8 +3,8 @@
 } */
 
 .tempo-tapper-content-container {
-  /* Default while image loads */
   background-color: var(--clr-light);
+  /* Default while image loads */
   background-image: var(--bg-noise-light);
   border: var(--border);
   border-radius: var(--border-radius);
@@ -49,8 +49,10 @@
     inset: 0;
     display: grid;
     place-items: center;
-    /* Default while image loads */
+    margin: 0;
+    /* Overide default*/
     background-color: var(--clr-light);
+    /* Default while image loads */
     background-image: var(--bg-noise-light);
     transition: opacity var(--duration-md);
   }
