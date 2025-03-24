@@ -14,14 +14,13 @@ export function useKeyPress(): KeyPressFunction {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.code === "Space" && document.activeElement instanceof HTMLButtonElement) {
-                return;
-            }
+            event.preventDefault();
             const handler = keyDownHandlers.current.get(event.code);
             if (handler) handler(event);
         };
 
         const handleKeyUp = (event: KeyboardEvent) => {
+            event.preventDefault();
             const handler = keyUpHandlers.current.get(event.code);
             if (handler) handler(event);
         };

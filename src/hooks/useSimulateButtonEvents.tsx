@@ -1,24 +1,27 @@
 import { useRef } from "react";
 
 export const useSimulateButtonEvents = () => {
-    const buttonRef = useRef<HTMLButtonElement>(null);
+    const buttonSimulatedRef = useRef<HTMLButtonElement>(null);
 
     const simulatePointerDown = () => {
-        const button = buttonRef.current;
+        const button = buttonSimulatedRef.current;
         if (!button) return;
-
-        button.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+        button.focus();
+        button.classList.add("simulate-active");
+        button.dispatchEvent(
+            new PointerEvent("pointerdown", { bubbles: true })
+        );
     };
 
     const simulatePointerUp = () => {
-        const button = buttonRef.current;
+        const button = buttonSimulatedRef.current;
         if (!button) return;
-
-        button.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
+        button.classList.remove("simulate-active");
+        button.dispatchEvent(new PointerEvent("pointerup", { bubbles: true }));
     };
 
     const simulateClick = () => {
-        const button = buttonRef.current;
+        const button = buttonSimulatedRef.current;
         if (!button) return;
 
         // Apply active styles manually
@@ -31,5 +34,5 @@ export const useSimulateButtonEvents = () => {
         setTimeout(() => simulatePointerUp(), 150);
     };
 
-    return { buttonRef, simulateClick, simulatePointerDown, simulatePointerUp };
+    return { buttonSimulatedRef, simulateClick, simulatePointerDown, simulatePointerUp };
 };
