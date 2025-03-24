@@ -7,7 +7,7 @@ import BpmIncreaseOrDecrease from "./BpmIncreaseOrDecrease";
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
 
 import Staff from "@/components/Staff";
-import * as Button from "@/components/common/Button";
+import Button from "@/components/common/Button";
 import MeshContainer from "@/components/common/MeshContainer";
 import PageHeading from '../common/PageHeading';
 

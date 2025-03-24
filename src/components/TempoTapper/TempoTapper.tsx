@@ -4,7 +4,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { useMetronomeStore, useAudioStore } from '@/store';
 import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
 
-import * as Button from '../common/Button';
+import Button from '../common/Button';
 import PageHeading from '../common/PageHeading';
 
 import './tempo-tapper.css';

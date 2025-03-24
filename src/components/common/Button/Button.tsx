@@ -21,7 +21,12 @@ const BaseButton = React.forwardRef(({
   ...restProps
 }: Readonly<Button>, ref: React.Ref<HTMLButtonElement>) => {
   return (
-    <button ref={ref} type='button' className={`btn ${btnClass}`} {...restProps}>
+    <button
+      ref={ref}
+      type='button'
+      className={`btn ${btnClass}`}
+      {...restProps}
+    >
       {children}
     </button>
   );
@@ -112,6 +117,19 @@ export function VolumeSettings({
   ...restProps
 }: Readonly<Button>) {
   const btnClass = "btn-volume-settings";
+  return (
+    <BaseButton btnClass={btnClass} {...restProps}>
+      {children}
+    </BaseButton>
+  );
+}
+
+export function MetronomeStop({
+  children,
+  className = "",
+  ...restProps
+}: Readonly<Button> & { className?: string }) {
+  const btnClass = `btn-metronome-stop ${className}`;
   return (
     <BaseButton btnClass={btnClass} {...restProps}>
       {children}

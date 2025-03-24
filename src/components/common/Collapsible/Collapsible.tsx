@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import * as Button from "../Button";
+import Button from "@/components/common/Button";
 import Heading from "../Heading";
+
 import "./collapsible.css";
 
 interface Collapsible {

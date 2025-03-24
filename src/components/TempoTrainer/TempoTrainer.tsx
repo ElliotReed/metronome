@@ -5,7 +5,7 @@ import { useAudioStore, useTempoTrainerStore } from '@/store';
 import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
 import { timerInstance } from '@/utils/timerEngine';
 
-import * as Button from '@/components/common/Button';
+import Button from '@/components/common/Button';
 import PageHeading from '../common/PageHeading';
 
 import metronomeStops from '@/utils/metronomeStops';
@@ -131,13 +131,11 @@ export default function TempoTrainer() {
     playDefaultSound();
   }
 
-  // TODO Define the button in Buttons.tsx
   const getTempoStopGroupListItems = (rangeStops: number[]) => {
     return rangeStops.map(stop => (
-      <li key={stop}>
-        <button
-          type="button"
-          className={classnames("metronome-stop-button", {
+      <li key={stop} >
+        <Button.MetronomeStop
+          className={classnames({
             "trainer-picked": userSelectedStopIndex
               && trainerSelectedStopIndex === metronomeStops.indexOf(stop),
             "user-picked": userSelectedStopIndex === metronomeStops.indexOf(stop)
@@ -147,7 +145,7 @@ export default function TempoTrainer() {
         >
           {stop}
           <span className="point-difference-floater">{pointDifference}</span>
-        </button>
+        </Button.MetronomeStop>
       </li>
     ));
   }

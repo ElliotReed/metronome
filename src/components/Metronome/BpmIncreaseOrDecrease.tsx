@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useMetronomeStore } from '@/store';
 import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
 
-import * as Buttons from '../common/Button';
+import Button from '../common/Button';
 
 const DEFAULT_DELAY_IN_MILLISECONDS = 160;
 const MAXIMUM_SPEED_IN_MILLISECONDS = 25;
@@ -63,23 +63,23 @@ export default function BpmIncreaseOrDecrease(
 
   return (
     <div className="metronomeControls__container-bpm">
-      <Buttons.Circular
+      <Button.Circular
         ref={decrementButton}
         onPointerDown={handleDecrementMouseDown}
         onPointerUp={handleMouseUp}
         onPointerLeave={handleMouseUp}
       >
         -
-      </Buttons.Circular>
+      </Button.Circular>
       {children}
-      <Buttons.Circular
+      <Button.Circular
         ref={incrementButton}
         onPointerDown={handleIncrementMouseDown}
         onPointerUp={handleMouseUp}
         onPointerLeave={handleMouseUp}
       >
         +
-      </Buttons.Circular>
+      </Button.Circular>
     </div>
   );
 }
