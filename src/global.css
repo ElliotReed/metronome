@@ -194,7 +194,7 @@ h6 {
 p {
   font-family: var(--fontStackSans);
   color: var(--clr-light);
-  margin: var(--size-md);
+  margin: var(--em-quarter);
 }
 
 a {
