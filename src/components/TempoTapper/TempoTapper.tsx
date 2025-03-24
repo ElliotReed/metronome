@@ -106,13 +106,14 @@ export default function TempoTapper() {
 
         <Button.Tapper
           ref={buttonSimulatedRef}
-          title="Provide at least 6 newTaps for greater accuracy!"
+          title="Shortcut: Spacebar"
           onClick={handleTempoTap}
         >
           Tap!
         </Button.Tapper>
 
         <Button.Default
+          title="Shortcut: Enter"
           onClick={handleSetTempoInMetronome}>
           Set Tempo In Metronome
         </Button.Default>
@@ -134,7 +135,12 @@ function TempoTapperMessage({ tapCount }: { tapCount: number }) {
   const opacity = message == "" ? 0 : 1;
 
   return (
-    <p className="tempo-tapper__message" style={{ opacity }}>{message}</p>
+    <p
+      aria-live="polite"
+      className="tempo-tapper__message"
+      style={{ opacity }}>
+      {message}
+    </p>
   );
 }
 
@@ -148,10 +154,10 @@ const TempoDisplay = (
   return (
     <div className="tempo-tapper__tempo-and-message-container">
       <TempoTapperMessage tapCount={tapCount} />
-      <datalist className="tempo-display">
-        <dl className='tempo-display__label'>Tempo: </dl>
-        <dt className='tempo-display__value'>{normalizedTempoString}</dt>
-      </datalist>
+      <div className="tempo-display">
+        <span className="tempo-display__label">Tempo: </span>
+        <span className="tempo-display__value">{normalizedTempoString}</span>
+      </div>
     </div>
   );
 }
