@@ -1,10 +1,9 @@
 import * as React from 'react';
 
 import { useMetronomeStore } from '@/store';
-import { useKeyPress, useSimulateButtonPress } from '@/hooks';
+import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
 
 import * as Buttons from '../common/Button';
-import { useSimulateButtonEvents } from '@/hooks/useSimulateButtonEvents';
 
 const DEFAULT_DELAY_IN_MILLISECONDS = 160;
 const MAXIMUM_SPEED_IN_MILLISECONDS = 25;
@@ -13,9 +12,9 @@ export default function BpmIncreaseOrDecrease(
   { children }: { children: React.ReactNode }
 ) {
   const keyPress = useKeyPress();
-  const { buttonRef, simulatePointerDown, simulatePointerUp } = useSimulateButtonEvents();
-  const { simulatedButtonRef: decrementRef, simulateButtonPress } = useSimulateButtonPress();
-  const { simulatedButtonRef: incrementRef, simulateButtonPress: simulateIncrementButtonPress } = useSimulateButtonPress();
+  const { buttonSimulatedRef: decrementButton, simulatePointerDown: decrecrementButtonDown, simulatePointerUp: decrecrementButtonUp } = useSimulateButtonEvents();
+  const { buttonSimulatedRef: incrementButton, simulatePointerDown: incrementButtonDown, simulatePointerUp: incrementButtonUp } = useSimulateButtonEvents();
+
   const timeoutRef = React.useRef<number | null>(null);
   const { incrementBpm, decrementBpm } = useMetronomeStore();
 
@@ -30,7 +29,6 @@ export default function BpmIncreaseOrDecrease(
 
   const clearTimer = () => {
     if (timeoutRef.current) {
-      console.log('here');
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
@@ -57,16 +55,16 @@ export default function BpmIncreaseOrDecrease(
   }, []);
 
   React.useEffect(() => {
-    keyPress(['ArrowUp', '+'], handleIncrementMouseDown, 'keydown');
-    keyPress(['ArrowUp', '+'], handleMouseUp, 'keyup');
-    keyPress(['ArrowDown', '-'], handleDecrementMouseDown, 'keydown');
-    keyPress(['ArrowDown', '-'], handleMouseUp, 'keyup');
+    keyPress(['ArrowUp', '+'], incrementButtonDown, 'keydown');
+    keyPress(['ArrowUp', '+'], incrementButtonUp, 'keyup');
+    keyPress(['ArrowDown', '-'], decrecrementButtonDown, 'keydown');
+    keyPress(['ArrowDown', '-'], decrecrementButtonUp, 'keyup');
   }, [keyPress])
 
   return (
     <div className="metronomeControls__container-bpm">
       <Buttons.Circular
-        // ref={decrementRef}
+        ref={decrementButton}
         onPointerDown={handleDecrementMouseDown}
         onPointerUp={handleMouseUp}
         onPointerLeave={handleMouseUp}
@@ -75,7 +73,7 @@ export default function BpmIncreaseOrDecrease(
       </Buttons.Circular>
       {children}
       <Buttons.Circular
-        ref={buttonRef}
+        ref={incrementButton}
         onPointerDown={handleIncrementMouseDown}
         onPointerUp={handleMouseUp}
         onPointerLeave={handleMouseUp}

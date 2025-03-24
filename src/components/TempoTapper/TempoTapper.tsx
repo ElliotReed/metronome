@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate } from '@tanstack/react-router';
 
 import { useMetronomeStore, useAudioStore } from '@/store';
-import { useKeyPress, useSimulateButtonPress } from '@/hooks';
+import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
 
 import * as Button from '../common/Button';
 import PageHeading from '../common/PageHeading';
@@ -18,7 +18,7 @@ export default function TempoTapper() {
   const { playDefaultSound } = useAudioStore();
   const { setBpm } = useMetronomeStore();
   const keyPress = useKeyPress();
-  const { simulateButtonPress, simulatedButtonRef } = useSimulateButtonPress();
+  const { buttonSimulatedRef, simulateClick } = useSimulateButtonEvents();
 
   const [lastTappedTime, setLastTappedTime] = React.useState<number | null>(null);
   const [tapCount, setTapCount] = React.useState(0);
@@ -29,8 +29,8 @@ export default function TempoTapper() {
     playDefaultSound();
     const now = Date.now();
 
-    if (simulatedButtonRef.current && document.activeElement !== simulatedButtonRef.current) {
-      simulatedButtonRef.current.focus();
+    if (buttonSimulatedRef.current && document.activeElement !== buttonSimulatedRef.current) {
+      buttonSimulatedRef.current.focus();
     }
 
     if (lastTappedTime !== null) {
@@ -90,7 +90,7 @@ export default function TempoTapper() {
   }
 
   React.useEffect(() => {
-    keyPress(['Space'], simulateButtonPress);
+    keyPress(['Space'], simulateClick);
     keyPress(['Enter', 'NumpadEnter'], handleSetTempoInMetronome);
   }, [keyPress]);
 
@@ -105,7 +105,7 @@ export default function TempoTapper() {
         <TempoDisplay tempo={tempo} tapCount={tapCount} />
 
         <Button.Tapper
-          ref={simulatedButtonRef}
+          ref={buttonSimulatedRef}
           title="Provide at least 6 newTaps for greater accuracy!"
           onClick={handleTempoTap}
         >

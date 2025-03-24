@@ -2,7 +2,7 @@ import * as React from 'react';
 import classnames from 'classnames';
 
 import { useAudioStore, useTempoTrainerStore } from '@/store';
-import { useKeyPress, useSimulateButtonPress } from '@/hooks';
+import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
 import { timerInstance } from '@/utils/timerEngine';
 
 import * as Button from '@/components/common/Button';
@@ -75,7 +75,7 @@ function getAbsoluteDistanceBetweenMetronomeStops(trainerMetronomeStop: number, 
 export default function TempoTrainer() {
   const { playDefaultSound } = useAudioStore();
   const { points, incrementPoints, decrementPoints } = useTempoTrainerStore();
-  const { simulatedButtonRef, simulateButtonPress } = useSimulateButtonPress();
+  const { buttonSimulatedRef, simulateClick } = useSimulateButtonEvents();
   const keyPress = useKeyPress();
 
   const [trainerSelectedStopIndex, setTrainerSelectedStopIndex] = React.useState<number | undefined>(undefined);
@@ -172,7 +172,7 @@ export default function TempoTrainer() {
   }, []);
 
   React.useEffect(() => {
-    keyPress('Space', simulateButtonPress);
+    keyPress('Space', simulateClick);
   }, [keyPress]);
 
   return (
@@ -199,7 +199,7 @@ export default function TempoTrainer() {
 
         <Button.Default
           // Passing event to prevent default, bug fix
-          ref={simulatedButtonRef}
+          ref={buttonSimulatedRef}
           onClick={(e) => handleTrainingStart(e)}>
           Train
         </Button.Default>
