@@ -14,12 +14,20 @@ export function useKeyPress(): KeyPressFunction {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.code === 'Tab') {
+                // Don't prevent the default behavior for the Tab key
+                return; // Let tabbing proceed naturally
+            }
             event.preventDefault();
             const handler = keyDownHandlers.current.get(event.code);
             if (handler) handler(event);
         };
 
         const handleKeyUp = (event: KeyboardEvent) => {
+            if (event.code === 'Tab') {
+                // Don't prevent the default behavior for the Tab key
+                return; // Let tabbing proceed naturally
+            }
             event.preventDefault();
             const handler = keyUpHandlers.current.get(event.code);
             if (handler) handler(event);
