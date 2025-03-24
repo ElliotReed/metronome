@@ -1,30 +1,38 @@
 import { useEffect, useRef } from 'react';
 
-type KeyPressFunction = (keys: string[] | string, handler: (event: KeyboardEvent) => void) => void;
+type KeyPressFunction = (keys: string[] | string, handler: (event: KeyboardEvent) => void, eventType?: 'keydown' | 'keyup') => void;
 
 export function useKeyPress(): KeyPressFunction {
-    const keyHandlers = useRef(new Map<string, (event: KeyboardEvent) => void>());
+    const keyDownHandlers = useRef(new Map<string, (event: KeyboardEvent) => void>());
+    const keyUpHandlers = useRef(new Map<string, (event: KeyboardEvent) => void>());
 
-    const registerKeyPress: KeyPressFunction = (keys, handler) => {
-        const keyArray = Array.isArray(keys) ? keys : [keys]; // ✅ Ensure array format
-        keyArray.forEach((key) => keyHandlers.current.set(key, handler));
+    const registerKeyPress: KeyPressFunction = (keys, handler, eventType = 'keydown') => {
+        const keyArray = Array.isArray(keys) ? keys : [keys];
+        const handlers = eventType === 'keydown' ? keyDownHandlers : keyUpHandlers;
+        keyArray.forEach((key) => handlers.current.set(key, handler));
     };
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            // Ignore Spacebar if a button is focused
             if (event.code === "Space" && document.activeElement instanceof HTMLButtonElement) {
-                return; // Prevent double execution
+                return;
             }
-            const handler = keyHandlers.current.get(event.code);
+            const handler = keyDownHandlers.current.get(event.code);
+            if (handler) handler(event);
+        };
+
+        const handleKeyUp = (event: KeyboardEvent) => {
+            const handler = keyUpHandlers.current.get(event.code);
             if (handler) handler(event);
         };
 
         window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keyup", handleKeyUp);
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
         };
     }, []);
 
-    return registerKeyPress; // ✅ Correct return
+    return registerKeyPress;
 }

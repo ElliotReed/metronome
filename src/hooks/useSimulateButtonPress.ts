@@ -1,4 +1,4 @@
-// Necessary to add the active styles, which otherwise don't get applied when progromatically clicking the  button.
+// Necessary to add the active styles, which otherwise don't get applied when programatically clicking the  button.
 import { useRef } from "react";
 
 export const useSimulateButtonPress = (duration = 150) => {

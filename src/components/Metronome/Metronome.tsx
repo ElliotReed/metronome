@@ -1,20 +1,23 @@
 import * as React from "react";
 
 import { useMetronomeStore } from '@/store';
+import { useKeyPress, useSimulateButtonPress } from '@/hooks';
 
 import BpmIncreaseOrDecrease from "./BpmIncreaseOrDecrease";
-import Staff from "@/components/Staff";
-
-import * as Button from "@/components/common/Button";
-import MeshContainer from "@/components/common/MeshContainer";
-
 import getIntervalFromBpm from "@/utils/getBpmFromInterval";
 
-import "./metronome.css";
+import Staff from "@/components/Staff";
+import * as Button from "@/components/common/Button";
+import MeshContainer from "@/components/common/MeshContainer";
 import PageHeading from '../common/PageHeading';
+
+import "./metronome.css";
 
 export default function Metronome() {
   const { bpm, beatsPerMeasure } = useMetronomeStore();
+  const keyPress = useKeyPress();
+  const { simulatedButtonRef, simulateButtonPress } = useSimulateButtonPress();
+
   const [beatCount, setBeatCount] = React.useState(0);
 
   const [isPlaying, setIsPlaying] = React.useState(false);
@@ -69,6 +72,10 @@ export default function Metronome() {
     };
   });
 
+  React.useEffect(() => {
+    keyPress('Space', simulateButtonPress);
+  }, [keyPress])
+
   return (
     <div className="metronome">
       <PageHeading>Metronome</PageHeading>
@@ -81,7 +88,7 @@ export default function Metronome() {
             <BpmDisplay />
           </BpmIncreaseOrDecrease>
 
-          <Button.Default onClick={startStop}>
+          <Button.Default onClick={startStop} ref={simulatedButtonRef}>
             {isPlaying ? "Stop" : "Start"}
           </Button.Default>
         </MetronomeControls>

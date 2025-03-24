@@ -1,8 +1,8 @@
 import * as React from 'react';
 import classnames from 'classnames';
 
-import { useAudioStore } from '@/store/useAudioStore';
-import { useTempoTrainerStore } from '@/store/useTempoTrainerStore';
+import { useAudioStore, useTempoTrainerStore } from '@/store';
+import { useKeyPress, useSimulateButtonPress } from '@/hooks';
 import { timerInstance } from '@/utils/timerEngine';
 
 import * as Button from '@/components/common/Button';
@@ -75,6 +75,8 @@ function getAbsoluteDistanceBetweenMetronomeStops(trainerMetronomeStop: number, 
 export default function TempoTrainer() {
   const { playDefaultSound } = useAudioStore();
   const { points, incrementPoints, decrementPoints } = useTempoTrainerStore();
+  const { simulatedButtonRef, simulateButtonPress } = useSimulateButtonPress();
+  const keyPress = useKeyPress();
 
   const [trainerSelectedStopIndex, setTrainerSelectedStopIndex] = React.useState<number | undefined>(undefined);
   const [userSelectedStopIndex, setUserSelectedStopIndex] = React.useState<number | undefined>(undefined);
@@ -167,7 +169,11 @@ export default function TempoTrainer() {
     return () => {
       document.removeEventListener('metronome:tick', handleTick as EventListener)
     };
-  }, [])
+  }, []);
+
+  React.useEffect(() => {
+    keyPress('Space', simulateButtonPress);
+  }, [keyPress]);
 
   return (
     <div className="tempo-trainer">
@@ -193,6 +199,7 @@ export default function TempoTrainer() {
 
         <Button.Default
           // Passing event to prevent default, bug fix
+          ref={simulatedButtonRef}
           onClick={(e) => handleTrainingStart(e)}>
           Train
         </Button.Default>
