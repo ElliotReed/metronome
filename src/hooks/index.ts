@@ -1,9 +1,9 @@
 import { useKeyPress } from '@/hooks/useKeyPress';
 import { useOutsideAlerter } from './useOutsideAlerter';
-import { useSimulateButtonPress } from './useSimulateButtonPress';
+import { useSimulateButtonEvents } from './useSimulateButtonEvents';
 
 export {
     useKeyPress,
     useOutsideAlerter,
-    useSimulateButtonPress,
+    useSimulateButtonEvents,
 }
