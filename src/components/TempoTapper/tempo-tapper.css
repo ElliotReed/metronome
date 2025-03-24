@@ -3,25 +3,23 @@
 } */
 
 .tempo-tapper-content-container {
-  gap: var(--em-quarter-sixteenth);
   /* Default while image loads */
   background-color: var(--clr-light);
   background-image: var(--bg-noise-light);
   border: var(--border);
   border-radius: var(--border-radius);
 
+  &> :first-child {
+    margin-block-start: var(--em-half);
+  }
+
   &>* {
-    margin-block-end: var(--em-quarter);
+    margin-block-end: var(--em-half);
   }
 }
 
 .tempo-tapper__tempo-and-message-container {
   position: relative;
-  /* display: grid; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* This element centers itself, so remove the default margin  */
-  margin-block-end: 0;
 
   .tempo-display,
   .tempo-tapper__message {
@@ -48,15 +46,12 @@
 
   .tempo-tapper__message {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(var(--em-quarter)* -3);
-    padding-block: var(--em-sixteenth);
-    border: var(--border);
-    border-radius: var(--border-radius);
+    inset: 0;
+    display: grid;
+    place-items: center;
+    /* Default while image loads */
     background-color: var(--clr-light);
     background-image: var(--bg-noise-light);
     transition: opacity var(--duration-md);
-    text-align: center;
   }
 }
