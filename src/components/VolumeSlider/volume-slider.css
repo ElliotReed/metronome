@@ -1,36 +1,50 @@
 .volume-slider {
-    border: 1px solid transparent;
-
-    &:has(input:focus) {
-        border-color: hsl(from var(--clr-primary) h s 75%);
-    }
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-auto-rows: min-content;
+    gap: var(--em-eighth);
+    justify-content: start;
+    align-items: center;
 
     label {
-        display: block;
+        grid-column: 1 / -1;
+        text-transform: capitalize;
         user-select: none;
+        font-size: var(--em-eighth-dotted);
     }
 
     svg {
-        fill: light-dark(var(--clr-primary), var(--clr-light));
+        grid-row: 2;
+        grid-column: 1 / 1;
+        fill: var(--clr-light);
         width: 1.5rem;
         aspect-ratio: 1;
     }
 
+    .value-display {
+        grid-row: 2;
+        grid-column: 3;
+        font-size: var(--fs-eighth-dotted);
+    }
+
     input {
         --track-border-radius: 10rem;
-        --track-border: 1px solid hsl(from var(--clr-accent) h s 33%);
-        --track-background: var(--accent-dark);
-        --track-focus-background: #0001;
-        --track-height: 8px;
-        --track-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-        --thumb-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-        --thumb-border: 1px solid hsl(from var(--clr-primary) h s 66%);
-        --thumb-size: calc(var(--track-height) * 2);
+        --track-border: var(--thumb-border);
+        --track-background: var(--clr-dark);
+        --track-focus-background: var(--clr-primary);
+        --track-height: var(--em-eighth);
+        --track-shadow: inset 1px 1px 1px var(--black);
+        --thumb-shadow: 1px 1px 1px var(--black);
+        --thumb-border: 1px solid var(--clr-primary);
+        --thumb-size: var(--em-quarter);
         --thumb-border-radius: 50%;
-        --thumb-background: var(--clr-primary);
+        --thumb-background: var(--clr-light);
         -webkit-appearance: none;
+
         appearance: none;
-        /* width: 100%; */
+        grid-row: 2;
+        grid-column: 2;
+        width: 8em;
         padding: 0;
         background: transparent;
 
