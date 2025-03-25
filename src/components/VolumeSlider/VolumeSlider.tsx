@@ -1,4 +1,5 @@
 import { SpeakerMutedSVG, SpeakerOnSVG } from '../icons/Icons';
+
 import './volume-slider.css';
 
 type VolumeSliderProps = {
@@ -31,10 +32,10 @@ export default function VolumeSlider({ label, volume, handleVolumeChange }: Volu
                 min="0"
                 max="1"
                 step="0.1"
-                title={volume.toString()}
                 value={volume}
                 onChange={handleVolumeChange}
             />
+            <span className="value-display">{volume * 100}%</span>
         </div>
     );
 }
