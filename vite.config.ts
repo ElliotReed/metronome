@@ -11,11 +11,11 @@ export default defineConfig({
     viteReact(),
     viteTsconfigPaths(),
     svgrPlugin(),
-    TanStackRouterVite(),
+    TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
   ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     }
-  },
+  }
 });
