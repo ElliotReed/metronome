@@ -7,6 +7,7 @@ import React from 'react';
 
 import { useAudioStore } from '@/store/useAudioStore';
 
+import PageHeading from '@/components/common/PageHeading';
 import VolumeSlider from '@/components/VolumeSlider';
 
 import './volume-settings.css';
@@ -41,14 +42,14 @@ export default function VolumeSettings() {
                 id="volume-settings__controls"
                 className="volume-settings main-layout-grid__full-width main-layout-grid"
             >
-                <header>Volume Settings</header>
+                <PageHeading color='light'>Volume Settings</PageHeading>
                 <VolumeSlider
-                    label='default volume'
+                    label='default click volume'
                     volume={defaultSoundVolume}
                     handleVolumeChange={handleDefaultVolumeChange}
                 />
                 <VolumeSlider
-                    label='accent volume'
+                    label='accent click volume'
                     volume={accentSoundVolume}
                     handleVolumeChange={handleAccentVolumeChange}
                 />
