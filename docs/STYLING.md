@@ -40,13 +40,12 @@ common.css is imported in App.tsx for utility styles.
 
 ## Main Layout Grid
 
-  Grid to set seral page with padding the main-layout-grid creates the grid with default pad-start for children
+  Grid to set several page with padding the main-layout-grid creates the grid with default pad-start for children
 
   Override styles per child. 
 
-  - main-layout-grid-full-width
-  - main-layout-grid-gutter-width
-  - main-layout-left-gutter
+  - main-layout-grid__full-width 
+  - main-layout-grid__centered
 
 ## Background Noise Generator
 
