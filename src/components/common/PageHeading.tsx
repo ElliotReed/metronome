@@ -6,10 +6,12 @@ interface PageHeadingProps {
     color?: 'dark' | 'light' | 'primary',
     children: React.ReactNode
 }
-export default function PageHeading({ color, children }: PageHeadingProps) {
+export const PageHeading = ({ color, children, ...rest }: PageHeadingProps) => {
     return (
         <h1
-            className={`page-heading ${color ? color : DEFAULT_COLOR}`}>
+            className={`page-heading ${color ? color : DEFAULT_COLOR}`}
+            {...rest}
+        >
             {children}
         </h1>
     )
