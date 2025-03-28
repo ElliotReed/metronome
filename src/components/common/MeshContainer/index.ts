@@ -1,1 +1,1 @@
-export { default } from "./MeshContainer";
+export { MeshContainer } from "./MeshContainer";
