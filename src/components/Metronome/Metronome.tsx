@@ -4,12 +4,11 @@ import { useMetronomeStore } from '@/store';
 import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
 
 import BpmIncreaseOrDecrease from "./BpmIncreaseOrDecrease";
-import getIntervalFromBpm from "@/utils/getBpmFromInterval";
+import { getIntervalFromBpm } from "@/utils";
 
 import Staff from "@/components/Staff";
 import Button from "@/components/common/Button";
-import MeshContainer from "@/components/common/MeshContainer";
-import PageHeading from '../common/PageHeading';
+import { MeshContainer, PageHeading } from "@/components/common";
 
 import "./metronome.css";
 
