@@ -4,8 +4,8 @@ import { useNavigate } from '@tanstack/react-router';
 import { useMetronomeStore, useAudioStore } from '@/store';
 import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
 
+import { NoTranslate, PageHeading } from '@/components/common';
 import Button from '../common/Button';
-import PageHeading from '../common/PageHeading';
 
 import './tempo-tapper.css';
 
@@ -96,7 +96,7 @@ export default function TempoTapper() {
 
   return (
     <div className="tempo-tapper">
-      <PageHeading>Tempo Tapper</PageHeading>
+      <PageHeading><NoTranslate>Tempo</NoTranslate>{" "}Tapper</PageHeading>
 
       <div
         className="tempo-tapper-content-container main-layout-grid__centered main-layout-grid"

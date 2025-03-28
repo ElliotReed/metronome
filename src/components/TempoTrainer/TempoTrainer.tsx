@@ -3,12 +3,12 @@ import classnames from 'classnames';
 
 import { useAudioStore, useTempoTrainerStore } from '@/store';
 import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
-import { timerInstance } from '@/utils/timerEngine';
+import { TimerEngine } from '@/utils';
 
 import Button from '@/components/common/Button';
-import PageHeading from '../common/PageHeading';
+import { NoTranslate, PageHeading } from '@/components/common';
 
-import metronomeStops from '@/utils/metronomeStops';
+import { metronomeStops } from '@/utils';
 
 import './tempo-trainer.css';
 
@@ -96,14 +96,14 @@ export default function TempoTrainer() {
     // console.log('trainerSelectedStop: ', metronomeStops[randomMetronomeStopIndex]);
 
     const newBPM = metronomeStops[randomMetronomeStopIndex];
-    timerInstance.updateBPM(newBPM);
-    timerInstance.start();
+    TimerEngine.updateBPM(newBPM);
+    TimerEngine.start();
   }
 
   const handleTempoPick = (selectedMetronomeStopIndex: number | undefined) => {
     if (selectedMetronomeStopIndex === undefined) return;
 
-    timerInstance.stop();
+    TimerEngine.stop();
     setIsNewAttempt(false);
     setUserSelectedStopIndex(selectedMetronomeStopIndex);
 
@@ -175,7 +175,7 @@ export default function TempoTrainer() {
 
   return (
     <div className="tempo-trainer">
-      <PageHeading>Tempo Trainer</PageHeading>
+      <PageHeading><NoTranslate>Tempo</NoTranslate>{" "}Trainer</PageHeading>
 
       <div className="tempo-trainer-content">
         <div className="status">
