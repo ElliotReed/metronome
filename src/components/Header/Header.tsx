@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 
-import MeshContainer from '@/components/common/MeshContainer';
+import { MeshContainer, NoTranslate } from '../common';
+
 import "./header.css";
 
 // The div wrapper is neccesary because the apps grid has one spot for the header
@@ -21,10 +22,10 @@ export default function Header() {
             Metronome
           </Link>
           <Link to="/tempo-tapper">
-            Tempo Tapper
+            <NoTranslate>Tempo</NoTranslate>{" "}Tapper
           </Link>
           <Link to="/tempo-trainer">
-            Tempo Trainer
+            <NoTranslate>Tempo</NoTranslate>{" "}Trainer
           </Link>
         </nav>
       </header>
