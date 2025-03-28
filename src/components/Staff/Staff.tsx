@@ -1,9 +1,11 @@
 import * as React from "react";
+
 import { useMetronomeStore } from '@/store';
+
+import { MeshContainer } from "@/components/common";
 
 import BeatsPerMeasure from "./BeatsPerMeasure";
 import BeatUnits from "./BeatUnits";
-import MeshContainer from "../common/MeshContainer";
 import Note from "./Note";
 
 import "./staff.css";
