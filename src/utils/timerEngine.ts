@@ -1,4 +1,4 @@
-import getIntervalFromBpm from "./getBpmFromInterval";
+import { getIntervalFromBpm } from "@/utils";
 
 class TimerEngine extends EventTarget {
   private bpm: number;
