@@ -30,11 +30,23 @@ interface AudioState {
 
     // Audio Engine actions
     initializeAudio: () => void;
-    playDefaultSound: () => void;
+    playDefaultSound: (startTime?: number | undefined) => void;
     playAccentSound: () => void;
     loadDefaultSound: (url: string) => Promise<void>;
     loadAccentSound: (url: string) => Promise<void>;
+
+    // Scheduler
+    nextClickTime: number;
+    schedulerBpm: number;
+    scheduleAudioEvents: (callback: () => void) => void;
+    resetScheduler: () => void;
+    setSchedulerBpm: (bpm: number) => void;
+
+    // Timer
+    getCurrentTime: () => number;
 }
+
+const SCHEDULE_AHEAD_TIME = 0.1;    // How far ahead to schedule audio (in seconds)
 
 export const useAudioStore = create<AudioState>()(
     persist(
@@ -55,7 +67,53 @@ export const useAudioStore = create<AudioState>()(
             accentSoundBuffer: null,
             rampTimeMinimum: 0.05,
 
+            // scheduler-related properties
+            nextClickTime: 0,
+            schedulerBpm: 120,
+
             // Actions
+            getCurrentTime: () => {
+                const state = get();
+                return state.audioContext?.currentTime || 0;
+            },
+
+            // Reset scheduler state
+            resetScheduler: () => {
+                set({ nextClickTime: 0 });
+            },
+
+            // Generalized scheduler method
+            scheduleAudioEvents: (
+                callback: (time: number) => void,
+                scheduleAheadTime: number = SCHEDULE_AHEAD_TIME
+            ) => {
+                const state = get();
+                const currentTime = state.audioContext?.currentTime || 0;
+                let nextClick = state.nextClickTime;
+
+                // Initialize nextClick if it's 0
+                if (nextClick === 0) {
+                    nextClick = currentTime;
+                }
+
+                // Schedule events ahead of time
+                while (nextClick < currentTime + scheduleAheadTime) {
+                    // Call the callback with the scheduled time
+                    callback(nextClick);
+
+                    // Calculate next click time based on current BPM
+                    nextClick += 60 / state.schedulerBpm;
+                }
+
+                // Update the next click time in the store
+                set({ nextClickTime: nextClick });
+            },
+
+            // Method to set scheduler BPM
+            setSchedulerBpm: (bpm: number) => {
+                set({ schedulerBpm: bpm });
+            },
+
             setMasterVolume: (volume: number) => {
                 set({ masterVolume: volume });
                 const state = get();
@@ -133,13 +191,13 @@ export const useAudioStore = create<AudioState>()(
                 }
             },
 
-            playDefaultSound: () => {
+            playDefaultSound: (startTime: number | undefined = undefined) => {
                 const state = get();
                 if (state.audioContext && state.defaultSoundBuffer && state.defaultSoundGain) {
                     const source = state.audioContext.createBufferSource();
                     source.buffer = state.defaultSoundBuffer;
                     source.connect(state.defaultSoundGain);
-                    source.start();
+                    source.start(startTime);
                 }
             },
 
@@ -202,6 +260,7 @@ export const useAudioStore = create<AudioState>()(
                 accentSoundVolume: state.accentSoundVolume,
                 defaultSound: state.defaultSound,
                 accentSound: state.accentSound,
+                schedulerBpm: state.schedulerBpm,
             }),
         }
     )
