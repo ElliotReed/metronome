@@ -34,7 +34,5 @@
   },
   "include": [
     "src",
-    "src/components/MechanicalMetronome",
-    "_no-commit/context"
   ]
 }
