@@ -7,7 +7,7 @@ import React from 'react';
 
 import { useAudioStore } from '@/store/useAudioStore';
 
-import PageHeading from '@/components/common/PageHeading';
+import { PageHeading } from '@/components/common';
 import VolumeSlider from '@/components/VolumeSlider';
 
 import './volume-settings.css';

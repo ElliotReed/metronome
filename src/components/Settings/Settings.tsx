@@ -1,4 +1,4 @@
-import PageHeading from '../common/PageHeading';
+import { PageHeading } from '@/components/common';
 import VolumeSettings from './VolumeSettings';
 
 import './settings.css';

@@ -3,12 +3,10 @@ import classnames from 'classnames';
 
 import { useAudioStore, useTempoTrainerStore } from '@/store';
 import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
-import { TimerEngine } from '@/utils';
+import { metronomeStops, TimerEngine } from '@/utils';
 
 import Button from '@/components/common/Button';
 import { NoTranslate, PageHeading } from '@/components/common';
-
-import { metronomeStops } from '@/utils';
 
 import './tempo-trainer.css';
 
