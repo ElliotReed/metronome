@@ -1,10 +1,9 @@
 import * as React from "react";
 
 import { useMetronomeStore } from '@/store';
-import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
+import { useKeyPress, useSimulateButtonEvents, useTimer } from '@/hooks';
 
 import BpmIncreaseOrDecrease from "./BpmIncreaseOrDecrease";
-import { getIntervalFromBpm } from "@/utils";
 
 import Staff from "@/components/Staff";
 import Button from "@/components/common/Button";
@@ -13,63 +12,31 @@ import { MeshContainer, PageHeading } from "@/components/common";
 import "./metronome.css";
 
 export default function Metronome() {
-  const { bpm, beatsPerMeasure } = useMetronomeStore();
   const keyPress = useKeyPress();
+  const { bpm, beatCount, incrementBeatCount, resetBeatCount } = useMetronomeStore();
   const { buttonSimulatedRef, simulateClick } = useSimulateButtonEvents();
-
-  const [beatCount, setBeatCount] = React.useState(0);
+  const timer = useTimer();
 
   const [isPlaying, setIsPlaying] = React.useState(false);
-  const timeoutRef = React.useRef<number | null>(null);
-
-  const initializeTimer = (timerInterval: number) => {
-    timeoutRef.current = (
-      window.setTimeout(() => {
-        triggerEffects();
-        initializeTimer(getIntervalFromBpm(bpm));
-      }, timerInterval)
-    );
-  };
-
-  const updatedBeatCount = (prevBeatCount: number) =>
-    prevBeatCount < beatsPerMeasure ? prevBeatCount + 1 : 1;
-
-  const triggerEffects = () => {
-    setBeatCount(updatedBeatCount);
-  };
-
-  const clearIfRefCurrentExists = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-  };
 
   const startStop = React.useCallback(() => {
     if (!isPlaying) {
-      // Start a timer with the current BPM
-      const timerInterval = getIntervalFromBpm(bpm);
-      initializeTimer(timerInterval);
+      timer.start(bpm);
       setIsPlaying(true);
     } else {
-      // Stop the timer
-      clearIfRefCurrentExists();
+      timer.stop();
       setIsPlaying(false);
-      setBeatCount(0);
+      resetBeatCount();
     }
   }, [isPlaying, bpm]);
 
   React.useEffect(() => {
-    if (!isPlaying) return;
+    timer.subscribe(incrementBeatCount);
+  }, []);
 
-    clearIfRefCurrentExists();
-
-    initializeTimer(getIntervalFromBpm(bpm));
-
-    return () => {
-      clearIfRefCurrentExists();
-    };
-  });
+  React.useEffect(() => {
+    timer.update(bpm);
+  }, [bpm]);
 
   React.useEffect(() => {
     keyPress('Space', simulateClick);
@@ -80,7 +47,7 @@ export default function Metronome() {
       <PageHeading>Metronome</PageHeading>
 
       <div className="display main-layout-grid__centered">
-        <Staff beatCount={beatCount} />
+        <Staff />
 
         <MetronomeControls>
           <BpmIncreaseOrDecrease>

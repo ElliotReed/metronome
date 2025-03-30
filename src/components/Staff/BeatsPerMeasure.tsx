@@ -15,11 +15,13 @@ export default function BeatsPerMeasure() {
   const [shouldShowBeatEditor, setShouldShowBeatEditor] = React.useState(false);
   const { beatsPerMeasure, setBeatsPerMeasure } = useMetronomeStore();
   const handleBeatsIncrement = () => {
-    beatsPerMeasure < 16 && setBeatsPerMeasure(beatsPerMeasure + 1);
+    const newBeatsPerMeasure = beatsPerMeasure + 1;
+    beatsPerMeasure < 16 && setBeatsPerMeasure(newBeatsPerMeasure);
   };
 
   const handleBeatsDecrement = () => {
-    beatsPerMeasure > 1 && setBeatsPerMeasure(beatsPerMeasure - 1);
+    const newBeatsPerMeasure = beatsPerMeasure - 1;
+    beatsPerMeasure > 1 && setBeatsPerMeasure(newBeatsPerMeasure);
   };
 
   const handleShowBeatEditorClick = () => {

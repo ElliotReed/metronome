@@ -10,19 +10,28 @@ import Note from "./Note";
 
 import "./staff.css";
 
-interface Props { beatCount: number; }
-
-export default function Staff({
-  beatCount,
-}: Props) {
+export default function Staff() {
   const [beatUnit, setBeatUnit] = React.useState(4);
-  const { beatsPerMeasure } = useMetronomeStore();
+  const { beatsPerMeasure, beatCount } = useMetronomeStore();
 
   const handleBeatUnitClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target;
     if (target instanceof Element) {
       setBeatUnit(Number(target.textContent));
     }
+  };
+
+  const noteArray = () => {
+    return (
+      [...Array(beatsPerMeasure)].map((_, i) => (
+        <Note
+          key={i}
+          id={i + 1}
+          beat={beatCount}
+          beatUnit={beatUnit}
+        />
+      ))
+    );
   };
 
   return (
@@ -40,14 +49,7 @@ export default function Staff({
         </aside>
         <div className="staffContent__main">
           <ul className="notes">
-            {[...Array(beatsPerMeasure)].map((_, i) => (
-              <Note
-                key={i}
-                id={i + 1}
-                beat={beatCount}
-                beatUnit={beatUnit}
-              />
-            ))}
+            {noteArray()}
           </ul>
         </div>
       </div>
