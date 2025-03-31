@@ -30,6 +30,13 @@ export const useMetronomeStore = create<MetronomeSettings>()(
             incrementBeatCount: () => set((state) => ({ beatCount: state.beatCount < state.beatsPerMeasure ? state.beatCount + 1 : 1 })),
             resetBeatCount: () => set({ beatCount: 0 })
         }),
-        { name: 'cm-metronome-settings' }
+        {
+            name: 'cm-metronome-settings',
+            partialize: (state) => ({
+                bpm: state.bpm,
+                beatsPerMeasure: state.beatsPerMeasure,
+                beatValue: state.beatValue,
+            })
+        }
     )
 );
