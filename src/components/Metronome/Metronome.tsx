@@ -13,7 +13,7 @@ import "./metronome.css";
 
 export default function Metronome() {
   const keyPress = useKeyPress();
-  const { bpm, beatCount, incrementBeatCount, resetBeatCount } = useMetronomeStore();
+  const { bpm, incrementBeatCount, resetBeatCount } = useMetronomeStore();
   const { buttonSimulatedRef, simulateClick } = useSimulateButtonEvents();
   const timer = useTimer();
 
@@ -32,6 +32,7 @@ export default function Metronome() {
 
   React.useEffect(() => {
     timer.subscribe(incrementBeatCount);
+    return () => resetBeatCount();
   }, []);
 
   React.useEffect(() => {
