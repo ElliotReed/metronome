@@ -23,7 +23,7 @@ export default function Note({ id, beatUnit, beat }: NoteType) {
 
   const handleBeatEvent = (beat: number) => {
     if (beat === id) {
-      // start animation , animation end to remove
+      // start animation , animation end to remove ????
       playSound();
     }
   };
