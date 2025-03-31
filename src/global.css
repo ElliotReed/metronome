@@ -58,6 +58,7 @@ Tags: Metroneme , Web app
   --em-quarter-sixteenth: 1.25em;
   --em-quarter-dotted: 1.5em;
   --em-half: 2em;
+  --em-whole: 4em;
 
   /* spaces rem */
   --rem-eighth: 0.5rem;
