@@ -2,8 +2,8 @@ import * as React from 'react';
 import classnames from 'classnames';
 
 import { useAudioStore, useTempoTrainerStore } from '@/store';
-import { useKeyPress, useSimulateButtonEvents } from '@/hooks';
-import { metronomeStops, TimerEngine } from '@/utils';
+import { useKeyPress, useSimulateButtonEvents, useTimer } from '@/hooks';
+import { metronomeStops } from '@/utils';
 
 import Button from '@/components/common/Button';
 import { NoTranslate, PageHeading } from '@/components/common';
@@ -75,6 +75,7 @@ export default function TempoTrainer() {
   const { points, incrementPoints, decrementPoints } = useTempoTrainerStore();
   const { buttonSimulatedRef, simulateClick } = useSimulateButtonEvents();
   const keyPress = useKeyPress();
+  const timer = useTimer();
 
   const [trainerSelectedStopIndex, setTrainerSelectedStopIndex] = React.useState<number | undefined>(undefined);
   const [userSelectedStopIndex, setUserSelectedStopIndex] = React.useState<number | undefined>(undefined);
@@ -91,17 +92,16 @@ export default function TempoTrainer() {
       Math.floor(Math.random() * metronomeStops.length);
 
     setTrainerSelectedStopIndex(randomMetronomeStopIndex);
-    // console.log('trainerSelectedStop: ', metronomeStops[randomMetronomeStopIndex]);
+    console.log('trainerSelectedStop: ', metronomeStops[randomMetronomeStopIndex]);
 
     const newBPM = metronomeStops[randomMetronomeStopIndex];
-    TimerEngine.updateBPM(newBPM);
-    TimerEngine.start();
+    timer.start(newBPM);
   }
 
   const handleTempoPick = (selectedMetronomeStopIndex: number | undefined) => {
     if (selectedMetronomeStopIndex === undefined) return;
 
-    TimerEngine.stop();
+    timer.stop();
     setIsNewAttempt(false);
     setUserSelectedStopIndex(selectedMetronomeStopIndex);
 
@@ -134,7 +134,7 @@ export default function TempoTrainer() {
       <li key={stop} >
         <Button.MetronomeStop
           className={classnames({
-            "trainer-picked": userSelectedStopIndex
+            "trainer-picked": userSelectedStopIndex != undefined
               && trainerSelectedStopIndex === metronomeStops.indexOf(stop),
             "user-picked": userSelectedStopIndex === metronomeStops.indexOf(stop)
           })}
@@ -160,11 +160,7 @@ export default function TempoTrainer() {
   }
 
   React.useEffect(() => {
-    document.addEventListener('metronome:tick', handleTick as EventListener);
-
-    return () => {
-      document.removeEventListener('metronome:tick', handleTick as EventListener)
-    };
+    timer.subscribe(handleTick);
   }, []);
 
   React.useEffect(() => {
