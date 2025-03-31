@@ -22,6 +22,17 @@ export default function App({ children }: { children: React.ReactNode }) {
         loadAccentSound(accentSound);
     }, [useAudioStore]);
 
+    React.useEffect(() => {
+        const preloader = document.getElementById('preloader');
+        const removePreloader = () => {
+            if (preloader) {
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.remove(), 500);
+            }
+        }
+        window.addEventListener('load', removePreloader);
+    }, []);
+
     //  NoiseBackgroundGenerator sets custom properties on the root element to generate noise backgrounds
     return (
         <>
