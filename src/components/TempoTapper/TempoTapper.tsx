@@ -15,7 +15,7 @@ function convertMillisecondsToSeconds(milliseconds: number) {
 
 export default function TempoTapper() {
   const navigate = useNavigate();
-  const { playDefaultSound } = useAudioStore();
+  const { playDefaultSound, resumeAudioContext } = useAudioStore();
   const { setBpm } = useMetronomeStore();
   const keyPress = useKeyPress();
   const { buttonSimulatedRef, simulateClick } = useSimulateButtonEvents();
@@ -26,6 +26,7 @@ export default function TempoTapper() {
   const [totalTimeBetweenTaps, setTotalTimeBetweenTaps] = React.useState(0)
 
   const handleTempoTap = () => {
+    resumeAudioContext();
     playDefaultSound();
     const now = Date.now();
 
