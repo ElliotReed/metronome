@@ -28,7 +28,11 @@ normalize.css imported in src/index.tsx, top-level component.
 
 ## Root
 
-In src/global.css
+In src/global.css 
+
+### Preloader
+
+src/preloader.css for initial spinner.
 
 ### Custom Properties
 
@@ -46,6 +50,8 @@ common.css is imported in App.tsx for utility styles.
 
   - main-layout-grid__full-width 
   - main-layout-grid__centered
+
+  **Only Tempo Tapper has this been fully implemented.**
 
 ## Background Noise Generator
 
