@@ -1,19 +1,22 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# junk
-/_no-commit
-
 # dependencies
 /node_modules
 
 # env
 .env.development
 
-# testing
-/coverage
+# internals
+INTERNAL_NOTES.md
+
+# junk
+/_no-commit
 
 # production
 /dist
+
+# testing
+/coverage
 
 # misc
 .DS_Store
