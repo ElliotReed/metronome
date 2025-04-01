@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { useMetronomeStore } from '@/store';
+import { useAudioStore, useMetronomeStore } from '@/store';
 import { useKeyPress, useSimulateButtonEvents, useTimer } from '@/hooks';
 
 import BpmIncreaseOrDecrease from "./BpmIncreaseOrDecrease";
@@ -12,6 +12,7 @@ import { MeshContainer, PageHeading } from "@/components/common";
 import "./metronome.css";
 
 export default function Metronome() {
+  const { resume } = useAudioStore();
   const keyPress = useKeyPress();
   const { bpm, incrementBeatCount, resetBeatCount } = useMetronomeStore();
   const { buttonSimulatedRef, simulateClick } = useSimulateButtonEvents();
@@ -21,6 +22,7 @@ export default function Metronome() {
 
   const startStop = React.useCallback(() => {
     if (!isPlaying) {
+      resume();
       timer.start(bpm);
       setIsPlaying(true);
     } else {
