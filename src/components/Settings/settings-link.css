@@ -3,14 +3,14 @@
         display: inline-flex;
         align-items: center;
         gap: var(--em-eighth);
-        padding: var(--padding-box-xs);
+        padding: var(--padding-box-sm);
         font-size: var(--fs-eighth-dotted);
         text-decoration: none;
         text-transform: uppercase;
     }
 
     svg {
-        height: var(--em-quarter-sixteenth);
+        height: var(--em-quarter-dotted);
         fill: var(--clr-light);
     }
 }
