@@ -30,7 +30,7 @@ interface AudioState {
 
     // Audio Engine actions
     initializeAudio: () => void;
-    resume: () => void;
+    resumeAudioContext: () => void;
     playDefaultSound: (startTime?: number | undefined) => void;
     playAccentSound: () => void;
     loadDefaultSound: (url: string) => Promise<void>;
@@ -78,7 +78,7 @@ export const useAudioStore = create<AudioState>()(
                 return state.audioContext?.currentTime || 0;
             },
 
-            resume: async () => {
+            resumeAudioContext: async () => {
                 const state = get();
                 if (state.audioContext && state.audioContext.state === 'suspended') {
                     await state.audioContext.resume();

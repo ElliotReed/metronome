@@ -12,7 +12,7 @@ import { MeshContainer, PageHeading } from "@/components/common";
 import "./metronome.css";
 
 export default function Metronome() {
-  const { resume } = useAudioStore();
+  const { resumeAudioContext } = useAudioStore();
   const keyPress = useKeyPress();
   const { bpm, incrementBeatCount, resetBeatCount } = useMetronomeStore();
   const { buttonSimulatedRef, simulateClick } = useSimulateButtonEvents();
@@ -22,7 +22,7 @@ export default function Metronome() {
 
   const startStop = React.useCallback(() => {
     if (!isPlaying) {
-      resume();
+      resumeAudioContext();
       timer.start(bpm);
       setIsPlaying(true);
     } else {

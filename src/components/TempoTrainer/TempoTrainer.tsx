@@ -71,7 +71,7 @@ function getAbsoluteDistanceBetweenMetronomeStops(trainerMetronomeStop: number, 
 }
 
 export default function TempoTrainer() {
-  const { playDefaultSound } = useAudioStore();
+  const { playDefaultSound, resumeAudioContext } = useAudioStore();
   const { points, incrementPoints, decrementPoints } = useTempoTrainerStore();
   const { buttonSimulatedRef, simulateClick } = useSimulateButtonEvents();
   const keyPress = useKeyPress();
@@ -85,6 +85,7 @@ export default function TempoTrainer() {
 
   const handleTrainingStart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault(); // Bug fix for sometimes submitting
+    resumeAudioContext();
     setIsNewAttempt(true);
     setUserSelectedStopIndex(undefined);
 
