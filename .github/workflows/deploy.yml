@@ -32,4 +32,4 @@ jobs:
 
       - name: Deploy via rsync
         run: |
-          rsync -avz --delete --exclude '.well-known' --exclude 'cgi-bin' -e "ssh -p 7822" ./public/ elliotre@elliotreed.net:/home/elliotre/metronome.elliotreed.net/
+          rsync -avz --delete --exclude '.well-known' --exclude 'cgi-bin' -e "ssh -p 7822" ./dist/ elliotre@elliotreed.net:/home/elliotre/metronome.elliotreed.net/
