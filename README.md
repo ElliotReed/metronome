@@ -29,3 +29,17 @@ version 2.1.0
 Use a seperate "engine" to run the clock and send custom events to notify elements that respond to metronome clicks
 
 Using zustand for state and local storage.
+
+## Deployment
+
+CI is setup for the following:
+
+- https://cool-metronome.netlify.app
+
+- https://metronome.elliotreed.net
+
+### Staging
+
+The dev branch will auto deploy to:
+
+- https://staging.metronome.elliotreed.net
