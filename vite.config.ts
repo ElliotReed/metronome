@@ -8,10 +8,10 @@ import path from 'node:path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
     viteReact(),
     viteTsconfigPaths(),
     svgrPlugin(),
-    TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
   ],
   resolve: {
     alias: {

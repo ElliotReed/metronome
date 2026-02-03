@@ -8,90 +8,38 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as TimerRouteImport } from './routes/timer'
+import { Route as TempoTrainerRouteImport } from './routes/tempo-trainer'
+import { Route as TempoTapperRouteImport } from './routes/tempo-tapper'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as IndexRouteImport } from './routes/index'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as TimerImport } from './routes/timer'
-import { Route as TempoTrainerImport } from './routes/tempo-trainer'
-import { Route as TempoTapperImport } from './routes/tempo-tapper'
-import { Route as SettingsImport } from './routes/settings'
-import { Route as IndexImport } from './routes/index'
-
-// Create/Update Routes
-
-const TimerRoute = TimerImport.update({
+const TimerRoute = TimerRouteImport.update({
   id: '/timer',
   path: '/timer',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const TempoTrainerRoute = TempoTrainerImport.update({
+const TempoTrainerRoute = TempoTrainerRouteImport.update({
   id: '/tempo-trainer',
   path: '/tempo-trainer',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const TempoTapperRoute = TempoTapperImport.update({
+const TempoTapperRoute = TempoTapperRouteImport.update({
   id: '/tempo-tapper',
   path: '/tempo-tapper',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const SettingsRoute = SettingsImport.update({
+const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsImport
-      parentRoute: typeof rootRoute
-    }
-    '/tempo-tapper': {
-      id: '/tempo-tapper'
-      path: '/tempo-tapper'
-      fullPath: '/tempo-tapper'
-      preLoaderRoute: typeof TempoTapperImport
-      parentRoute: typeof rootRoute
-    }
-    '/tempo-trainer': {
-      id: '/tempo-trainer'
-      path: '/tempo-trainer'
-      fullPath: '/tempo-trainer'
-      preLoaderRoute: typeof TempoTrainerImport
-      parentRoute: typeof rootRoute
-    }
-    '/timer': {
-      id: '/timer'
-      path: '/timer'
-      fullPath: '/timer'
-      preLoaderRoute: typeof TimerImport
-      parentRoute: typeof rootRoute
-    }
-  }
-}
-
-// Create and export the route tree
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -100,7 +48,6 @@ export interface FileRoutesByFullPath {
   '/tempo-trainer': typeof TempoTrainerRoute
   '/timer': typeof TimerRoute
 }
-
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/settings': typeof SettingsRoute
@@ -108,16 +55,14 @@ export interface FileRoutesByTo {
   '/tempo-trainer': typeof TempoTrainerRoute
   '/timer': typeof TimerRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
+  __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/settings': typeof SettingsRoute
   '/tempo-tapper': typeof TempoTapperRoute
   '/tempo-trainer': typeof TempoTrainerRoute
   '/timer': typeof TimerRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/' | '/settings' | '/tempo-tapper' | '/tempo-trainer' | '/timer'
@@ -132,13 +77,52 @@ export interface FileRouteTypes {
     | '/timer'
   fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SettingsRoute: typeof SettingsRoute
   TempoTapperRoute: typeof TempoTapperRoute
   TempoTrainerRoute: typeof TempoTrainerRoute
   TimerRoute: typeof TimerRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/timer': {
+      id: '/timer'
+      path: '/timer'
+      fullPath: '/timer'
+      preLoaderRoute: typeof TimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tempo-trainer': {
+      id: '/tempo-trainer'
+      path: '/tempo-trainer'
+      fullPath: '/tempo-trainer'
+      preLoaderRoute: typeof TempoTrainerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tempo-tapper': {
+      id: '/tempo-tapper'
+      path: '/tempo-tapper'
+      fullPath: '/tempo-tapper'
+      preLoaderRoute: typeof TempoTapperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -148,39 +132,6 @@ const rootRouteChildren: RootRouteChildren = {
   TempoTrainerRoute: TempoTrainerRoute,
   TimerRoute: TimerRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/settings",
-        "/tempo-tapper",
-        "/tempo-trainer",
-        "/timer"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/settings": {
-      "filePath": "settings.tsx"
-    },
-    "/tempo-tapper": {
-      "filePath": "tempo-tapper.tsx"
-    },
-    "/tempo-trainer": {
-      "filePath": "tempo-trainer.tsx"
-    },
-    "/timer": {
-      "filePath": "timer.tsx"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
