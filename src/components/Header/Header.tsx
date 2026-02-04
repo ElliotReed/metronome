@@ -11,7 +11,7 @@ export default function Header() {
       <header className="logo-header">
         <MeshContainer>
           <Link to="/">
-            <span className="logo">Cool Metronome</span>
+            <span className="logo">Metronome</span>
           </Link>
         </MeshContainer>
       </header>
